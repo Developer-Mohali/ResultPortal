@@ -1,0 +1,408 @@
+﻿@model OnlineResultCheckPortal.Models.MockExam
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutManagement.cshtml";
+}
+
+<style>
+    #AddNewRegisterform .form-control-feedback {
+        right: 7px;
+    }
+
+    #myStudentProfile .form-control-feedback {
+        right: 7px;
+    }
+
+    .btn btn-info {
+        margin: auto;
+    }
+
+    .modal-body {
+        max-height: calc(100vh - 200px);
+        overflow-y: auto;
+    }
+</style>
+
+<input type="hidden" id="JSCEResultID" />
+<input type="hidden" id="UpdateID" />
+
+<script src="~/Content/DROPZONE/dropzone.min.js"></script>
+<link href="~/Content/DROPZONE/dropzone.css" rel="stylesheet" />
+<div class="filtri">
+    @*<div id="resultInsertUser"></div>*@
+    <div id="resultEditUser"></div>
+</div>
+<div class="tile">
+
+    <div class="container">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Manage Mock Examination</div>
+        </div>
+        <div class="table-responsive table table-bordered">
+
+            <button id="ClearTextbox" style="margin-left: 16px; float: right; margin-bottom: 31px; margin-top: 11px;" class="btn btn-info " value="Save" data-toggle='modal' data-target='#myStudentProfile'>Add new</button>
+
+            <h4 style="text-align: center;">
+                <label class="label label-danger" id="lblMessage"></label>
+            </h4>
+            <h4 style="text-align: center;">
+                <label class="label" id="lblMessages"></label>
+            </h4>
+            <h4 style="text-align: center;">
+                <label class="label" id="lblUpdatMessages"></label>
+            </h4>
+            <table id="ManageMockExamresultTable" class="table table-bordered" style="border-bottom: 1px solid #D5D5D5;">
+                <thead>
+                    <tr>
+                        <th style="text-transform: none; border: 1px solid #D5D5D5;">#</th>
+                        <th style="text-transform: none; border: 1px solid #D5D5D5;">Registration No.</th>
+                        <th style="text-transform: none; border: 1px solid #D5D5D5;">Student Name</th>
+                        <th style="text-transform: none; border: 1px solid #D5D5D5;">Description</th>
+                        <th style="text-transform: none; border: 1px solid #D5D5D5;">Result Download</th>
+                        <th style="text-transform: none; border: 1px solid #D5D5D5;">Action</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+
+        </div>
+        <br>
+    </div>
+</div>
+
+
+
+
+<div class="container">
+
+    <!-- Modal -->
+    <div class="modal fade" id="myStudentProfile" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" style="border-bottom: #edecec 1px solid;">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Manage Mock Examination</h4>
+                </div>
+                <form id="AddNewManageJSCEResult" enctype="multipart/form-data" method="post">
+                    <div class="modal-body">
+                        <div class="panel-body">
+
+                            @*   <form id="ValidationManageJSCE">*@
+                            <div class="form-group col-sm-6">
+                                <label for="formGroupExampleInput">Student Name</label>
+
+                                @if (Model != null)
+                                {
+
+                                    @Html.DropDownList("FirstName", null, string.Empty, new { @class = "form-control" })
+                                }
+                                else
+                                {
+                                    @Html.DropDownList("FirstName", ViewBag.FirstName as SelectList, "----Select Student Name----", new { id = "FirstName", @class = "form-control" })
+                                }
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="formGroupExampleInput">Registration Number</label>
+                                @Html.TextBoxFor(m => m.RegistrationNumber, new { @placeholder = "Registration Number", @class = "form-control" })
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <label for="formGroupExampleInput2"> Result Upload</label>
+                                <input name="uploadFile" class="form-control input-lg" type="file" id="FileUpload" />
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <label class="formGroupExampleInput2" id="lblDescription">Description</label>
+                                <textarea id="txtDescription" class="form-control m-b-10" name="txtDescription" placeholder="Description..." data-autosize-on="true" style="overflow: hidden; word-wrap: break-word; height: 100px;" data-fv-field="txtAddress"></textarea>
+                            </div>
+                            @*<div class="form-group col-sm-6">
+                                    <label for="formGroupExampleInput2"> Report Card Upload</label>
+                                    <input name="uploadFile" class="form-control input-lg" type="file" id="UploadReport" />
+                                </div>*@
+
+                            <div class="form-group col-sm-4">
+                                <div class="form-group">Subject Name</div>
+                                <label class="formGroupExampleInput2" id="lblEnglish">English Language</label>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <div class="form-group">Grade</div>
+                                <input type="text" name="txtGradeEnglish" class="form-control" id="txtGradeEnglish" placeholder="Grade">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <div class="form-group">Remarks</div>
+                                <input type="text" class="form-control" name="txtRemarksEnglish" id="txtRemarksEnglish" placeholder="Remark">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label class="formGroupExampleInput2" id="lblMath">Mathematics</label>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <input type="text" name="txtGradeMathematics" class="form-control" id="txtGradeMathematics" placeholder="Grade">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <input type="text" class="form-control" name="txtRemarksMathematics" id="txtRemarksMathematics" placeholder="Remark">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label class="formGroupExampleInput2" id="lblIntegratedScience">Integrated science</label>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <input type="text" name="txtGradeIntegratedScience" class="form-control" id="txtGradeIntegratedScience" placeholder="Grade">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <input type="text" class="form-control" name="txtRemarksIntegratedScience" id="txtRemarksIntegratedScience" placeholder="Remark">
+                            </div>
+
+                            <div class="form-group col-sm-4">
+                                <label class="formGroupExampleInput2" id="lblSocialStudies">Social Studies</label>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <input type="text" name="txtGradeSocialStudies" class="form-control" id="txtGradeSocialStudies" placeholder="Grade">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <input type="text" class="form-control" name="txtRemarksSocialStudies" id="txtRemarksSocialStudies" placeholder="Remark">
+                            </div>
+
+                            <div class="form-group col-sm-4">
+                                <label class="formGroupExampleInput2" id="lblReligious">Religious Studies</label>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <input type="text" name="txtGradeReligiousStudies" class="form-control" id="txtGradeReligiousStudies" placeholder="Grade">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <input type="text" class="form-control" name="txtRemarksReligiousStudies" id="txtRemarksReligiousStudies" placeholder="Remark">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label class="formGroupExampleInput2" id="lblHausa">Hausa Yourba/lgbo</label>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <input type="text" name="txtGradeHausaYourba" class="form-control" id="txtGradeHausaYourba" placeholder="Grade">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <input type="text" class="form-control" name="txtRemarksHausaYourba" id="txtRemarksHausaYourba" placeholder="Remark">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label class="formGroupExampleInput2" id="lblIntroTechnology">Intro Technology</label>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <input type="text" name="txtGradeIntroTechnology" class="form-control" id="txtGradeIntroTechnology" placeholder="Grade">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <input type="text" class="form-control" name="txtRemarksIntroTechnology" id="txtRemarksIntroTechnology" placeholder="Remark">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label class="formGroupExampleInput2" id="lblBusiness">Business Studies</label>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <input type="text" name="txtGradeBusinessStudies" class="form-control" id="txtGradeBusinessStudies" placeholder="Grade">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <input type="text" class="form-control" name="txtRemarksBusinessStudies" id="txtRemarksBusinessStudies" placeholder="Remark">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label class="formGroupExampleInput2" id="lblIntroPtactical">Intro Ptactical Agric</label>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <input type="text" name="txtGradeIntroPtacticalAgric" class="form-control" id="txtGradeIntroPtacticalAgric" placeholder="Grade">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <input type="text" class="form-control" name="txtRemarksIntroPtacticalAgric" id="txtRemarksIntroPtacticalAgric" placeholder="Remark">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label class="formGroupExampleInput2" id="lblHomeEconomics">Home Economics</label>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <input type="text" name="txtGradeHomeEconomics" class="form-control" id="txtGradeHomeEconomics" placeholder="Grade">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <input type="text" class="form-control" name="txtRemarksHomeEconomics" id="txtRemarksHomeEconomics" placeholder="Remark">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label class="formGroupExampleInput2" id="lblFineArts">Fine Arts</label>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <input type="text" name="txtGradeFineArts" class="form-control" id="txtGradeFineArts" placeholder="Grade">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <input type="text" class="form-control" name="txtRemarksFineArts" id="txtRemarksFineArts" placeholder="Remark">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label class="formGroupExampleInput2" id="lblPhe">P.H.E:</label>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <input type="text" name="txtGradeP.H.E" class="form-control" id="txtGradePHE" placeholder="Grade">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <input type="text" class="form-control" name="txtRemarksP.H.E" id="txtRemarksPHE" placeholder="Remark">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label class="formGroupExampleInput2" id="lblArabicStudies">Arabic Studies French</label>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <input type="text" name="txtGradeArabicStudiesFrench" class="form-control" id="txtGradeArabicStudiesFrench" placeholder="Grade">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <input type="text" class="form-control" name="txtRemarksArabicStudiesFrench" id="txtRemarksArabicStudiesFrench" placeholder="Remark">
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="border-top: #edecec 1px solid;">
+                        <button class="btn btn-info " value="Save" id="SaveData">Save</button>
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+
+        $('#AddNewManageJSCEResult').formValidation({
+            framework: 'bootstrap',
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            err: {
+                // You can set it to popover
+                // The message then will be shown in Bootstrap popover
+                container: 'tooltip'
+            },
+            fields: {
+                RegistrationNumber: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The registration number is required'
+                        },
+
+                    }
+                },
+                FirstName: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The student name is required'
+                        },
+
+                    }
+                },
+                FileUpload: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The fileUpload is required'
+                        },
+
+                    }
+                },
+                Remarks: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The Remarks is required'
+                        },
+
+                    }
+                },
+                txtDescription: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The description is required'
+                        },
+
+                    }
+                },
+                txtStudentID: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The StudentID is required'
+                        },
+                    }
+                },
+
+            }
+        })
+    .on('success.form.fv', function (e) {
+        e.preventDefault();
+        InsertMockExamResult('/MockExaminations/ResultUploadMockExam');
+
+    });
+
+    });
+
+        $(document).ready(function () {
+            ////  Dropzone.autoDiscover = false;
+            Dropzone.options.DropzoneJsForm = {
+                autoProcessQueue: false,
+                uploadMultiple: true,
+                init: function () {
+                    $("#ButtonSubmitAlbum").click(function (e) {
+                        var fileUpload = $('#DropzoneJsForm').get(0).dropzone.getAcceptedFiles();
+                        console.log(fileUpload );
+                        if (fileUpload.length > 0) {
+                            // Create FormData object
+                            var fileData = new FormData();
+
+                            // Looping over all files and add it to FormData object
+                            for (var i = 0; i < fileUpload.length; i++) {
+
+                                fileData.append(fileUpload[i].name, fileUpload[i]);
+                            }
+
+                            // Adding one more key to FormData object
+                          //  fileData.append('AlbumName', $("#AlbumName").val());
+
+                            $.ajax({
+                                url: '/JSCEResult/InsertJSCEResult',
+                                type: "POST",
+                                contentType: false, // Not to set any content header
+                                processData: false, // Not to process data
+                                // data: JSON.stringify(request),
+                                data: fileData,
+                                success: function (response) {
+                                  //  AlbumListDisplay();
+                                },
+                                error: function (err) {
+
+                                }
+                            });
+
+                        }
+                        else {
+
+                            alert("Image is required");
+                        }
+                    });
+                }
+            };
+        });
+        $('#ClearTextbox').click(function () {
+
+            document.getElementById("AddNewManageJSCEResult").reset();
+        });
+</script>
+<style>
+    .dropzone {
+        background-color: #00BFFF;
+        text-align: center;
+        min-height: 45px;
+        border: 2px solid rgba(0, 0, 0, 0.3);
+    }
+
+        .dropzone.dz-started .dz-message {
+            display: none;
+            /*line-height: 9px;*/
+        }
+
+        .dropzone.dz-clickable .dz-message {
+            cursor: pointer;
+            line-height: 38px;
+        }
+
+    .usercommentpostlisted {
+        margin-left: 34%;
+    }
+</style>
+
+<script src="~/Scripts/AdminManage/MockExaminations/MockExaminations.js"></script>

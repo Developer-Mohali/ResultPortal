@@ -1,0 +1,175 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+
+     #TokenForm .form-control-feedback {
+        right: 7px;
+    }
+  
+</style>
+<input type="hidden" id="TokenID"  />
+
+<script src="~/Scripts/AdminManage/Token/Token.js"></script>
+<div class="tile">
+ 
+        <div class="container">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Manage Token</div>
+            </div>
+                <div class="table-responsive table table-bordered">
+                    <button id="ClearTextbox" style="margin-left: 16px;float:right;margin-bottom: 31px;margin-top: 11px;" class="btn btn-info " value="Save" data-toggle='modal' data-target='#myModal'> Add new</button>
+                  
+                      <h4 style="text-align:center;"> <label class="label" id="lblUpdateMessages"></label></h4>
+                    <h4 style="text-align:center;">
+                        <label class="label label-danger" id="lblMessage"></label>
+                    </h4>
+                    <table id="TokenDetailsTable" class="table table-bordered" style="border-bottom: 1px solid #D5D5D5;">
+                        <thead>
+                            <tr>
+                                <th style="text-transform:none;border: 1px solid #D5D5D5;">#</th>
+                                <th style="text-transform:none;border: 1px solid #D5D5D5;">Token Name</th>
+                                <th style="text-transform:none;border: 1px solid #D5D5D5;">Token Price</th>
+                                <th style="text-transform:none;border: 1px solid #D5D5D5;">Number Of Time Use</th>
+                                <th style="text-transform:none;border: 1px solid #D5D5D5;">Token Description</th>
+                                 <th style="text-transform:none;border: 1px solid #D5D5D5;">Token Picture</th>
+                                <th style="text-transform:none;border: 1px solid #D5D5D5;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                
+                    <label class="label label-danger" id="lblMessage"></label>
+                </div>
+
+
+                <br>
+            </div>
+    </div>
+  
+<div class="container">
+ 
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" style="border-bottom: #edecec 1px solid;">
+                    <button  type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Manage Token</h4>
+                  
+                </div>
+                <div class="modal-body">
+                   
+                           
+                            <div class="panel-body">
+
+                                <form id="TokenForm">
+
+
+                                    <div class="form-group col-md-6">
+                                        <label for="formGroupExampleInput">Token Name</label>
+                                        <input class="form-control" id="TokenName" placeholder="Token Name" name="TokenName" type="text" />
+                                        
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="formGroupExampleInput">Token Price</label>
+                                        <input class="form-control" id="TokenPrice" placeholder="Token Price" name="TokenPrice" type="text" />
+                                  
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="formGroupExampleInput">Number of Time Use</label>
+                                        <input class="form-control" id="NumberOfTimeUse" placeholder="Number Of Time Use"  name="NumberOfTimeUse" type="text" />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="formGroupExampleInput">Token Picture</label>
+                                        <input class="form-control"  id="TokenPicture" placeholder="Token Picture" name="TokenPicture" type="text"/>
+                                    </div>
+                                     <div class="form-group col-md-12">
+                                         <label for="formGroupExampleInput">Token Description</label>
+                                         <textarea class="form-control" id="TokenDescription" placeholder="Token Description" name="TokenDescription"  style="height: 100px;width:484px;border-color:#e6e6e6; "></textarea>
+                                    </div>
+
+                                    <button style="margin-left: 16px;" class="btn btn-info " value="Save" id="btnAdd">Save </button> <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button><label class="label" id="lblMessages"></label>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+
+        </div>
+
+
+<script>
+    $(document).ready(function () {
+
+        $('#TokenForm').formValidation({
+            framework: 'bootstrap',
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            err: {
+                // You can set it to popover
+                // The message then will be shown in Bootstrap popover
+                container: 'tooltip'
+            },
+            fields: {
+                TokenName: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The token name is required'
+                        },
+                    }
+                },
+                TokenPrice: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The token price is required'
+                        },
+                    }
+                },
+                NumberOfTimeUse: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The number of time use is required'
+                        },
+                    }
+                },
+                TokenPicture: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The token picture is required'
+                        },
+                    }
+                },
+                TokenDescription: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The token description is required'
+                        },
+                    }
+                },
+            }
+        })
+        .on('success.form.fv', function (e) {
+            e.preventDefault();
+            addnewRecorToken('/Token/AddTokens');
+        });
+    });
+    $('#ClearTextbox').click(function () {
+
+        document.getElementById("TokenForm").reset();
+    });
+</script>
+
+
+

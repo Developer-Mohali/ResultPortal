@@ -1,0 +1,552 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutManagement.cshtml";
+}
+<link href="~/Content/DROPZONE/dropzone.css" rel="stylesheet" />
+<script src="~/Content/DROPZONE/dropzone.min.js"></script>
+@*<script src="~/Content/DROPZONE/dropdown.js"></script>*@
+<script src="~/Scripts/AdminManage/AdminProfile/ManageProfile/ManageProfile.js"></script>
+
+<div class="container">
+    <header class="page-header">
+        @*<h3>MALINDA HOLLAWAY <small>Web/UI Developer, Kandy, Sri Lanka</small></h3>*@
+    </header>
+    <div class="tile" id="profile-main">
+        <div class="pm-overview c-overflow-dark mCustomScrollbar _mCS_2 mCS_no_scrollbar">
+            <div id="mCSB_2" class="mCustomScrollBox mCS-dark mCSB_vertical mCSB_inside" tabindex="0">
+                <div id="mCSB_2_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" style="position:relative; top:0; left:0;" dir="ltr">
+                    <div class="pmo-pic">
+                        <div class="p-relative">
+                            <a href="">
+                                <div class="" id="AdminProfile"></div>
+                                @*<img class="img-responsive mCS_img_loaded" src="~/StudentPic/7.jpg" alt="">*@
+                            </a>
+
+                            <div class="dropdown pmop-message">
+                                <a data-toggle="dropdown" href="" class="pmopm-send">
+                                    <i class="zmdi zmdi-comment-text-alt"></i>
+                                </a>
+
+                                <div class="dropdown-menu">
+                                    <textarea placeholder="Write something..."></textarea>
+
+                                    <button class="btn bg-green btn-icon"><i class="zmdi zmdi-mail-send"></i></button>
+                                </div>
+                            </div>
+
+                            <a href="" class="pmop-edit" data-target="#SaveAdminImage" data-toggle="modal">
+                                <i class="zmdi zmdi-camera"></i> <span class="hidden-xs">Update Profile Picture</span>
+                            </a>
+                        </div>
+
+
+                       @* <div class="pmo-stat">
+                            <h2 class="m-0 c-white">1562</h2>
+                            Total Connections
+                        </div>*@
+                    </div>
+
+                     <div class="pmo-block pmo-contact hidden-xs">
+                            <h2>Contact Us</h2>
+                            
+                            <ul>
+                     
+
+                           <li>
+                                <li><i class="zmdi zmdi-phone"></i><span id="Contacts"></span> </li>
+                                <li><i class="zmdi zmdi-email"></i> <span id="EmailId"></span></li>
+@*                             <li><i class="zmdi zmdi-twitter"></i> @malinda (twitter.com/malinda)</li>*@
+                               <li>
+                                    <i class="zmdi zmdi-pin"></i>
+                                    <address class="m-b-0">
+                                   @*<dl class="dl-horizontal">*@
+                                    <dt>Address</dt>
+                                   <dd id="AdminAddress"></dd>
+                      @*  </dl>*@
+                                     
+                                    </address>
+                                </li>
+                            </ul>
+                        </div>
+
+
+                    @*<div class="pmo-block pmo-items hidden-xs">
+                        <h2>Connections</h2>
+
+                        <div class="pmob-body">
+                            <div class="row">
+                                <a href="" class="col-xs-2">
+                                    <img class="img-avatar mCS_img_loaded" src="img/profile-pics/1.jpg" alt="">
+                                </a>
+                                <a href="" class="col-xs-2">
+                                    <img class="img-avatar mCS_img_loaded" src="img/profile-pics/2.jpg" alt="">
+                                </a>
+                                <a href="" class="col-xs-2">
+                                    <img class="img-avatar mCS_img_loaded" src="img/profile-pics/3.jpg" alt="">
+                                </a>
+                                <a href="" class="col-xs-2">
+                                    <img class="img-avatar mCS_img_loaded" src="img/profile-pics/4.jpg" alt="">
+                                </a>
+                                <a href="" class="col-xs-2">
+                                    <img class="img-avatar mCS_img_loaded" src="img/profile-pics/5.jpg" alt="">
+                                </a>
+                                <a href="" class="col-xs-2">
+                                    <img class="img-avatar mCS_img_loaded" src="img/profile-pics/6.jpg" alt="">
+                                </a>
+                                <a href="" class="col-xs-2">
+                                    <img class="img-avatar mCS_img_loaded" src="img/profile-pics/7.jpg" alt="">
+                                </a>
+                                <a href="" class="col-xs-2">
+                                    <img class="img-avatar mCS_img_loaded" src="img/profile-pics/8.jpg" alt="">
+                                </a>
+                                <a href="" class="col-xs-2">
+                                    <img class="img-avatar mCS_img_loaded" src="img/profile-pics/1.jpg" alt="">
+                                </a>
+                                <a href="" class="col-xs-2">
+                                    <img class="img-avatar mCS_img_loaded" src="img/profile-pics/2.jpg" alt="">
+                                </a>
+                                <a href="" class="col-xs-2">
+                                    <img class="img-avatar mCS_img_loaded" src="img/profile-pics/3.jpg" alt="">
+                                </a>
+                                <a href="" class="col-xs-2">
+                                    <img class="img-avatar mCS_img_loaded" src="img/profile-pics/4.jpg" alt="">
+                                </a>
+                            </div>
+                        </div>
+                    </div>*@
+                </div><div id="mCSB_2_scrollbar_vertical" class="mCSB_scrollTools mCSB_2_scrollbar mCS-dark mCSB_scrollTools_vertical" style="display: none;"><div class="mCSB_draggerContainer"><div id="mCSB_2_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 30px; height: 0px; top: 0px;" oncontextmenu="return false;"><div class="mCSB_dragger_bar" style="line-height: 30px;"></div></div><div class="mCSB_draggerRail"></div></div></div>
+            </div>
+        </div>
+
+        <div class="pm-body clearfix">
+            <ul class="tab-nav tn-justified">
+                <li class="active"><a href="#">About</a></li>
+            </ul>
+
+
+
+
+            <div class="pmb-block">
+                <div class="pmbb-header">
+                    <h2><i class="zmdi zmdi-account m-r-5"></i> Basic Information</h2>
+
+                    <ul class="actions">
+                        @*<li class="dropdown">
+                            <a href="" data-toggle="dropdown">
+                                <i class="zmdi zmdi-more-vert"></i>
+                            </a>
+
+                            <ul class="dropdown-menu pull-right">
+                                <li>
+                                   
+                                    <a data-toggle="modal" data-target="#myAdminProfile" data-pmb-action="edit" href="">Edit</a>
+                                </li>
+                            </ul>
+                        </li>*@
+                    </ul>
+                </div>
+                <div class="pmbb-body p-l-30">
+                    <div class="pmbb-view">
+                        <dl class="dl-horizontal">
+                            <dt>Full Name</dt>
+                            <dd id="AdminFullNames"></dd>
+                        </dl>
+                        @*<dl class="dl-horizontal">
+                            <dt>FatherName</dt>
+                            <dd id="FatherName"></dd>
+                        </dl>*@
+                        <dl class="dl-horizontal">
+                            <dt>Gender</dt>
+                            <dd id="Gender"></dd>
+                        </dl>
+                        @*<dl class="dl-horizontal">
+                            <dt>Birthday</dt>
+                            <dd id="DateofBirth"></dd>
+                        </dl>*@
+                      @*  <dl class="dl-horizontal">
+                            <dt>ContactNo</dt>
+                            <dd id="ContactNo">1234567890</dd>
+                        </dl>*@
+                       @* <dl class="dl-horizontal">
+                            <dt>Email</dt>
+                            <dd id="Email">Allan@gmail.com</dd>
+                        </dl>
+                    </div>*@
+
+                    <div class="pmbb-edit">
+                        <dl class="dl-horizontal">
+                            <dt class="p-t-10">Full Name</dt>
+                            <dd>
+                                <div class="fg-line">
+                                    <input type="text" class="form-control" placeholder="eg. Mallinda Hollaway">
+                                </div>
+
+                            </dd>
+                        </dl>
+                        <dl class="dl-horizontal">
+                            <dt class="p-t-10">Gender</dt>
+                            <dd>
+                                <div class="fg-line">
+                                    <select class="form-control">
+                                        <option>Male</option>
+                                        <option>Female</option>
+                                        <option>Other</option>
+                                    </select>
+                                </div>
+                            </dd>
+                        </dl>
+                        <dl class="dl-horizontal">
+                            <dt class="p-t-10">Birthday</dt>
+                            <dd>
+                                <div class="dtp-container dropdown fg-line">
+                                    <input type="text" class="form-control date-picker" data-toggle="dropdown" placeholder="Click here...">
+                                </div>
+                            </dd>
+                        </dl>
+                        <div class="m-t-30">
+                            <button class="btn btn-primary btn-sm">Save</button>
+                            <button data-pmb-action="reset" class="btn btn-link btn-sm">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="pmb-block">
+                <div class="pmbb-header">
+                    <h2><i class="zmdi zmdi-phone m-r-5"></i> Contact Information</h2>
+
+                    <ul class="actions">
+                        @*<li class="dropdown">
+                            <a href="" data-toggle="dropdown">
+                                <i class="zmdi zmdi-more-vert"></i>
+                            </a>
+
+                            <ul class="dropdown-menu pull-right">
+                           <li>
+                                    <a data-toggle="modal" data-target="#myAdminProfile" data-pmb-action="edit" href="" >Edit</a>
+                                </li>
+                            </ul>
+                        </li>*@
+                    </ul>
+                </div>
+                <div class="pmbb-body p-l-30">
+                    <div class="pmbb-view">
+                        <dl class="dl-horizontal">
+                            <dt>Mobile Phone</dt>
+                            <dd id="ContactNo"></dd>
+                        </dl>
+                        <dl class="dl-horizontal">
+                            <dt>Email</dt>
+                            <dd id="Email"></dd>
+                        </dl>
+                        @*<dl class="dl-horizontal">
+                            <dt>Twitter</dt>
+                            <dd>Twitter.hollaway.com</dd>
+                        </dl>*@
+                        @*<dl class="dl-horizontal">
+                            <dt>Skype</dt>
+                            <dd>malinda.hollaway</dd>
+                        </dl>*@
+                    </div>
+
+                    <div class="pmbb-edit">
+                        <dl class="dl-horizontal">
+                            <dt class="p-t-10">Mobile Phone</dt>
+                            <dd>
+                                <div class="fg-line">
+                                    <input type="text" class="form-control" placeholder="eg. 00971 12345678 9">
+                                </div>
+                            </dd>
+                        </dl>
+                        <dl class="dl-horizontal">
+                            <dt class="p-t-10">Email Address</dt>
+                            <dd>
+                                <div class="fg-line">
+                                    <input type="email" class="form-control" placeholder="eg. malinda.h@gmail.com">
+                                </div>
+                            </dd>
+                        </dl>
+                        <dl class="dl-horizontal">
+                            <dt class="p-t-10">Twitter</dt>
+                            <dd>
+                                <div class="fg-line">
+                                    <input type="text" class="form-control" placeholder="eg.">
+                                </div>
+                            </dd>
+                        </dl>
+                        <dl class="dl-horizontal">
+                            <dt class="p-t-10">Skype</dt>
+                            <dd>
+                                <div class="fg-line">
+                                    <input type="text" class="form-control" placeholder="eg. malinda.hollaway">
+                                </div>
+                            </dd>
+                        </dl>
+
+                        <div class="m-t-30">
+                            <button class="btn btn-primary btn-sm">Save</button>
+                            <button data-pmb-action="reset" class="btn btn-link btn-sm">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    </div>
+<div class="container">
+
+    <!-- Modal -->
+    <div class="modal fade" id="myAdminProfile" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" style="border-bottom: #edecec 1px solid;">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Admin Profile</h4>
+                    <h4 style="text-align:center;"> <label class="label" id="lblUpdatMessages"></label></h4>
+                </div>
+                <div class="modal-body">
+
+
+                    <div class="panel-body">
+
+                        <form id="AdminProfileDetails">
+                            <div class="form-group col-sm-6">
+                                <label for="formGroupExampleInput">First Name</label>
+                                <input type="text" class="form-control" id="txtFirstName" placeholder="First Name" >
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="formGroupExampleInput2">Last Name</label>
+                                <input type="text" class="form-control" id="txtLastName" placeholder="Last Name" >
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="formGroupExampleInput2">Father Name</label>
+                                <input type="text" name="txtFatherName" class="form-control" id="txtFatherName" placeholder="Father Name">
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="formGroupExampleInput2">Date of Birth</label>
+                                <input type="date" class="form-control" name="txtDateofBirth" id="txtDateofBirth" placeholder="Date of Birth" >
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="formGroupExampleInput2">Contact No.</label>
+                                <input type="text" class="form-control" name="txtContact" id="txtContact" placeholder="Contact no.">
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="formGroupExampleInput2">Email ID</label>
+                                <input type="text" class="form-control" id="txtEmail" placeholder="Email Id" disabled>
+                            </div>
+
+                            <div class="form-group col-sm-6">
+                                <label for="formGroupExampleInput2">Gender</label>
+                                @{
+                                    var domainsList = new SelectList(new[]
+                                    {
+                               new SelectListItem { Text = "Male", Value = "Male", Selected = true },
+                               new SelectListItem { Text = "Female", Value = "Female"},
+
+                                }, "Value", "Text");
+                                }
+                                @Html.DropDownList("TopLevelDomains", domainsList, new { id = "txtGender", @class = "form-control" })
+                                @*<input type="text" class="form-control" name="txtGender" id="txtGender" placeholder="Gender" required>*@
+                            </div>
+                           
+                         @*   <div class="form-group col-sm-6">
+                                <label for="formGroupExampleInput2">Scholl Name</label>
+                                @Html.DropDownList("StatusName", ViewBag.SchoolName as SelectList, "----Scholl Name----", new { id = "ddlSchollName", @class = "form-control" })
+
+                            </div>*@
+                            <div class="form-group col-sm-6">
+                                <label for="formGroupExampleInput2">Address</label>
+                                <textarea id="txtAddress" name="txtAddress" class="form-control m-b-10" placeholder="Address..." data-autosize-on="true" style="overflow: hidden; word-wrap: break-word; height: 50px;" required></textarea>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <button class="btn btn-info " value="Save">Save </button> <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+
+
+        $('#AdminProfileDetails').formValidation({
+            framework: 'bootstrap',
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            err: {
+                // You can set it to popover
+                // The message then will be shown in Bootstrap popover
+                container: 'tooltip'
+            },
+            fields: {
+
+                txtEmail: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The email address is required'
+                        },
+                        stringLength: {
+                            max: 100,
+                            message: 'The email must be less than 100 characters long'
+                        },
+                        emailAddress: {
+                            message: 'The email address not valid'
+                        },
+                    }
+                },
+                txtLastName: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The last name is required'
+                        },
+                    }
+                },
+                txtAddress: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The address is required'
+                        },
+                    }
+                },
+                txtFatherName: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The father name is required'
+                        },
+                    }
+                },
+                txtDateofBirth: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The date of birth is required'
+                        },
+                    }
+                },
+                txtContact: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The contact is required'
+                        },
+                    }
+                },
+                txtGender: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The gender is required'
+                        },
+                    }
+                },
+
+                txtAddress: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The address is required'
+                        },
+                    }
+                },
+
+
+            }
+        })
+        .on('success.form.fv', function (e) {
+            e.preventDefault();
+            UpdateAdminProfileDetails('/AdminProfile/UpdateAdminProfileDetails');
+        });
+    });
+    Dropzone.options.DropzoneJsForm = {
+
+        //prevents Dropzone from uploading dropped files immediately
+        autoProcessQueue: false,
+        acceptedFiles: ".png, .jpg",
+        init: function () {
+            var submitButton = document.querySelector("#ButtonSubmitSave");
+
+            var myDropzone = this; //closure
+            this.on("sending", function (file, xhr) {
+
+
+            });
+
+            submitButton.addEventListener("click", function () {
+                myDropzone.processQueue();
+                DisplayAdminProfile();
+                $('#DropzoneJsForm').empty();
+            });
+
+        }
+    };
+</script>
+ <div class="modal fade" id="SaveAdminImage" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom: #edecec 1px solid;">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Upload Image</h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <form action="~/AdminProfile/SaveAdminProfileImage" class="dropzone" id="DropzoneJsForm" style="background-color: #00BFFF; text-align: center;color:white;margin-top: 13px;">
+                        <div class="dz-message needsclick" id="ImageClear">
+                            Drop profile background image click to upload.
+
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+            <div class="modal-footer" style="border-top: #edecec 1px solid;">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <input type="button" id="ButtonSubmitSave" data-dismiss="modal" class="btn btn-default" value="Submit">
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<style>
+    .dropzone.dz-clickable .dz-message{
+        cursor:pointer;
+       line-height: 44px;
+    }
+    .dropzone {
+        background-color: #00BFFF;
+        text-align: center;
+        min-height: 150px;
+        border: #edecec 4px solid;
+     
+    }
+
+        .dropzone.dz-started .dz-message {
+            display: none;
+            /*line-height: 9px;*/
+        }
+
+        .dropzone.dz-clickable .dz-message {
+            cursor: pointer;
+            line-height: 132px;
+        }
+
+    .usercommentpostlisted {
+        margin-left: 34%;
+    }
+</style>
+

@@ -1,0 +1,152 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutManagement.cshtml";
+}
+
+
+
+<style>
+  
+
+    .form-control-feedback {
+        right: 10px;
+    }
+</style>
+
+<div class="tile">
+    <input type="hidden" id="manageCreatedBy" value="@ViewBag.StudentId" />
+    <script src="~/Scripts/AdminManage/Management/ManageJSCE.js"></script>
+    <div class="filtri">
+    <div id="resultSaveUser"></div>
+    <div id="resultEditUser"></div>
+    </div>
+    </div>
+    <div class="container" style="background-color:white;">
+        <div class="panel panel-primary">
+            <div class="panel-heading"> Manage JSCE </div>
+        </div>
+        <div class="table-responsive table table-bordered" style="padding-top :55px;">
+            <button style="margin-left: 16px;float:right;margin-bottom: 31px;" class="btn btn-info " value="Save" data-toggle='modal' data-target='#myModal'> Add new</button>
+            <h4 style="text-align: center;">
+                <label class="label label-danger" id="lblMessage"></label>
+            </h4>
+            <h4 style="text-align: center;"> <label class="label" id="lblMessages"></label></h4>
+            <table id="UserDetailsTable" class="table table-bordered" style="border-bottom: 1px solid #D5D5D5;">
+                <thead>
+                    <tr>
+                        <th style="text-transform:none;border: 1px solid #D5D5D5;">#</th>
+                        <th style="text-transform:none;border: 1px solid #D5D5D5;">Stundent Name</th>
+                        <th style="text-transform:none;border: 1px solid #D5D5D5;">JSCE Registration Number</th>
+                        <th style="text-transform:none;border: 1px solid #D5D5D5;">Created Date</th>
+                        <th style="text-transform:none;border: 1px solid #D5D5D5;">Action</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            @*       <div class="col-sm-6"><ul class="pagination"><li class="first disabled" aria-disabled="true"><a href="#first" class="button"><i class="zmdi zmdi-more-horiz"></i></a></li><li class="prev disabled" aria-disabled="true"><a href="#prev" class="button"><i class="zmdi zmdi-chevron-left"></i></a></li><li class="page-1 active" aria-disabled="false" aria-selected="true"><a href="#1" class="button">1</a></li><li class="page-2" aria-disabled="false" aria-selected="false"><a href="#2" class="button">2</a></li><li class="next" aria-disabled="false"><a href="#next" class="button"><i class="zmdi zmdi-chevron-right"></i></a></li><li class="last" aria-disabled="false"><a href="#last" class="button"><i class="zmdi zmdi-more-horiz"><i></i></i></a></li></ul></div>
+
+                </div>*@
+
+            <br>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header" style="border-bottom: #edecec 1px solid;">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">JSCE ADD</h4>
+                    </div>
+
+                    <div class="modal-body">
+
+
+                        <div class="panel-body">
+                            <form id="ValidationManageJSCE">
+                                <div class="form-group col-sm-6">
+                                    <label for="formGroupExampleInput">Student Name</label>
+
+                                    @if (Model != null)
+                                    {
+
+                                        @Html.DropDownList("FirstName", null, string.Empty, new { @class = "form-control" })
+                                    }
+                                    else
+                                    {
+                                        @Html.DropDownList("FirstName", ViewBag.FirstName as SelectList, "----Select Student----", new { id = "FirstName", @class = "form-control" })
+                                    }
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="formGroup ExampleInput2">JSCE Registration Number</label>
+                                    <input type="text" class="form-control" name="txtJSCERegistrationNumber" id="txtJSCERegistrationNumber" placeholder="JSCE Registration Number">
+                                </div>
+
+
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="border-top: #edecec 1px solid;">
+
+                        <button class="btn btn-info " value="Save">Save</button>
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+
+                    </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('#ClearTextbox').click(function () {
+
+                $("#FirstName").val("");
+                $("#txtJSCERegistrationNumber").val("");
+
+            });
+
+            $('#ValidationManageJSCE').formValidation({
+                framework: 'bootstrap',
+                icon: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                err: {
+                    // You can set it to popover
+                    // The message then will be shown in Bootstrap popover
+                    container: 'tooltip'
+                },
+                fields: {
+                    txtJSCERegistrationNumber: {
+                        validators: {
+                            notEmpty: {
+                                message: 'The JSCE registration Number is required'
+                            },
+                        }
+                    },
+                    FirstName: {
+                        validators: {
+                            notEmpty: {
+                                message: 'The first name is required'
+                            }
+
+                        }
+                    },
+
+                }
+            })
+        .on('success.form.fv', function (e) {
+            e.preventDefault();
+            SaveUpdateManageJSCEListDetails('/ManageJSCE/SaveUpdateManageJSCEListDetails');
+        });
+
+        });
+    </script>

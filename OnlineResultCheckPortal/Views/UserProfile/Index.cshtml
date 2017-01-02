@@ -1,0 +1,173 @@
+﻿@model OnlineResultCheckPortal.Models.UsersProfile
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutEmpty.cshtml";
+}
+<script src="~/Content/js/bootstrap.min.js"></script>
+<style>
+    .validation-summary-errors {
+        color: #f00;
+        font-weight: bold;
+        padding-right: 36%;
+        float: right;
+        font-size: 14px;
+    }
+</style>
+@using (Html.BeginForm("SaveUserProfileAllDetails", "UserProfile", FormMethod.Post, new { id = "SaveUserProfileform" }))
+{
+    @Html.AntiForgeryToken()
+}
+            <div style="margin-bottom: 15px" class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.FirstName, new { @placeholder = "First Name", @class = "form-control" })
+                </div>
+            </div>
+
+            <div style="margin-bottom: 15px" class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.LastName, new { @placeholder = "Last Name", @class = "form-control" })
+                </div>
+            </div>
+            <div style="margin-bottom: 15px" class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.FatherName, new { @placeholder = "Father Name", @class = "form-control" })
+                </div>
+            </div>
+            <div style="margin-bottom: 15px" class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.DOB, new { @placeholder = "DOB", @class = "form-control" })
+                </div>
+            </div>
+            <div style="margin-bottom: 15px" class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.Address, new { @placeholder = "Address", @class = "form-control" })
+                </div>
+            </div>
+          <div style="margin-bottom: 15px" class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.Email, new { @placeholder = "Email", @class = "form-control" })
+                </div>
+            </div>
+              <div class="form-group">
+            <label class="control-label col-sm-3">Academic Year </label>
+            <div class="col-sm-9"><div class="form-group">
+           @if (Model != null)
+                {
+                            
+                  @Html.DropDownList("AcademicYear",  null, string.Empty, new { @class = "form-control" }) 
+                }
+                else
+                {
+                     @Html.DropDownList("AcademicYear", ViewBag.AcademicYear as SelectList, "----Select AcademicYear----", new { id = "AcademicYear", @class = "form-control" })
+                }
+            </div>
+                </div>
+                  </div>
+           <div class="form-group">
+            <label class="control-label col-sm-3">School </label>
+            <div class="col-sm-9"><div class="form-group">
+           @if (Model != null)
+                {
+                            
+                  @Html.DropDownList("SchoolName",  null, string.Empty, new { @class = "form-control" }) 
+                }
+                else
+                {
+                     @Html.DropDownList("SchoolName", ViewBag.School as SelectList, "----Select SchoolName----", new { id = "SchoolName", @class = "form-control" })
+                }
+            </div>
+                </div>
+                  </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-3">Gender </label>
+                    <div class="col-sm-9">
+                        <div class="form-group">
+                            Male:@Html.RadioButton("Gender", "Male")
+                            Female:@Html.RadioButton("Gender", "Female")
+                        </div>
+                    </div>
+                <div class="form-group" style="margin-top: 10px">
+                    <div class="col-sm-2 col-xs-6 controls" style="padding-left: 0px;">
+                        <input class="btn btn-green" style="background-color: #259b23;" type="submit" value="Save"onclick="SaveUserProfileAllDetails('/UserProfile/SaveUserProfileAllDetails');"/></div>
+       @*             <div class="col-sm-2 col-xs-6 controls pull-right" style="text-decoration: underline ! important">@Html.ActionLink("Login", "Index", "Login")</div>*@
+
+                </div>
+            </div>
+       
+
+<script src="http://formvalidation.io/vendor/formvalidation/js/formValidation.min.js"></script>
+<script src="http://formvalidation.io/vendor/formvalidation/js/framework/bootstrap.min.js"></script> 
+<script>
+    $(document).ready(function () {
+        $('#SaveUserProfileform').formValidation({
+            framework: 'bootstrap',
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            err: {
+                // You can set it to popover
+                // The message then will be shown in Bootstrap popover
+                container: 'tooltip'
+            },
+            fields: {
+               FirstName: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The FirstName is required'
+                        },
+
+                    }
+                },
+                LastName: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The LastName is required'
+                        },
+                    }
+                },
+                FatherName: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The FatherName is required'
+                        },
+
+                    }
+                },
+                Address: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The Address is required'
+                        },
+
+                    }
+                },
+                Email: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The email address is required'
+                        },
+                        emailAddress: {
+                            message: 'The email address is not valid'
+                        }
+                    }
+                },
+            }
+        })
+        .on('success.form.fv', function (e) {
+
+            e.preventDefault();
+            SaveUserProfileAllDetails('/UserProfile/SaveUserProfileAllDetails');
+
+        });
+    });
+</script>
+<script src="~/Scripts/UserProfile/UserProfile.js"></script>
+

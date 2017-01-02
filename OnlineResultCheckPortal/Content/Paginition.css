@@ -1,0 +1,97 @@
+﻿
+    .btn-group, .btn-group-vertical {
+        vertical-align: inherit;
+    }
+
+    .DTTT .btn {
+        border-width: 1px;
+    }
+
+
+    .pagination ul > li > a, .pagination ul > li > span {
+        float: left;
+        padding: 4px 12px;
+        line-height: 20px;
+        text-decoration: none;
+        background-color: #dfdfdf;
+        border: 1px solid transparent;
+        border-left-width: 0;
+    }
+
+    .pagination ul > li {
+        display: inline;
+    }
+
+    .pagination ul {
+        display: inline-block;
+        margin-bottom: 0;
+        margin-left: 0;
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        border-radius: 0;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        -moz-box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+
+        .pagination ul > li:first-child > a, .pagination ul > li:first-child > span {
+            border-left-width: 1px;
+            -webkit-border-bottom-left-radius: 0;
+            border-bottom-left-radius: 0;
+            -webkit-border-top-left-radius: 0;
+            border-top-left-radius: 0;
+            -moz-border-radius-bottomleft: 0;
+            -moz-border-radius-topleft: 0;
+        }
+
+        .pagination ul > .disabled > span, .pagination ul > .disabled > a, .pagination ul > .disabled > a:hover {
+            color: #999;
+            background-color: #eee;
+        }
+
+        .pagination ul > li > a, .pagination ul > li > span {
+            margin-right: 6px;
+            color: #080808;
+        }
+
+        .pagination ul > li > a, .pagination ul > li > span {
+            float: left;
+            padding: 4px 12px;
+            line-height: 20px;
+            text-decoration: none;
+            background-color: #dfdfdf;
+            border: 1px solid transparent;
+            border-left-width: 0;
+        }
+
+            .pagination ul > li > a:hover, .pagination ul > li > a:focus, .pagination ul > .active > a, .pagination ul > .active > span {
+                /* background-color: #007fff; */
+                background: #207fc2;
+                background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+                background: -moz-linear-gradient(top, #207fc2 0%, #279cd0 100%);
+                background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#207fc2), color-stop(100%,#279cd0));
+                background: -webkit-linear-gradient(top, #207fc2 0%,#279cd0 100%);
+                background: -o-linear-gradient(top, #207fc2 0%,#279cd0 100%);
+                background: -ms-linear-gradient(top, #207fc2 0%,#279cd0 100%);
+                background: linear-gradient(to bottom, #207fc2 0%,#279cd0 100%);
+                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#207fc2', endColorstr='#279cd0',GradientType=0 );
+                -webkit-box-shadow: 0 1px 10px rgba(0,0,0,0.1);
+                -moz-box-shadow: 0 1px 10px rgba(0,0,0,0.1);
+            }
+
+            .pagination ul > li > a:hover, .pagination ul > li > span:hover {
+                color: #fff;
+                background-color: #080808;
+            }
+
+    .modal-backdrop.in {
+        opacity: 0;
+    }
+
+    .modal-backdrop {
+        position: inherit;
+    }
+
+    .SaveUpdateUserlist {
+        color: green;
+    }

@@ -1,0 +1,133 @@
+﻿@model OnlineResultCheckPortal.Models.Registration
+@{
+    ViewBag.Title = "Online Result Portal";
+    Layout = "~/Views/Shared/_LayoutEmpty.cshtml";
+}
+
+
+
+<body class="login-content">
+    <form id="Loginform">
+        <!-- Login -->  <div class="lc-block toggled" id="l-login" style="margin-top: 138px;">        
+                      <label style="font-size:12px;" class="label" id="lblMessage"></label>
+
+            <div class="lcb-float"><i class="zmdi zmdi-pin-account"></i></div>
+
+            <div class="form-group">
+                @Html.TextBoxFor(m => m.EmailID, new { @class = "form-control ", @placeholder = "User name" })
+
+            </div>
+            <div class="form-group">
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
+
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="p-relative ">
+           
+                @*<div class="checkbox cr-alt">
+                        <label class="c-gray">
+                            <input type="checkbox" value="">
+                            <i class="input-helper"></i>
+                            Keep me signed in
+                        </label>
+                    </div>*@
+
+            </div>
+            <input class="btn btn-block btn-primary btn-float m-t-25" id="btnLogin" type="submit" style="padding: 6px; border-radius:4px" value="Sign In" />
+
+
+            <ul class="login-navigation">
+                <li data-block="#l-register" class="bg-green"><a href="/Registration/Index">Register</a></li>
+                <li data-block="#l-forget-password" class="bg-orange"><a href="/ForgotPassword/Index">Forgot Password?</a> </li>
+                <li data-block="#l-forget-password" class="bg-orange"><a href="/Result/Index">Result</a> </li>
+            </ul>
+        </div>
+    </form>
+</body>
+<script>
+    $(document).ready(function () {
+        $('#Loginform').formValidation({
+            framework: 'bootstrap',
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            err: {
+                // You can set it to popover
+                // The message then will be shown in Bootstrap popover
+                container: 'tooltip'
+            },
+            fields: {
+
+                EmailID: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The email address is required'
+                        },
+                        stringLength: {
+                            max: 100,
+                            message: 'The email must be less than 100 characters long'
+                        },
+                        emailAddress: {
+                            message: 'The email address not valid'
+                        },
+                    }
+                },
+                Password: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The password is required'
+                        },
+                    }
+                },
+            }
+        })
+ .on('success.form.fv', function (e) {
+     e.preventDefault();
+     LoginAdminAndUser('/Login/login');
+ });
+    });
+
+
+    function LoginAdminAndUser(Controller) {
+
+        var request = new UserRegister();
+
+        $.ajax({
+            url: Controller,
+            dataType: 'json',
+            contentType: "application/json",
+            type: "POST",
+            data: JSON.stringify(request),
+            success: function (d) {
+                if (d == "Management") {
+                    window.location.href = '/ManageSchoolManagement/Index';
+                }
+                else if (d == "Student") {
+                     window.location.href = '/Student/Index';
+                }
+                else if (d == "Admin") {
+                    window.location.href = '/Management/Index';
+                }
+                 else {
+                     $("#lblMessage").show();
+                     $('#lblMessage').html(d);
+                     setTimeout(function () { $("#lblMessage").hide(); }, 10000);
+                }
+              
+
+            }
+        });
+    }
+
+
+    function UserRegister() {
+        var self = this;
+        self.EmailID = $("#EmailID").val();
+        self.Password = $("#Password").val();
+    }
+</script>
+

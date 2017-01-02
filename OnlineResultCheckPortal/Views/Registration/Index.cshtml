@@ -1,0 +1,196 @@
+﻿@model OnlineResultCheckPortal.Models.Registration
+@{
+    ViewBag.Title = "Online Result Portal";
+    Layout = "~/Views/Shared/_LayoutEmpty.cshtml";
+}
+
+<style>
+    .validation-summary-errors {
+        color: #f00;
+        font-weight: bold;
+        padding-right: 36%;
+        float: right;
+        font-size: 14px;
+    }
+</style>
+
+
+
+    <body class="login-content"><p class="successMessage" style="color:green;  font-size: 14px;text-align: center;">@ViewBag.result</p>
+        <!-- Login -->
+        <form id="Registrationform">
+            <div class="lc-block toggled" id="l-login" style="margin-top: 138px;width: 30%;">
+                <label style="font-size:12px;" class="label" id="lblMessage"></label>
+                <h3 style="text-decoration: underline;">Registration form</h3>
+                <div class="lcb-float"><i class="zmdi zmdi-pin-account"></i></div>
+
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.FirstName, new { @placeholder = "First Name", @class = "form-control" })
+
+                </div>
+
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.Lastname, new { @placeholder = "Last Name", @class = "form-control" })
+
+                </div>
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.EmailID, new { @placeholder = "Email ID", @class = "form-control" })
+
+                </div>
+                <div class="form-group">
+                    @Html.PasswordFor(m => m.Password, new { @placeholder = "Password", @class = "form-control" })
+
+                </div>
+                <div class="form-group">
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @placeholder = "Confirm Password", @class = "form-control" })
+
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="p-relative ">
+                    @*<div class="checkbox cr-alt">
+                        <label class="c-gray">
+                            <input type="checkbox" value="">
+                            <i class="input-helper"></i>
+                            Keep me signed in
+                        </label>
+                    </div>*@
+
+                </div>
+                <input class="btn btn-block btn-primary btn-float m-t-25" style="background-color:#259b23;" type="submit" value="Save" />
+
+                <ul class="login-navigation">
+                    <li data-block="#l-register" class="bg-green"><a href="/Login/Index">Loin here !</a></li>
+                    <li data-block="#l-forget-password" class="bg-orange"><a href="/ForgotPassword/Index"> Forgot Password?</a> </li>
+                </ul>
+            </div>
+        </form>
+    </body>
+
+
+
+<script>
+$(document).ready(function() {
+    $('#Registrationform').formValidation({
+        framework: 'bootstrap',
+        icon: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        err: {
+            // You can set it to popover
+            // The message then will be shown in Bootstrap popover
+            container: 'tooltip'
+        },
+        fields: {
+            FirstName: {
+                validators: {
+                    notEmpty: {
+                        message: 'The first name is required'
+                    },
+                    stringLength: {
+                        max: 50,
+                        message: 'The name must be less than 50 characters long'
+                    },
+
+                }
+            },
+            EmailID: {
+                validators: {
+                    notEmpty: {
+                        message: 'The email address is required'
+                    },
+                    stringLength: {
+                        max: 30,
+                        message: 'The email must be less than 30 characters long'
+                    },
+                    emailAddress: {
+                        message: 'The email address not valid'
+                    },
+                }
+            },
+            Password: {
+                validators: {
+                    notEmpty: {
+                        message: 'The password is required'
+                    },
+                    stringLength: {
+                        max: 30,
+                        message: 'The password must be less than 30 characters long'
+                    },
+                }
+            },
+            ConfirmPassword: {
+                validators: {
+                    notEmpty: {
+                        message: 'The confirm password is required'
+                    },
+                    stringLength: {
+                        max: 30,
+                        message: 'The confirm must be less than 30 characters long'
+                    },
+                    identical: {
+                        field: 'Password',
+                        message: 'The password and confirmation password do not match'
+                    }
+
+
+                }
+            },
+            Lastname: {
+                validators: {
+                    notEmpty: {
+                        message: 'The last name is required'
+                    },
+                    stringLength: {
+                        max: 50,
+                        message: 'The last name must be less than 50 characters long'
+                    },
+                }
+            },
+
+        }
+    })
+    .on('success.form.fv', function (e) {
+        e.preventDefault();
+        RegisterUser('/Registration/RegistrationSave');
+    });
+});
+
+//This function use to  Update User Register.
+function RegisterUser(controller) {
+
+    var request = new UserRegister();
+    $.ajax({
+        url: controller,
+        dataType: 'json',
+        contentType: "application/json",
+        type: "POST",
+        data: JSON.stringify(request),
+        success: function (d) {
+            $("#FirstName").val("");
+            $("#Lastname").val("");
+            $("#EmailID").val("");
+            $("#Password").val("");
+            $('#ConfirmPassword').val("");
+            $("#lblMessage").show();
+            $('#lblMessage').html(d);
+            setTimeout(function () { $("#lblMessage").hide(); }, 5000);
+
+        }
+    });
+}
+
+//This function use to bind textbox.
+function UserRegister() {
+    var self = this;
+    self.FirstName = $("#FirstName").val();
+    self.Lastname = $("#Lastname").val();
+    self.EmailID = $("#EmailID").val();
+    self.ConfirmPassword = $("#ConfirmPassword").val();
+    
+   
+}
+</script>

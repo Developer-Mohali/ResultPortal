@@ -1,0 +1,653 @@
+﻿<!DOCTYPE html>
+<!--[if IE 9 ]><html class="ie9"><![endif]-->
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <meta name="format-detection" content="telephone=no">
+    <meta charset="UTF-8">
+
+    <meta name="description" content="SuperFlat Responsive Admin Template">
+    <meta name="keywords" content="SuperFlat Admin, Admin, Template, Bootstrap">
+
+    <title>Online Result Portal</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <link href="~/vendors/bower_components/animate.css/animate.min.css" rel="stylesheet">
+    <link href="~/vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css" rel="stylesheet">
+    <link href="~/vendors/bower_components/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet">
+    <link href="~/vendors/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet">
+    <link href="~/Content/css/app.min.css" rel="stylesheet" />
+    <link href="~/Content/css/app.css" rel="stylesheet" />
+
+    <script src="http://formvalidation.io/vendor/formvalidation/js/formValidation.min.js"></script>
+    <script src="http://formvalidation.io/vendor/formvalidation/js/framework/bootstrap.min.js"></script>
+   <script src="~/Scripts/AdminManage/AdminProfile/AdminProfile.js"></script>
+    <link href="~/Content/ResultPortalStyleSheet.css" rel="stylesheet" />
+  
+</head>
+<input type="hidden" value="@Session["RoleId"]" id="HiddenRoleName" />
+<body>
+    <header id="header" class="clearfix" data-spy="affix" data-offset-top="65">
+        <ul class="header-inner">
+
+            <!-- Logo -->
+            <li class="logo">
+                <a href=""><h3 style="font-size: 19px;font-weight: bold;color: white;">Online Result Portal</h3> @*<img src="~/img/logo.png" alt="">*@</a>
+                <div id="menu-trigger"><i class="zmdi zmdi-menu"></i></div>
+            </li>
+
+            <!-- Messages -->
+            <li class="dropdown">
+                @*<a href="" data-toggle="dropdown" class="hi-messages">
+                    <i class="zmdi zmdi-email"></i>
+                    <i class="hi-count">6</i>
+                </a>*@
+
+                @*<div class="dropdown-menu hi-dropdown">
+                    <div class="dropdown-header bg-green m-b-15">
+                        MESSAGES
+
+                        <ul class="actions a-alt">
+                            <li><a href=""><i class="zmdi zmdi-plus"></i></a></li>
+                        </ul>
+                    </div>
+
+                    <div class="list-group lg-alt">
+                        <a class="list-group-item media" href="">
+                            <div class="pull-left">
+                                <img class="img-avatar" src="~/img/profile-pics/1.jpg" alt="" width="40" height="40">
+                            </div>
+                            <div class="media-body">
+                                <div class="list-group-item-heading">David Villa Jacobs <small>3 Hours ago</small></div>
+                                <small class="list-group-item-text c-gray">Sorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam mattis lobortis sapien non posuere</small>
+                            </div>
+                        </a>
+
+                        <a class="list-group-item media" href="">
+                            <div class="pull-left">
+                                <img class="img-avatar" src="~/img/profile-pics/5.jpg" alt="" width="40" height="40">
+                            </div>
+                            <div class="media-body">
+                                <div class="list-group-item-heading">Candice Barnes <small>5 Hours ago</small></div>
+                                <small class="list-group-item-text c-gray">Quisque non tortor ultricies, posuere elit id, lacinia purus curabitur.</small>
+                            </div>
+                        </a>
+
+                        <a class="list-group-item media" href="">
+                            <div class="pull-left">
+                                <img class="img-avatar" src="~/img/profile-pics/2.jpg" alt="" width="40" height="40">
+                            </div>
+                            <div class="media-body">
+                                <div class="list-group-item-heading">Jeannette Lawson <small>Yesterday</small></div>
+                                <small class="list-group-item-text c-gray">Donec congue tempus ligula, varius hendrerit mi hendrerit sit amet. Duis ac quam sit amet leo feugiat iaculis</small>
+                            </div>
+                        </a>
+
+                        <a class="list-group-item media" href="">
+                            <div class="pull-left">
+                                <img class="img-avatar" src="~/img/profile-pics/4.jpg" alt="" width="40" height="40">
+                            </div>
+                            <div class="media-body">
+                                <div class="list-group-item-heading">Darla Mckinney <small>05/06/2014</small></div>
+                                <small class="list-group-item-text c-gray">Duis tincidunt augue nec sem dignissim scelerisque. Vestibulum rhoncus sapien sed nulla aliquam lacinia</small>
+                            </div>
+                        </a>
+
+                        <a class="list-group-item media" href="">
+                            <div class="pull-left">
+                                <img class="img-avatar" src="~/img/profile-pics/2.jpg" alt="" width="40" height="40">
+                            </div>
+                            <div class="media-body">
+                                <div class="list-group-item-heading">Rudolph Perez <small>08/06/2014</small></div>
+                                <small class="list-group-item-text c-gray">Phasellus a ullamcorper lectus, sit amet viverra quam. In luctus tortor vel nulla pharetra bibendum</small>
+                            </div>
+                        </a>
+
+                        <a class="view-more" href="">View more</a>
+                    </div>
+                </div>*@
+            </li>
+
+
+            <!-- Notifications -->
+            @*<li class="dropdown">
+                <a href="" data-toggle="dropdown" class="hi-notifications">
+                    <i class="zmdi zmdi-notifications"></i>
+                    <i class="hi-count">9</i>
+                </a>
+                <div class="dropdown-menu hi-dropdown">
+                    <div class="dropdown-header bg-orange m-b-15">
+                        Notifications
+                        <ul class="actions a-alt">
+                            <li><a href=""><i class="zmdi zmdi-check-all"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="list-group lg-alt">
+                        <a class="list-group-item media" href="">
+                            <div class="pull-right">
+                                <img class="img-avatar" src="~/img/profile-pics/1.jpg" alt="" width="40" height="40">
+                            </div>
+                            <div class="media-body">
+                                <div class="list-group-item-heading">David Villa Jacobs <small>3 Hours ago</small></div>
+                                <small class="list-group-item-text c-gray">Sorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam mattis lobortis sapien non posuere</small>
+                            </div>
+                        </a>
+
+                        <a class="list-group-item media" href="">
+                            <div class="media-body">
+                                <div class="list-group-item-heading">Candice Barnes <small>5 Hours ago</small></div>
+                                <small class="list-group-item-text c-gray">Quisque non tortor ultricies, posuere elit id, lacinia purus curabitur.</small>
+                            </div>
+                        </a>
+
+                        <a class="list-group-item media" href="">
+                            <div class="media-body">
+                                <div class="list-group-item-heading">Jeannette Lawson <small>Yesterday</small></div>
+                                <small class="list-group-item-text c-gray">Donec congue tempus ligula, varius hendrerit mi hendrerit sit amet. Duis ac quam sit amet leo feugiat iaculis</small>
+                            </div>
+                        </a>
+
+                        <a class="list-group-item media" href="">
+                            <div class="pull-right">
+                                <img class="img-avatar" src="~/img/profile-pics/4.jpg" alt="" width="40" height="40">
+                            </div>
+                            <div class="media-body">
+                                <div class="list-group-item-heading">Darla Mckinney <small>05/06/2014</small></div>
+                                <small class="list-group-item-text c-gray">Duis tincidunt augue nec sem dignissim scelerisque. Vestibulum rhoncus sapien sed nulla aliquam lacinia</small>
+                            </div>
+                        </a>
+
+                        <a class="list-group-item media" href="">
+                            <div class="pull-right">
+                                <img class="img-avatar" src="~/img/profile-pics/2.jpg" alt="" width="40" height="40">
+                            </div>
+                            <div class="media-body">
+                                <div class="list-group-item-heading">Rudolph Perez <small>08/06/2014</small></div>
+                                <small class="list-group-item-text c-gray">Phasellus a ullamcorper lectus, sit amet viverra quam. In luctus tortor vel nulla pharetra bibendum</small>
+                            </div>
+                        </a>
+
+                        <a class="view-more" href="">View more</a>
+                    </div>
+                </div>
+            </li>*@
+
+            <!-- Ongoing Projects -->
+            @*<li class="dropdown">
+                <a data-toggle="dropdown" href="" class="hi-projects">
+                    <i class="zmdi zmdi-format-subject"></i>
+                </a>
+                <div class="dropdown-menu hi-dropdown">
+                    <div class="dropdown-header bg-red m-b-15">
+                        ONGOING PROJECTS
+                        <ul class="actions a-alt">
+                            <li><a class="" href=""><i class="zmdi zmdi-plus"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="list-group lg-alt">
+                        <div class="list-group-item">
+                            <div class="list-group-item-heading m-b-5">HTML5 Validation Report</div>
+
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100" style="width: 95%">
+                                    <span class="sr-only">95% Complete (success)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list-group-item">
+                            <div class="list-group-item-heading m-b-5">Google Chrome Extension</div>
+
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                                    <span class="sr-only">80% Complete (success)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list-group-item">
+                            <div class="list-group-item-heading m-b-5">Social Intranet Projects</div>
+
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+                                    <span class="sr-only">20% Complete</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list-group-item">
+                            <div class="list-group-item-heading m-b-5">Bootstrap Admin Template</div>
+
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                    <span class="sr-only">60% Complete (warning)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list-group-item">
+                            <div class="list-group-item-heading m-b-5">Youtube Client App</div>
+
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                                    <span class="sr-only">80% Complete (danger)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <a class="view-more" href="">View more</a>
+                    </div>
+                </div>
+            </li>*@
+
+            <!-- Events -->
+            @*<li class="dropdown hidden-xs">
+                <a href="" data-toggle="dropdown" class="hi-events">
+                    <i class="zmdi zmdi-calendar"></i>
+                </a>
+                <div class="dropdown-menu hi-dropdown">
+                    <div class="dropdown-header bg-blue m-b-15">
+                        UPCOMING EVENTS
+                        <ul class="actions a-alt">
+                            <li><a class="" href=""><i class="zmdi zmdi-plus"></i></a></li>
+                        </ul>
+                    </div>
+
+                    <div class="list-group lg-alt">
+                        <a class="list-group-item media" href="">
+                            <div class="pull-left">
+                                <div class="event-time bg-cyan">
+                                    <h2>16/07</h2>
+                                    <small>11:30 AM</small>
+                                </div>
+                            </div>
+                            <div class="media-body">
+                                <div class="list-group-item-heading">ICCSSR Annual Meeting</div>
+                                <small class="list-group-item-text c-gray">Sorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam mattis lobortis sapien non posuere</small>
+                                <small class="list-group-item-text c-gray f-11">10 Days to go</small>
+                            </div>
+                        </a>
+
+                        <a class="list-group-item media" href="">
+                            <div class="pull-left">
+                                <div class="event-time bg-green">
+                                    <h2>20/7</h2>
+                                    <small>11:30 AM</small>
+                                </div>
+                            </div>
+                            <div class="media-body">
+                                <div class="list-group-item-heading">Outsourcing in Clinical Trials Europe 2014</div>
+                                <small class="list-group-item-text c-gray">Vestibulum ut auctor est. Proin euismod semper tortor id egestas</small>
+                                <small class="list-group-item-text c-gray f-11">20 Days to go</small>
+                            </div>
+                        </a>
+
+                        <a class="list-group-item media" href="">
+                            <div class="pull-left">
+                                <div class="event-time bg-orange">
+                                    <h2>2/8</h2>
+                                    <small>11:30 AM</small>
+                                </div>
+                            </div>
+                            <div class="media-body">
+                                <div class="list-group-item-heading">Biomarkers World Congress 2014</div>
+                                <small class="list-group-item-text c-gray">Phasellus luctus commodo augue, at posuere augue. Sed pellentesque libero vel dapibus placerat</small>
+                                <small class="list-group-item-text c-gray f-11">31 Days to go</small>
+                            </div>
+                        </a>
+
+                        <a class="list-group-item media" href="">
+                            <div class="pull-left">
+                                <div class="event-time bg-red">
+                                    <h2>30/10</h2>
+                                    <small>11:30 AM</small>
+                                </div>
+                            </div>
+                            <div class="media-body">
+                                <div class="list-group-item-heading">August Flavors Cooking</div>
+                                <small class="list-group-item-text c-gray">Quisque magna tellus, vulputate a faucibus at, rhoncus vitae est. Nulla scelerisque sollicitudin mollis</small>
+                                <small class="list-group-item-text c-gray f-11">55 Days to go</small>
+                            </div>
+                        </a>
+
+                        <a class="list-group-item media" href="">
+                            <div class="pull-left">
+                                <div class="event-time bg-blue">
+                                    <h2>23/11</h2>
+                                    <small>11:30 AM</small>
+                                </div>
+                            </div>
+                            <div class="media-body">
+                                <div class="list-group-item-heading">Beach Party 2104</div>
+                                <small class="list-group-item-text c-gray">Etiam dolor diam, pulvinar nec vehicula id, sodales sagittis libero. Maecenas cursus varius libero et eleifend</small>
+                                <small class="list-group-item-text c-gray f-11">64 Days to go</small>
+                            </div>
+                        </a>
+                    </div>
+
+                    <a class="view-more" href="">View more</a>
+                </div>
+            </li>*@
+
+
+            <!-- Search -->
+            <li class="top-search">
+                <input class="ts-input" placeholder="Search..." type="text">
+
+                <i class="ts-reset zmdi zmdi-close"></i>
+            </li>
+
+            <!-- Settings -->
+            <li class="pull-right dropdown hidden-xs">
+                <a href="" data-toggle="dropdown">
+                    <i class="zmdi zmdi-more-vert"></i>
+                </a>
+                <ul class="dropdown-menu">
+                    @*<li><a data-toggle="fullscreen" href="">Toggle Fullscreen</a></li>
+                    <li><a data-toggle="localStorage" href="">Clear Local Storage</a></li>
+                    <li><a href="">Account Settings</a></li>
+                    <li><a href="">Other Settings</a></li>*@
+                    <li><a href="/Login/Index">Logout</a></li>
+                </ul>
+            </li>
+
+            <!-- Quick Apps -->
+            @*<li class="hidden-xs dropdown pull-right">
+                <a href="" data-toggle="dropdown">
+                    <i class="zmdi zmdi-apps"></i>
+                </a>
+
+                <div class="dropdown-menu pull-right" id="launch-apps">
+                    <div class="dropdown-header bg-teal">SUPERFLAT APPS</div>
+
+                    <div class="la-body">
+                        <div class="lab-item">
+                            <a href="" class="bg-red">
+                                <i class="zmdi zmdi-calendar"></i>
+                            </a>
+                            <small>Calendar</small>
+                        </div>
+
+                        <div class="lab-item">
+                            <a href="" class="bg-green">
+                                <i class="zmdi zmdi-file-text"></i>
+                            </a>
+                            <small>Files</small>
+                        </div>
+
+                        <div class="lab-item">
+                            <a href="" class="bg-blue">
+                                <i class="zmdi zmdi-email"></i>
+                            </a>
+                            <small>Mail</small>
+                        </div>
+
+                        <div class="lab-item">
+                            <a href="" class="bg-orange">
+                                <i class="zmdi zmdi-trending-up"></i>
+                            </a>
+                            <small>Analytics</small>
+                        </div>
+
+                        <div class="lab-item">
+                            <a href="" class="bg-cyan">
+                                <i class="zmdi zmdi-view-headline"></i>
+                            </a>
+                            <small>News</small>
+                        </div>
+
+                        <div class="lab-item">
+                            <a href="" class="bg-teal">
+                                <i class="zmdi zmdi-image"></i>
+                            </a>
+                            <small>Gallery</small>
+                        </div>
+                    </div>
+                </div>
+            </li>*@
+            <!-- Time -->
+            @*<li class="pull-right hidden-xs">
+                <div id="time">
+                    <span id="t-hours"></span>
+                    <span id="t-min"></span>
+                    <span id="t-sec"></span>
+                </div>
+            </li>*@
+        </ul>
+    </header>
+
+    <aside id="sidebar">
+
+        <!--| MAIN MENU |-->
+        <ul class="side-menu">
+            <li class="sm-sub sms-profile">
+                <a class="clearfix" href="">
+                  
+                    @*<img src="~/img/profile-pic.jpg" alt="">*@
+                    <div id="ProfileName" style="float:left"></div><span style="float:left;padding-top: 10px;margin-left: 20px;" class="d-block" id="Name"></span>
+                    <span class="f-11">
+                       
+                        @*<small class="text-lowercase">mallinda-h</small>*@
+                    </span>
+                   
+                </a>
+
+                <ul>
+                    @*<li><a href="">View Profile</a></li>
+                    <li><a href="">Privacy Settings</a></li>
+                    <li><a href="">Settings</a></li>*@
+                    <li><a href="/Login/Index">Logout</a></li>
+                </ul>
+            </li>
+
+            @*<li class="active">
+                <a href="#">
+                    <i class="zmdi zmdi-home"></i>
+                    <span>Home</span>
+                </a>
+            </li>*@
+            <li>
+                <a href="/Management/Index">
+                    <i class="zmdi zmdi-format-underlined"></i>
+                    <span>School Administrator@*<span class="label label-danger">New</span>*@</span>
+                </a>
+            </li>
+            <li>
+                <a href="/Admin/Index">
+                    <i class="zmdi zmdi-widgets"></i>
+                    <span>Manage Student</span>
+                </a>
+            </li>
+            <li>
+                <a href="/ManageSchool/Index">
+                    <i class="zmdi zmdi-widgets"></i>
+                    <span>Manage school</span>
+                </a>
+            </li>
+            <li>
+                <a href="/Token/Index">
+                    <i class="zmdi zmdi-widgets"></i>
+                    <span>Manage Token</span>
+                </a>
+            </li>
+            <li>
+              @*  <a href="/MockExaminations/Index">
+                    <i class="zmdi zmdi-widgets"></i>
+                    <span>Manage Mock Examinations</span>
+                </a>
+            </li>
+            <li>
+                <a href="/EndOfTermExaminations/Index">
+                    <i class="zmdi zmdi-widgets"></i>
+                    <span>Manage End Examinations</span>
+                </a>
+            </li>
+              <li>
+                <a href="/ManageSchoolManagement/Index">
+                    <i class="zmdi zmdi-widgets"></i>
+                    <span>Manage School</span>
+                </a>
+            </li>*@
+            @*<li class="sm-sub">
+                <a href="">
+                    <i class="zmdi zmdi zmdi-view-list"></i>
+                    <span>Tables</span>
+                </a>
+                <ul>
+                    <li><a href="/ManageSchool/Index">Manage school</a></li>
+                    <li><a href="/JSCE/Index">JSCE Add</a></li>
+                </ul>
+            </li>
+            <li class="sm-sub">
+                <a href="">
+                    <i class="zmdi zmdi-collection-text"></i>
+                    <span>Forms <span class="label label-warning">New</span></span>
+                </a>
+                <ul>
+                    <li><a href="form-elements.html">Basic Form Elements</a></li>
+                    <li><a href="form-components.html">Form Components</a></li>
+                    <li><a href="form-examples.html">Form Examples</a></li>
+                    <li><a href="form-validation.html">Form Validation</a></li>
+                </ul>
+            </li>
+            <li class="sm-sub">
+                <a href="">
+                    <i class="zmdi zmdi-swap-alt"></i>
+                    <span>User Interface</span>
+                </a>
+                <ul>
+                    <li><a href="colors.html">Colors</a></li>
+                    <li><a href="animations.html">Animations</a></li>
+                    <li><a href="buttons.html">Buttons</a></li>
+                    <li><a href="icons.html">Icons</a></li>
+                    <li><a href="alerts.html">Alerts</a></li>
+                    <li><a href="notification-dialog.html">Notifications & Dialogs</a></li>
+                    <li><a href="media.html">Media</a></li>
+                    <li><a href="components.html">Components</a></li>
+                    <li><a href="other-components.html">Others</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="charts.html">
+                    <i class="zmdi zmdi-trending-up"></i>
+                    <span>Charts</span>
+                </a>
+            </li>
+            <li>
+                <a href="calendar.html">
+                    <i class="zmdi zmdi-calendar"></i>
+                    <span>Calendar <span class="label label-primary">12</span></span>
+                </a>
+            </li>
+            <li class="sm-sub">
+                <a href="">
+                    <i class="zmdi zmdi-image"></i>
+                    <span>Photo Gallery</span>
+                </a>
+                <ul>
+                    <li><a href="photos.html">Default</a></li>
+                    <li><a href="photo-timeline.html">Timeline</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="generic-classes.html">
+                    <i class="zmdi zmdi-layers"></i>
+                    <span>Generic Classes</span>
+                </a>
+            </li>
+            <li class="sm-sub sms-bottom">
+                <a href="">
+                    <i class="zmdi zmdi-collection-item"></i>
+                    <span>Sample Pages</span>
+                </a>
+                <ul>
+                    <li><a href="profile-about.html">Profile</a></li>
+                    <li><a href="list-view.html">List View</a></li>
+                    <li><a href="messages.html">Messages</a></li>
+                    <li><a href="pricing-table.html">Pricing Table</a></li>
+                    <li><a href="contacts.html">Contacts</a></li>
+                    <li><a href="invoice.html">Invoice</a></li>
+                    <li><a href="login.html">Login and Sign Up</a></li>
+                    <li><a href="lockscreen.html">Lockscreen</a></li>
+                    <li><a href="404.html">Error 404</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="https://wrapbootstrap.com/theme/superflat-simple-responsive-admin-theme-WB082P91H">
+                    <i class="zmdi zmdi-shopping-cart"></i>
+                    <span>Buy this template</span>
+                </a>
+            </li>*@
+        </ul>
+    </aside>
+
+    <section id="content">
+        @RenderBody()
+    </section>
+
+    @*<footer id="footer">
+        Copyright © 2015 SuperFlat Admin
+
+        <ul class="f-menu">
+            <li><a href="">Home</a></li>
+            <li><a href="">Dashboard</a></li>
+            <li><a href="">Reports</a></li>
+            <li><a href="">Support</a></li>
+            <li><a href="">Contact</a></li>
+        </ul>
+    </footer>*@
+
+   
+    <!-- Javascript Libraries -->
+
+    <script src="~/vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script src="~/vendors/bower_components/flot/jquery.flot.js"></script>
+    <script src="~/vendors/bower_components/flot/jquery.flot.resize.js"></script>
+    <script src="~/vendors/bower_components/flot-orderBars/js/jquery.flot.orderBars.js"></script>
+    <script src="~/vendors/bower_components/flot.curvedlines/curvedLines.js"></script>
+    <script src="~/vendors/bower_components/flot-orderBars/js/jquery.flot.orderBars.js"></script>
+    <script src="~/vendors/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="~/vendors/sparklines/jquery.sparkline.min.js"></script>
+    <script src="~/vendors/bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js"></script>
+
+    <script src="~/vendors/bootstrap-growl/bootstrap-growl.min.js"></script>
+    <script src="~/vendors/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="~/vendors/bower_components/moment/min/moment.min.js"></script>
+    <script src="~/vendors/bower_components/fullcalendar/dist/fullcalendar.min.js "></script>
+
+    <!-- Charts - Please read the read-me.txt inside the js folder-->
+    <script src="~/js/flot-charts/curved-line-chart.js"></script>
+    <script src="~/js/flot-charts/bar-chart.js"></script>
+    <script src="~/js/charts.js"></script>
+
+    <!-- Placeholder for IE9 -->
+    <!--[if IE 9 ]>
+        <script src="vendors/bower_components/jquery-placeholder/jquery.placeholder.min.js"></script>
+    <![endif]-->
+    <script src="~/Content/js/functions.js"></script>
+    <link href="~/Content/css/demo.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap/dist/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="~/Content/js/jquery.dataTables.min.js"></script>
+    <script src="~/Content/DT_bootstrap.js"></script>
+    <link href="~/Content/Paginition.css" rel="stylesheet" />
+    <link href="~/Content/DT_bootstrap.css" rel="stylesheet" />
+</body>
+<script>
+       //session end
+       var sessionTimeoutWarning = @Session.Timeout -1;
+
+       var sTimeout = parseInt(sessionTimeoutWarning) * 60 * 1000;
+       setTimeout('SessionEnd()', sTimeout);
+
+       function SessionEnd() {
+           window.location = "/Login/Index";
+       }
+       if (!$('#HiddenRoleName').val() > 0) {
+
+           SessionEnd();
+       }
+       var roleID = $('#HiddenRoleName').val();
+       if (roleID == 3) {
+
+
+       }
+       else {
+           SessionEnd();
+       }
+</script>

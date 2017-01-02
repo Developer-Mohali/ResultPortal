@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutManagement.cshtml";
+}
+<script src="~/Scripts/AdminManage/PurchaseToken/PurchaseToken.js"></script>
+<div class="tile">
+
+    <div class="container">
+        <div class="panel panel-primary">
+            <div class="panel-heading"> Purchase Token</div>
+        </div>
+        <div class="table-responsive table table-bordered">
+            @*<button id="ClearTextbox" style="margin-left: 16px;float:right;margin-bottom: 31px;margin-top: 11px;" class="btn btn-info " value="Save" data-toggle='modal' data-target='#myModal'> Add new</button>
+            <button style="margin-left: 16px;float:right;margin-bottom: 31px;margin-top: 11px;" class="btn btn-warning " value="Save" data-toggle='modal' data-target='#UploadmyModal'> Import Student</button>*@
+
+            <h4 style="text-align:center;">
+                <label class="label label-danger" id="lblMessage"></label>
+            </h4>
+            <h4 style="text-align:center;"> <label class="label label-success" id="lbladdMessages"></label></h4>
+            <h4 style="text-align:center;"> <label class="label" id="lblUpdatMessages"></label></h4>
+            <h4 style="text-align:center;"> <label class="label" id="lblupdatMessages"></label></h4>
+            <h4 style="text-align:center;"> <label class="label label-success" id="lblMessages"></label></h4>
+            <table id="UserDetailsTable" class="table table-bordered" style="border-bottom: 1px solid #D5D5D5;">
+                <thead>
+                    <tr>
+                        <th style="text-transform:none;border: 1px solid #D5D5D5;">#</th>
+                        <th style="text-transform:none;border: 1px solid #D5D5D5;">Student ID</th>
+                        <th style="text-transform:none;border: 1px solid #D5D5D5;">First Name</th>
+                        <th style="text-transform:none;border: 1px solid #D5D5D5;">Last Name</th>
+                        <th style="text-transform:none;border: 1px solid #D5D5D5;">Email Address</th>
+                        <th style="text-transform:none;border: 1px solid #D5D5D5;">Photo</th>
+                        <th style="text-transform:none;border: 1px solid #D5D5D5;">Purchase Token</th>
+                       
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <br>
+    </div>
+</div>

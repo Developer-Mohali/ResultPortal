@@ -1,0 +1,119 @@
+﻿@model OnlineResultCheckPortal.Models.Registration
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutEmpty.cshtml";
+}
+
+<style>
+    .validation-summary-errors {
+        color: #f00;
+        font-weight: bold;
+        padding-right: 36%;
+        float: right;
+    }
+     #ForgotPasswordForm.form-control-feedback{
+right: 7px;
+    }
+</style>
+
+<form id="ForgotPasswordForm">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-4 col-md-offset-3 " style="margin-top: 14%;">
+                <div class="filtri" style="box-shadow: 1px 1px 5px #dddddd;border-radius: 10px;background-color:white;">
+                    <div class="panel-heading">
+                        <div class="panel-title"><strong style="color: black;margin-left: 13px;">Forgot Password</strong>  @Html.ValidationSummary(true) <p class="successMessage" style="color:green">@ViewBag.result</p></div>
+
+                    </div>
+                            <div class="form-group col-sm-12">
+                                @Html.TextBoxFor(m => m.EmailID, new { @class = "form-control ", @placeholder = "Email ID" })
+                            </div>
+                       <div class="clearfix"></div>
+
+                        @*<div class="checkbox">
+                                <label class="lab pl0">re &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" checked=""></label>
+                            </div>*@
+                    <h4>
+                        <label class="label" id="lblMessage"></label>
+                    </h4>
+                        <input class="btn btn-info" id="btn-login" type="submit" style="padding: 6px;background-color:#00a5bb;margin-left:13px;" value="Forgot Password"/>
+                    
+                        <div class="col-md-12 control">
+                            <div style="font-size: 85%;padding-top: 10px; margin-left:7px; margin-top: 5px;"><a href="/Login/Index">Login</a> </div>
+                        </div>
+                        <div class="clearfix"></div>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script>
+    $(document).ready(function () {
+
+        $('#ForgotPasswordForm').formValidation({
+            framework: 'bootstrap',
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            err: {
+                // You can set it to popover
+                // The message then will be shown in Bootstrap popover
+                container: 'tooltip'
+            },
+            fields: {
+
+                EmailID: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The email address is required'
+                        },
+                        emailAddress: {
+                            message: 'The email address is not valid'
+                        }
+                    }
+                },
+            }
+        })
+         .on('success.form.fv', function (e) {
+             e.preventDefault();
+             ForgotPassword('/ForgotPassword/ForgotPassword');
+         });
+
+       
+    });
+    function ForgotPassword(Controller) {
+        var request = new BindforgotPassword();
+        $.ajax({
+            url: Controller,
+            dataType: 'json',
+            contentType: "application/json",
+            type: "POST",
+            data: JSON.stringify(request),
+            success: function (d) {
+                $("#lblMessage").show();
+                $('#lblMessage').html(d);
+                setTimeout(function () { $("#lblMessage").hide(); }, 5000);
+                //if (d == "Admin") {
+                //    window.location.href = '/Admin/Index';
+                //}
+                //else if (d == "User") {
+
+                //}
+                //else {
+                  
+                //}
+
+
+            }
+        });
+    }
+    function BindforgotPassword() {
+        var self = this;
+        self.EmailID = $("#EmailID").val();
+
+    }
+</script>

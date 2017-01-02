@@ -1,0 +1,209 @@
+﻿@model OnlineResultCheckPortal.Student
+
+<div id="resultDisplay"></div>
+
+
+
+<input type="hidden" id="StudentID" value="@ViewBag.StudentID"/>
+<div class="col-md-4 row ">
+   <form class="form-horizontal" id="DisplayProfileValidation">
+        <h4 class="col-lg-offset-2  blue-color">Student Profile
+            <label class="checkbox-inline"/>
+            @*  <input type="checkbox" value="">*@
+            @* <small>Same as Mailing Address</small></label>*@
+        </h4>
+        <div class="form-group">
+            <label class="control-label col-sm-3">FirstName </label>
+            <div class="col-sm-9"><div class="form-group">
+                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control ", @placeholder = "FirstName" })
+            </div></div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">AcademicYear </label>
+            <div class="col-sm-9"><div class="form-group">
+                @if (Model != null)
+                {
+                            
+                  @Html.DropDownList("AcademicYear",  null, string.Empty, new { @class = "form-control" }) 
+                }
+                else
+                {
+                     @Html.DropDownList("AcademicYear", ViewBag.AcademicYear as SelectList, "----Select AcademicYear----", new { id = "AcademicYear", @class = "form-control" })
+                }
+
+                </div>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">School </label>
+            <div class="col-sm-9"><div class="form-group">
+                @if (Model != null)
+                {
+                   
+                @Html.DropDownList("School", null, string.Empty, new { @class = "form-control" })
+                }
+                else
+                {
+                    
+               <select id="School" class="form-control" name="school"></select><br />
+                }
+            </div></div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">LastName </label>
+            <div class="col-sm-9"><div class="form-group">
+                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control ", @placeholder = "LastName" })
+            </div></div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">FatherName </label>
+            <div class="col-sm-4"><div class="form-group">
+                @Html.TextBoxFor(m => m.FatherName, new { @class = "form-control ", @placeholder = "Father Name" })
+            </div></div>
+        </div>
+     <div class="form-group">
+            <label class="control-label col-sm-3">Email </label>
+            <div class="col-sm-4"><div class="form-group">
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control ", @placeholder = "Email" })
+            </div></div>
+        </div>
+
+
+      <div class="form-group">
+            <label class="control-label col-sm-3">Address </label>
+            <div class="col-sm-4"><div class="form-group">
+                @Html.TextBoxFor(m => m.Address, new { @class = "form-control ", @placeholder = "Address" })
+            </div></div>
+        </div>
+     <div class="form-group">
+            <label class="control-label col-sm-3">Contact </label>
+            <div class="col-sm-4"><div class="form-group">
+                @Html.TextBoxFor(m => m.Contact, new { @class = "form-control ", @placeholder = "Contact" })
+            </div></div>
+        </div>
+
+     <div class="form-group">
+            <label class="control-label col-sm-3">Gender </label>
+            <div class="col-sm-4"><div class="form-group">
+                @Html.TextBoxFor(m => m.Gender, new { @class = "form-control ", @placeholder = "Gender" })
+            </div></div>
+        </div>
+
+
+        <div style="margin-left: 27%;">
+           @* <a class="btn btn-sm  btn-green" >Save</a>*@
+             <input class="btn btn-sm  btn-green" id="SubmitDisplay" style="visibility:hidden" type="submit" value="Save" />
+        </div>
+    </form>
+</div>
+
+
+<br class="clearfix">
+
+  
+<script>
+   
+    $(document).ready(function () {
+        $('DisplayProfileValidation').formValidation({
+
+            framework: 'bootstrap',
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            err: {
+                // You can set it to popover
+                // The message then will be shown in Bootstrap popover
+                container: 'tooltip'
+            },
+            fields: {
+
+                UserName: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The FirstName  is required'
+                        },
+                        stringLength: {
+                            max: 50,
+                            message: 'The FirstName must be less than 50 characters long'
+                        },
+
+                    }
+                },
+                AcademicYear: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The AcademicYear is required'
+                        },
+
+                       
+                    }
+                },
+                school: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The school is required'
+                        },
+                        
+                    }
+                },
+                UserSurname: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The LastName is required'
+                        },
+                        stringLength: {
+                            max: 50,
+                            message: 'The LastName must be  50 characters long'
+                        },
+                    }
+                },
+               
+               Address: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The Addressis required'
+                        },
+                        stringLength: {
+                            max: 50,
+                            message: 'The Address code must be  50 characters long'
+                        },
+                    }
+               },
+               Email: {
+                   validators: {
+                       notEmpty: {
+                           message: 'The email address is required'
+                       },
+                       stringLength: {
+                           max: 100,
+                           message: 'The email must be less than 100 characters long'
+                       },
+                       emailAddress: {
+                           message: 'The email address not valid'
+                       },
+                   }
+               },
+            }
+              
+        })
+        .on('success.form.fv', function (e) {
+          
+            e.preventDefault();
+            SaveStudentProfileDisplay('/Display/SaveStudentProfileDisplay');
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
+
+<script src="~/Scripts/DisplayProfile/DisplayProfile.js"></script>
+
