@@ -1,0 +1,288 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<link href="//cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+    <script src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+<style>
+    #TokenForm .form-control-feedback {
+        right: 7px;
+    }
+</style>
+<input type="hidden" id="TokenID" />
+
+
+<div class="tile">
+
+    <div class="container">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Manage Token</div>
+        </div>
+        <div class="table-responsive table table-bordered">
+            <button id="ClearTextbox" style="margin-left: 16px;float:right;margin-bottom: 31px;margin-top: 11px;" class="btn btn-info " value="Save" data-toggle='modal' data-target='#myModal'> Add new</button>
+            <button style="margin-left: 16px;float:right;font-weight:bold; margin-bottom: 31px;margin-top: 11px;" class="btn btn-warning " value="Save" data-toggle="modal" data-target="#UploadmyModal"> Import Excel Sheet</button>
+             <h4 style="text-align:center;"> <label class="label" id="lblUpdateMessages"></label></h4>
+            <h4 style="text-align:center;">
+                <label class="label label-danger" id="lblMessage"></label>
+            </h4>
+            <h4 style="text-align:center;"> <label class="label label-success" id="lbladdMessages" style="display: none;"></label></h4>
+            <table id="TokenTable" class="table table-bordered" style="border-bottom: 1px solid #D5D5D5;">
+                <thead>
+                    <tr>
+                        <th style="text-transform:none;border: 1px solid #D5D5D5;">#</th>
+                        <th style="text-transform:none;border: 1px solid #D5D5D5;">Token ID</th>
+                        <th style="text-transform:none;border: 1px solid #D5D5D5;">Token Name</th>
+                        <th style="text-transform:none;border: 1px solid #D5D5D5;">Token Price</th>
+                        <th style="text-transform:none;border: 1px solid #D5D5D5;">Number Of Time Use</th>
+                        <th style="text-transform:none;border: 1px solid #D5D5D5;">Token Description</th>
+                        <th style="text-transform:none;border: 1px solid #D5D5D5;">Action</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+            <label class="label label-danger" id="lblMessage"></label>
+        </div>
+
+
+        <br>
+    </div>
+</div>
+
+<div class="container">
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" style="border-bottom: #edecec 1px solid;">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Manage Token</h4>
+
+                </div>
+                <form id="TokenForm">
+                    <div class="modal-body">
+
+
+                        <div class="panel-body">
+
+
+
+                            <div class="form-group col-md-6">
+                                <label for="formGroupExampleInput">Token ID</label>
+                                <input class="form-control" id="TokenId" placeholder="Token ID" name="TokenId" type="text" />
+
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="formGroupExampleInput">Token Name</label>
+                                <input class="form-control" id="TokenName" placeholder="Token Name" name="TokenName" type="text" />
+
+                            </div>
+                            
+                            <div class="form-group col-md-6">
+                                <label for="formGroupExampleInput">Token Price</label>
+                                <input class="form-control" id="TokenPrice" placeholder="Token Price" name="TokenPrice" type="text" />
+
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="formGroupExampleInput">Number of Time Use</label>
+                                <input class="form-control" id="NumberOfTimeUse" placeholder="Number Of Time Use" name="NumberOfTimeUse" type="text" />
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                <label for="formGroupExampleInput">Token Description</label>
+                                <textarea class="form-control" id="TokenDescription" placeholder="Token Description" name="TokenDescription" style="height: 100px;width:484px;border-color:#e6e6e6; "></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="border-top: #edecec 1px solid;">
+                        <button style="margin-left: 16px;" class="btn btn-info " value="Save" id="btnAdd">Save </button> <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button><label class="label" id="lblMessages"></label>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+    $(document).ready(function () {
+
+        $('#TokenForm').formValidation({
+            framework: 'bootstrap',
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            err: {
+                // You can set it to popover
+                // The message then will be shown in Bootstrap popover
+                container: 'tooltip'
+            },
+            fields: {
+                TokenName: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The token name is required'
+                        },
+                    }
+                },
+                TokenPrice: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The token price is required'
+                        },
+                    }
+                },
+                TokenId: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The token id is required'
+                        },
+                    }
+                },
+                NumberOfTimeUse: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The number of time use is required'
+                        },
+                    }
+                },
+                TokenPicture: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The token picture is required'
+                        },
+                    }
+                },
+                TokenDescription: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The token description is required'
+                        },
+                    }
+                },
+            }
+        })
+        .on('success.form.fv', function (e) {
+            e.preventDefault();
+            addnewRecorToken('/Token/AddTokens');
+
+        });
+    });
+    $('#ClearTextbox').click(function () {
+        $("#TokenId").removeAttr("disabled", "disabled");
+        document.getElementById("TokenForm").reset();
+    });
+</script>
+
+<div class="container">
+
+    <!-- Modal -->
+    <div class="modal fade" id="UploadmyModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" style="border-bottom: #edecec 1px solid;background-color:#00BFFF;">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" style="color:white;">Import Token By Excel Sheet</h4>
+
+                </div>
+                <form enctype="multipart/form-data" method="post" id="formExcel">
+                    <div class="modal-body">
+
+
+                        <div class="panel-body">
+
+                            <div class="form-group col-md-12">
+                                <label for="formGroupExampleInput">Upload Token</label>
+                                <div class="container">
+
+                                    <div class="form-group">
+                                        @*<input type="file" name="img[]" class="file">*@
+                                        <div class="input-group col-xs-12">
+                                            @*<span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>*@
+                                            <input name="uploadFile" class="form-control" type="file" id="UploadExcel" placeholder="Upload Image" />
+                                            @*<input type="file" class="form-control input-lg" disabled placeholder="Upload Image" id="UploadExcel">*@
+                                            @*<span class="input-group-btn">
+                                                    <button class="browse btn btn-primary input-lg" type="button"><i class="glyphicon glyphicon-search"></i> Browse</button>
+                                                </span>*@
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="border-top: #edecec 1px solid;">
+
+                            <button type="submit" class="btn btn-info " value="Save" id="SaveImages">Upload</button>
+                            <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(function () {
+        // When your form is submitted
+        $("#formExcel").submit(function (e) {
+
+            var fileName = document.getElementById("UploadExcel").value
+            //debugger;
+            if (fileName == "") {
+                alert("Browse to upload a valid File with xls / xlsx extension");
+                return false;
+            }
+            else if (fileName.split(".")[1].toUpperCase() == "XLS" || fileName.split(".")[1].toUpperCase() == "XLSX") {
+                e.preventDefault();
+                // Serialize your form
+                var formData = new FormData($(this)[0]);
+
+                // Make your POST
+                $.ajax({
+                    type: 'POST',
+                    url: '/Token/Upload',
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (d) {
+                        TokenList();
+                        $("#lbladdMessages").show();
+                        $('#lbladdMessages').html(d);
+                        setTimeout(function () { $("#lbladdMessages").hide(); }, 10000);
+                        $('#UploadmyModal').modal('toggle'); //or  $('#IDModal').modal('hide');
+                        return false;
+                    },
+
+                });
+
+                return true;
+            }
+            else {
+                alert("File with " + fileName.split(".")[1] + " is invalid. Upload a validfile with xls / xlsx extensions");
+                return false;
+            }
+            return true;
+            // Prevent the default behavior
+
+        });
+    })
+</script>
+
+<script src="~/Scripts/AdminManage/Token/Token.js"></script>

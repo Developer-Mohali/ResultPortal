@@ -1,0 +1,289 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutManagement.cshtml";
+}
+<script src="~/Scripts/AdminManage/AdministratorAddStudent/AdministratorAddStudent.js"></script>
+<input type="hidden" id="ViewUserID" />
+<input type="hidden" id="ViewStudentID" />
+<style>
+    #AddNewRegisterform .form-control-feedback {
+        right: 7px;
+    }
+
+    #myStudentProfile .form-control-feedback {
+        right: 7px;
+    }
+
+    .modal-body {
+        max-height: calc(100vh - 200px);
+        overflow-y: auto;
+    }
+</style>
+
+
+<div class="tile">
+
+    <div class="container">
+        <div class="panel panel-primary">
+            <div class="panel-heading"> Manage Student</div>
+        </div>
+        <div class="table-responsive table table-bordered">
+            <button id="ClearTextbox" style="margin-left: 16px;float:right;margin-bottom: 31px;margin-top: 11px;" class="btn btn-info " value="Save" data-toggle='modal' data-target='#myModal'> Add new</button>
+            @*<button style="margin-left: 16px;float:right;margin-bottom: 31px;margin-top: 11px;font-weight:bold;" class="btn btn-warning " value="Save" data-toggle='modal' data-target='#UploadmyModal'> Import Excel Sheet</button>*@
+
+            <h4 style="text-align:center;">
+                <label class="label label-danger" id="lblMessage"></label>
+            </h4>
+            <h4 style="text-align:center;"> <label class="label label-success" id="lbladdMessages"></label></h4>
+            <h4 style="text-align:center;"> <label class="label" id="lblUpdatMessages"></label></h4>
+            <h4 style="text-align:center;"> <label class="label" id="lblupdatMessages"></label></h4>
+            <h4 style="text-align:center;"> <label class="label label-success" id="lblMessages"></label></h4>
+            <table id="UserDetailsTable" class="table table-bordered" style="border-bottom: 1px solid #D5D5D5;">
+                <thead>
+                    <tr>
+                        <th style="text-transform:none;border: 1px solid #D5D5D5;">#</th>
+                        <th style="text-transform:none;border: 1px solid #D5D5D5;">Student ID</th>
+                        <th style="text-transform:none;border: 1px solid #D5D5D5;">First Name</th>
+                        <th style="text-transform:none;border: 1px solid #D5D5D5;">Date of Birth</th>
+                        <th style="text-transform:none;border: 1px solid #D5D5D5;">Gender</th>
+                        <th style="text-transform:none;border: 1px solid #D5D5D5;">Local Government</th>
+                        <th style="text-transform:none;border: 1px solid #D5D5D5;">State</th>
+                        <th style="text-transform:none;border: 1px solid #D5D5D5;">School Name</th>
+                        @*<th style="text-transform:none;border: 1px solid #D5D5D5;">Approved</th>*@
+                        <th style="text-transform:none;border: 1px solid #D5D5D5;">Action</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+
+        </div>
+        <br>
+    </div>
+</div>
+<div id="wait" style="display: none; width: 69px; height: 100px; position: absolute; top: 35%; left: 50%; padding: 2px;">
+    <img src='/Images/caricamento_big.gif' width="100%" height="50" /><br>
+    Loading..
+</div>
+<div class="container">
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" style="border-bottom: #edecec 1px solid;">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" style="font-size: 19px;font-weight: bold;">Student Details</h4>
+
+
+                </div>
+                <form name="ManageUserValidation" id="AddNewRegisterform">
+                    <div class="modal-body">
+
+
+                        <div class="panel-body">
+
+
+
+                            <div class="form-group col-md-6">
+                                <label for="formGroupExampleInput">First Name</label>
+                                <input class="form-control" id="txtFirstName" placeholder="First Name" name="txtFirstName" type="text" />
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="formGroupExampleInput">Last Name</label>
+                                <input class="form-control" id="txtLastName" placeholder="Last Name" name="txtLastName" type="text" />
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="formGroupExampleInput">Date of Birth</label>
+                                <input class="form-control" id="txtdob" placeholder="Date of Birth" name="txtdob" type="text" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="formGroupExampleInput">Gender</label>
+                                @{
+                                    var domainsLists = new SelectList(new[]
+                                                           {
+                               new SelectListItem { Text = "Male", Value = "Male", Selected = true },
+                               new SelectListItem { Text = "Female", Value = "Female"},
+
+                                }, "Value", "Text");
+                                }
+                                @Html.DropDownList("DrpGender", domainsLists, "----Gender----", new { id = "DrpGender", @class = "form-control" })
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="formGroupExampleInput">Registration Number </label>
+                                <input class="form-control" id="txtRegistration" placeholder="Registration Number" name="txtRegistration" type="text" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="formGroupExampleInput">Academic Year</label>
+                                @Html.DropDownList("ddlAcademicYears", ViewBag.AcademicYear as SelectList, "----Academic Year----", new { id = "ddlAcademicYears", @class = "form-control" })
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="formGroupExampleInput">Local Government </label>
+                                <input class="form-control" id="txtLocalGoverment" placeholder="Local Government" name="txtLocalGoverment" type="text" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="formGroupExampleInput">State</label>
+                                <input class="form-control" id="txtState" placeholder="State Name" name="txtState" type="text" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="formGroupExampleInput">School</label>
+                                @Html.DropDownList("ddlSchoolName", ViewBag.School as SelectList, "----School Name----", new { id = "ddlSchoolName", @class = "form-control" })
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="formGroupExampleInput2">Address</label>
+                                <textarea id="txtAddress" name="txtAddress" class="form-control" placeholder="Address..." data-autosize-on="true" style="overflow: hidden; word-wrap: break-word; height:70px;"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="border-top: #edecec 1px solid;">
+                        <input style="margin-left: 16px;" type="submit" class="btn btn-info " value="Save" />  <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script type="text/javascript">
+    // For demo to fit into DataTables site builder...
+    $('#UserDetailsTable')
+
+    .removeClass('display')
+    .addClass('table table-striped table-bordered');
+</script>
+
+<script>
+
+    $(document).ready(function () {
+
+        $('#AddNewRegisterform').formValidation({
+            framework: 'bootstrap',
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            err: {
+                // You can set it to popover
+                // The message then will be shown in Bootstrap popover
+                container: 'tooltip'
+            },
+            fields: {
+
+                txtEmail: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The email address is required'
+                        },
+                        stringLength: {
+                            max: 30,
+                            message: 'The email must be less than 30 characters long'
+                        },
+                        emailAddress: {
+                            message: 'The email address not valid'
+                        },
+                    }
+                },
+                txtLastName: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The last name is required'
+                        },
+                    }
+                },
+                txtdob: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The date of birth name is required'
+                        },
+                    }
+                },
+                txtFirstName: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The first name is required'
+                        },
+                    }
+                },
+                txtPassword: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The password is required'
+                        },
+                    }
+                },
+                DrpGender: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The gender name is required'
+                        },
+                    }
+                },
+                txtRegistration: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The registration name is required'
+                        },
+                    }
+                },
+                ddlAcademicYears: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The academic Years name is required'
+                        },
+                    }
+                },
+                txtLocalGoverment: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The local government name is required'
+                        },
+                    }
+                },
+                txtState: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The state name is required'
+                        },
+                    }
+                },
+                ddlSchoolName: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The school name is required'
+                        },
+                    }
+                },
+                txtAddress: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The address name is required'
+                        },
+                    }
+                },
+            }
+        })
+        .on('success.form.fv', function (e) {
+            e.preventDefault();
+            UpdatUserProfile('/AdministratorAddStudent/UpdateUserProfile/');
+        });
+
+    });
+
+    $('#ClearTextbox').click(function () {
+        $("#txtEmail").removeAttr("disabled", "disabled");
+        document.getElementById("AddNewRegisterform").reset();
+    });
+
+</script>
+
+

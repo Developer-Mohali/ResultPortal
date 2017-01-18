@@ -1,0 +1,17 @@
+﻿body {
+}
+
+  .panel-heading {
+        border-radius: 7px;
+        font-size:13px;
+        font-weight:bolder;
+        padding-top: 15px;
+        margin-top: 19px;
+        padding-bottom: 13px;
+        padding-left: 24px;
+    }
+
+.img-thumbnail{
+    border-radius: 100px;
+
+}
