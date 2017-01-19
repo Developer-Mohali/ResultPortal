@@ -52,7 +52,7 @@ namespace OnlineResultCheckPortal.Controllers
                                 }
                                 else
                                 {
-                                    returnResult = "5";
+                                    returnResult = "6";
                                 }
 
                             }

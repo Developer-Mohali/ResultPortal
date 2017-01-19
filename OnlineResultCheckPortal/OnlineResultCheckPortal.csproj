@@ -4811,6 +4811,7 @@
     <Content Include="Views\Result\Index.cshtml" />
     <Content Include="Views\PurchaseToken\Index.cshtml" />
     <Content Include="Views\AdministratorAddStudent\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutHome.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

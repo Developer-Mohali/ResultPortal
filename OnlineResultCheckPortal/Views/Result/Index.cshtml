@@ -1,145 +1,99 @@
 ﻿@{
     ViewBag.Title = "Index";
-    Layout = null;
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
 }
-<html>
-<head>
-    <script src="~/Content/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="~/Content/js/datatables.min.js"></script>
-    <script src="~/Content/js/jquery.dataTables.min.js"></script>
-    <script src="http://formvalidation.io/vendor/formvalidation/js/formValidation.min.js"></script>
-    <script src="http://formvalidation.io/vendor/formvalidation/js/framework/bootstrap.min.js"></script>
+<!--Content-->
+<section id="signup">
+    <div class="container">
+        <div class="row margin-40">
+            <div class="col-sm-6 col-sm-offset-3 text-center signup">
+                <h3>Check your results</h3><br />
+                <form id="signup-form" class="form-horizontal" method="get" action="#">
 
-    <style>
-        .table-responsive{
-          overflow-x:hidden;
-          padding-top: 10px;
-        }
-        .dataTables_length{
-            display:none;
-        }
-        .panel-heading{
-            font-size:x-large;
-           font-weight:bold;
-        }
-        .form-control-feedback {
-            right:8px;
-        }
-        #DrpExamTypes{
-            margin-top:-11px;
-        }
-        #Back {
-               margin-left: 13px;
-               margin-bottom: 6px;
-        }
-         #Back:hover{
-       text-decoration:none;
-         }
-         .has-feedback label~.form-control-feedback{
-             top:3px;
-         }
-       
-.container{
-            
-        }
-
-    </style>
-</head>
-<body>
-    <input type="hidden" id="fileResult" />
-
-    <div class="tile">
-
-        <div class="container" style="padding-top: 30px;width: 651px;">
-            <div class="panel panel-primary">
-                <div class="panel-heading">Result Portal</div>
-                <div class="panel-body">
-                    <div class="col-md-12" style="margin-left: 141px;">
-                        <form action="#" method="get" id="ResultForm">
-                            <div class="form-group col-sm-7">
-                                <label class="heading" style="font-size:medium;padding-bottom:0px;"></label>
-                                @Html.DropDownList("ddlSchool", ViewBag.SchoolName as SelectList, "----School Name----", new { id = "ddlSchool", @class = "form-control" })
-                            </div>
-
-                            <div class="form-group col-sm-7">
-                                <label class="heading" style="font-size:medium;padding-bottom:10px;"></label>
-                                @{
-                                    var domainsList = new SelectList(new[]
-                                    {
+                    <div class="control-group">
+                        <div class="controls">
+                            @Html.DropDownList("ddlSchool", ViewBag.SchoolName as SelectList, "----School Name----", new { id = "ddlSchool", @class = "imput-large" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            @{
+                                var domainsList = new SelectList(new[]
+                                {
                                new SelectListItem { Text = "JSCE Result", Value = "1"},
                                new SelectListItem { Text = "Mock Examination", Value = "2", Selected = true },
                                new SelectListItem { Text = "End Of Term Examination", Value = "3"},
-                              
+
 
                                 }, "Value", "Text");
-                                }
-                                @Html.DropDownList("DrpExamTypes", domainsList, "----Exam Types----", new { id = "DrpExamTypes", @class = "form-control" })
-                               
-                            </div>
-                          
+                            }
+                            @Html.DropDownList("DrpExamTypes", domainsList, "----Exam Types----", new { id = "DrpExamTypes", @class = "imput-large" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <input type="text" class="input-xlarge" id="TxtSearchResult" name="TxtSearchResult" placeholder="Examination number">
+                        </div>
+                    </div>
 
-                       
+                    <div class="control-group">
+                        <div class="controls">
+                            <input type="text" id="TxtToken" name="TxtToken" class="input-xlarge" placeholder="Scratch card token">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <button type="submit" class="btn-main"><i class="fa fa-sign-in" onclick="SearchResult();"></i> Get Result</button>
+                            <label class="label label-danger" id="lblMessage"></label>
+                        </div>
+                        <a class="small-message" href="#"><small>Dont have a token?</small></a>
+                    </div>
+                </form>
 
-                            <div class="form-group col-sm-7">
-                                <input class="form-control" id="TxtToken" name="TxtToken" placeholder="----Token Number----">
-                            </div>
+                <div class="container">
+                    <div class="row">
 
-                            <div class="form-group col-sm-7">
-                                <!-- USE TWITTER TYPEAHEAD JSON WITH API TO SEARCH -->
-                                <input class="form-control" id="TxtSearchResult" name="TxtSearchResult" placeholder="----Registration Number----">
-                            </div>
-                            <div class="form-group col-sm-12">
-                                <!-- USE TWITTER TYPEAHEAD JSON WITH API TO SEARCH -->
-                                <button type="submit" data-toggle="tooltip" data-placement="right"  class="btn btn-info" style="height:34px;width:100px;" id="SearchButtton" onclick="SearchResult();">Search</button>
-                   
-                                    <label class="label label-danger" id="lblMessage"></label>
-                               
-                            </div>
-                         
-                        </form>
+
+
+                        <div class="table-responsive table" id="UserDetailsTables" style="display:none;">
+                            <button style="margin-left: 16px;float:right;margin-bottom: 31px;margin-top: 11px;" id="ResultsDownload" class="btn btn-info " value="Save" data-toggle='modal' data-target='#UploadmyModal'>
+                                <span class="glyphicon glyphicon-download"></span> Report card download
+                            </button>
+                            @*<button style="margin-left: 16px;float:right;margin-bottom: 31px;margin-top: 11px;" id="ReportDownload" class="btn btn-info " value="Save" data-toggle='modal' data-target='#UploadmyModal'>
+                        <span class="glyphicon glyphicon-download"></span> Report card Downlolad
+                    </button>*@
+
+                            <table id="UserDetailsTable" class="table table-bordered" style="border-bottom: 1px solid #D5D5D5;">
+                                <thead>
+                                    <tr>
+                                        <th style="text-transform:none;border: 1px solid #D5D5D5;">#</th>
+                                        <th style="text-transform:none;border: 1px solid #D5D5D5;">Registration No</th>
+                                        <th style="text-transform:none;border: 1px solid #D5D5D5;">Student Name</th>
+                                        <th style="text-transform:none;border: 1px solid #D5D5D5;">Subject Name</th>
+                                        <th style="text-transform:none;border: 1px solid #D5D5D5;">Grade</th>
+                                        <th style="text-transform:none;border: 1px solid #D5D5D5;">Remarks</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                        <br>
+                    </div>
+
+                    <div id="wait" style="display: none; width: 69px; height: 100px; position: absolute; top: 35%; left: 50%; padding: 2px;">
+                        <img src='/Images/caricamento_big.gif' width="100%" height="50" /><br>
+                        Loading..
                     </div>
                 </div>
-             <a href="/Login/Index" data-toggle="tooltip" data-placement="top" title="Back" class="glyphicon glyphicon-arrow-left" id="Back"></a>
-            </div>
-            </div>
-        <div class="container">
-                <div class="row">
-              
-                    
+            </div><!--End Span6-->
+        </div><!--End Row-->
+    </div><!--End Container-->
+</section>
 
-                    <div class="table-responsive table" id="UserDetailsTables" style="display:none;">
-                        <button  style="margin-left: 16px;float:right;margin-bottom: 31px;margin-top: 11px;" id="ResultsDownload" class="btn btn-info " value="Save" data-toggle='modal' data-target='#UploadmyModal'> 
-                            <span class="glyphicon glyphicon-download"></span> Report card download</button>
-                        @*<button style="margin-left: 16px;float:right;margin-bottom: 31px;margin-top: 11px;" id="ReportDownload" class="btn btn-info " value="Save" data-toggle='modal' data-target='#UploadmyModal'>
-                            <span class="glyphicon glyphicon-download"></span> Report card Downlolad
-                        </button>*@
+    <input type="hidden" id="fileResult" />
 
-                        <table id="UserDetailsTable" class="table table-bordered" style="border-bottom: 1px solid #D5D5D5;">
-                            <thead>
-                                <tr>
-                                    <th style="text-transform:none;border: 1px solid #D5D5D5;">#</th>
-                                    <th style="text-transform:none;border: 1px solid #D5D5D5;">Registration No</th>
-                                    <th style="text-transform:none;border: 1px solid #D5D5D5;">Student Name</th>
-                                    <th style="text-transform:none;border: 1px solid #D5D5D5;">Subject Name</th>
-                                    <th style="text-transform:none;border: 1px solid #D5D5D5;">Grade</th>
-                                    <th style="text-transform:none;border: 1px solid #D5D5D5;">Remarks</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                    <br>
-                </div>
-          
-            <div id="wait" style="display: none; width: 69px; height: 100px; position: absolute; top: 35%; left: 50%; padding: 2px;">
-                <img src='/Images/caricamento_big.gif' width="100%" height="50" /><br>
-                Loading..
-            </div>
-        </div>
-    </div>
-</body>
-</html>
+   
+
 <script>
     $(document).ready(function () {
         $(document).ready(function () {
@@ -152,7 +106,7 @@
 
             });
 
-            $('#ResultForm').formValidation({
+        $('#signup-form').formValidation({
                 framework: 'bootstrap',
                 icon: {
                     valid: 'glyphicon glyphicon-ok',
