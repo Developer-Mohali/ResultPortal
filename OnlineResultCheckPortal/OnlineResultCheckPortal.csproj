@@ -940,7 +940,14 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="css\animate.css" />
+    <Content Include="css\bootstrap.min.css" />
+    <Content Include="css\custom-styles.css" />
+    <Content Include="css\flexslider.css" />
+    <Content Include="css\font-awesome.min.css" />
+    <Content Include="css\main.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
     <EntityDeploy Include="OCRP.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -952,9 +959,27 @@
     <Content Include="Images\Empty.jpg" />
     <Content Include="Images\iconvalide.png" />
     <Content Include="Images\symbol_check.png" />
+    <Content Include="js\bootstrap.min.js" />
+    <Content Include="js\charts.js" />
+    <Content Include="js\demo.js" />
+    <Content Include="js\flot-charts\bar-chart.js" />
+    <Content Include="js\flot-charts\curved-line-chart.js" />
+    <Content Include="js\flot-charts\dynamic-chart.js" />
+    <Content Include="js\flot-charts\line-chart.js" />
+    <Content Include="js\flot-charts\pie-chart.js" />
+    <Content Include="js\functions.js" />
+    <Content Include="js\jquery-1.11.2.min.js" />
+    <Content Include="js\jquery.flexslider-min.js" />
+    <Content Include="js\main.js" />
+    <Content Include="js\modernizr-2.6.2-respond-1.1.0.min.js" />
     <Content Include="OCRP.edmx.diagram">
       <DependentUpon>OCRP.edmx</DependentUpon>
     </Content>
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
     <None Include="Properties\PublishProfiles\FTP update.pubxml" />
     <None Include="Properties\PublishProfiles\Local.pubxml" />
     <None Include="Properties\PublishProfiles\onl.pubxml" />
@@ -1009,6 +1034,9 @@
     <Content Include="Scripts\UserScript\Registration\Registration.js" />
     <Content Include="StudentPhoto\NotAvailable.jpg" />
     <Content Include="StudentPhoto\upload-icon.png" />
+    <Content Include="StudentPic\9494c5cc0da7 Koala.jpg" />
+    <Content Include="StudentPic\9d433fb1641e Tulips.jpg" />
+    <Content Include="StudentPic\f4b9cf0a6ef2 Tulips.jpg" />
     <Content Include="vendors\bootgrid\jquery.bootgrid.css" />
     <Content Include="vendors\bootgrid\jquery.bootgrid.js" />
     <Content Include="vendors\bootgrid\jquery.bootgrid.min.css" />
@@ -4800,7 +4828,6 @@
     <Folder Include="EndofTermExam\" />
     <Folder Include="img\" />
     <Folder Include="JsceResult\" />
-    <Folder Include="js\" />
     <Folder Include="MockExamination\" />
     <Folder Include="StudentExecelSheet\" />
     <Folder Include="vendors\bower_components\bower\Packager\" />
