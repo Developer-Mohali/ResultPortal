@@ -170,15 +170,10 @@ function RegisterUser(controller) {
         type: "POST",
         data: JSON.stringify(request),
         success: function (d) {
-            $("#FirstName").val("");
-            $("#Lastname").val("");
-            $("#EmailID").val("");
-            $("#Password").val("");
-            $('#ConfirmPassword').val("");
             $("#lblMessage").show();
             $('#lblMessage').html(d);
-            setTimeout(function () { $("#lblMessage").hide(); }, 5000);
-
+            setTimeout(function () { $("#lblMessage").hide(); }, 10000);
+            $('#Registrationform').bootstrapValidator('resetForm', true);
         }
     });
 }

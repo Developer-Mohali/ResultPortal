@@ -14,17 +14,17 @@ namespace OnlineResultCheckPortal
     
     public partial class Token
     {
-        public int ID { get; set; }
+        public long ID { get; set; }
         public string TokenName { get; set; }
         public string TokenPrice { get; set; }
-        public Nullable<short> NumberOfTimeUse { get; set; }
+        public Nullable<int> NumberOfTimeUse { get; set; }
         public string TokenDescription { get; set; }
-        public string TokenPicture { get; set; }
+        public string TokenID { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<bool> IsDeleted { get; set; }
         public Nullable<int> UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
-        public Nullable<int> DeletedBy { get; set; }
+        public Nullable<bool> DeletedBy { get; set; }
     }
 }

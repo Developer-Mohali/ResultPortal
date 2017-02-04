@@ -47,15 +47,16 @@ namespace OnlineResultCheckPortal.Controllers
                         }
                         else
                         {
-                            // Saving User Detail in User Table.
+                        // Saving User Detail in User Table.
+                        
                             var userDetail = new User();
                             userDetail.FirstName = registration.FirstName;
                             userDetail.LastName = registration.Lastname;
                             userDetail.EmailID = registration.EmailID;
-                            userDetail.Password = registration.ConfirmPassword;
+                            userDetail.Password = Utility.Encrypt(registration.ConfirmPassword);
                             userDetail.RoleId = 2;
                             userDetail.IsDeleted = false;
-                            userDetail.IsApproved = false;
+                            userDetail.IsApproved = true;
                             userDetail.CreatedDate = DateTime.Now;
                             ObjOCRP.Users.Add(userDetail);
                             ObjOCRP.SaveChanges();

@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="9c05cc88a3944c779c2b83f76cc3e6e6" Name="Diagram1">
+      <Diagram DiagramId="9c05cc88a3944c779c2b83f76cc3e6e6" Name="Diagram1" ZoomLevel="81">
         <EntityTypeShape EntityType="OnlineResultCheckPortalModel.Academic_Session" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="OnlineResultCheckPortalModel.JSCE" Width="1.5" PointX="2.75" PointY="0.75" />
         <EntityTypeShape EntityType="OnlineResultCheckPortalModel.PurchasedToken" Width="1.5" PointX="4.75" PointY="0.75" />
@@ -12,8 +12,6 @@
         <EntityTypeShape EntityType="OnlineResultCheckPortalModel.Status" Width="1.5" PointX="6.75" PointY="4.75" />
         <EntityTypeShape EntityType="OnlineResultCheckPortalModel.UsedToken" Width="1.5" PointX="8.75" PointY="0.75" />
         <EntityTypeShape EntityType="OnlineResultCheckPortalModel.ManageManagement" Width="1.5" PointX="3.375" PointY="8.75" />
-        <EntityTypeShape EntityType="OnlineResultCheckPortalModel.School" Width="1.5" PointX="11.375" PointY="0.75" />
-        <EntityTypeShape EntityType="OnlineResultCheckPortalModel.Token" Width="1.5" PointX="5.375" PointY="8.75" />
         <EntityTypeShape EntityType="OnlineResultCheckPortalModel.SchoolName" Width="1.5" PointX="0.75" PointY="11.75" />
         <EntityTypeShape EntityType="OnlineResultCheckPortalModel.User" Width="1.5" PointX="11.375" PointY="4.75" />
         <EntityTypeShape EntityType="OnlineResultCheckPortalModel.JSCEResult" Width="1.5" PointX="0.75" PointY="6.75" />
@@ -23,7 +21,9 @@
         <EntityTypeShape EntityType="OnlineResultCheckPortalModel.EndOfTermExamination" Width="1.5" PointX="13.375" PointY="4.75" />
         <EntityTypeShape EntityType="OnlineResultCheckPortalModel.EndOfTermExaminationsResult" Width="1.5" PointX="5.375" PointY="13.75" />
         <EntityTypeShape EntityType="OnlineResultCheckPortalModel.Student" Width="1.5" PointX="7.375" PointY="7.75" />
-        <EntityTypeShape EntityType="OnlineResultCheckPortalModel.School1" Width="1.5" PointX="13.375" PointY="8.75" />
+        <EntityTypeShape EntityType="OnlineResultCheckPortalModel.School" Width="1.5" PointX="13.375" PointY="8.75" />
+        <EntityTypeShape EntityType="OnlineResultCheckPortalModel.StudentDownloadResult" Width="1.5" PointX="9.375" PointY="13.75" />
+        <EntityTypeShape EntityType="OnlineResultCheckPortalModel.Token" Width="1.5" PointX="11.375" PointY="13.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

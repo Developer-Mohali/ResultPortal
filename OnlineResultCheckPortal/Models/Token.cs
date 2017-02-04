@@ -13,5 +13,6 @@ namespace OnlineResultCheckPortal.Models
         public int NumberOfTimeUse { get; set; }
         public string TokenDescription { get; set; }
         public string TokenPicture { get; set; }
+        public string TokenID { get; set; }
     }
 }

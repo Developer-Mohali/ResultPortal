@@ -41,7 +41,7 @@
         <div class="table-responsive table table-bordered">
 
             <button id="ClearTextbox" style="margin-left: 16px; float: right; margin-bottom: 31px; margin-top: 11px;" class="btn btn-info " value="Save" data-toggle='modal' data-target='#myStudentProfile'>Add new</button>
-
+            <button style="margin-left: 16px;float:right;font-weight:bold; margin-bottom: 31px;margin-top: 11px;" class="btn btn-warning " value="Save" data-toggle="modal" data-target="#UploadmyModal"> Import Excel Sheet</button>
             <h4 style="text-align: center;">
                 <label class="label label-danger" id="lblMessage"></label>
             </h4>
@@ -49,16 +49,20 @@
                 <label class="label" id="lblMessages"></label>
             </h4>
             <h4 style="text-align: center;">
+                <label class="label" style="color:forestgreen;" id="lblMessagess"></label>
+            </h4>
+            <h4 style="text-align: center;">
                 <label class="label" id="lblUpdatMessages"></label>
             </h4>
+            <h4 style="text-align:center;"> <label class="label label-success" id="lbladdMessages" style="display: none;"></label></h4>
             <table id="ManageMockExamresultTable" class="table table-bordered" style="border-bottom: 1px solid #D5D5D5;">
                 <thead>
                     <tr>
                         <th style="text-transform: none; border: 1px solid #D5D5D5;">#</th>
                         <th style="text-transform: none; border: 1px solid #D5D5D5;">Registration No.</th>
+                        <th style="text-transform: none; border: 1px solid #D5D5D5;">Student ID</th>
                         <th style="text-transform: none; border: 1px solid #D5D5D5;">Student Name</th>
-                        <th style="text-transform: none; border: 1px solid #D5D5D5;">Description</th>
-                        <th style="text-transform: none; border: 1px solid #D5D5D5;">Result Download</th>
+                        <th style="text-transform: none; border: 1px solid #D5D5D5;">Report card Download</th>
                         <th style="text-transform: none; border: 1px solid #D5D5D5;">Action</th>
                     </tr>
                 </thead>
@@ -257,6 +261,59 @@
         </div>
     </div>
 </div>
+
+<div class="container">
+
+    <!-- Modal -->
+    <div class="modal fade" id="UploadmyModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" style="border-bottom: #edecec 1px solid;background-color:#00BFFF;">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" style="color:white;">Import Result By Excel Sheet</h4>
+
+                </div>
+                <form enctype="multipart/form-data" method="post" id="formExcel">
+                    <div class="modal-body">
+
+
+                        <div class="panel-body">
+
+                            <div class="form-group col-md-12">
+                                <label for="formGroupExampleInput">Upload Result</label>
+                                <div class="container">
+
+                                    <div class="form-group">
+                                        @*<input type="file" name="img[]" class="file">*@
+                                        <div class="input-group col-xs-12">
+                                            @*<span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>*@
+                                            <input name="uploadFile" class="form-control" type="file" id="UploadExcel" placeholder="Upload Image" />
+                                            @*<input type="file" class="form-control input-lg" disabled placeholder="Upload Image" id="UploadExcel">*@
+                                            @*<span class="input-group-btn">
+                                                    <button class="browse btn btn-primary input-lg" type="button"><i class="glyphicon glyphicon-search"></i> Browse</button>
+                                                </span>*@
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="border-top: #edecec 1px solid;">
+
+                            <button type="submit" class="btn btn-info " value="Save" id="SaveImages">Upload</button>
+                            <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
 <script>
     $(document).ready(function () {
 
@@ -404,5 +461,62 @@
         margin-left: 34%;
     }
 </style>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+            $(document).ajaxStart(function () {
+                $("#wait").css("display", "block");
+            });
+            $(document).ajaxComplete(function () {
+                $("#wait").css("display", "none");
+            });
+            $("#SaveImages").click(function () {
+                $("#txt").load("demo_ajax_load.asp");
+            });
+    })
+        // When your form is submitted
+        $("#formExcel").submit(function (e) {
 
+            var fileName = document.getElementById("UploadExcel").value
+            //debugger;
+            if (fileName == "") {
+                alert("Browse to upload a valid File with xls / xlsx extension");
+                return false;
+            }
+            else if (fileName.split(".")[1].toUpperCase() == "XLS" || fileName.split(".")[1].toUpperCase() == "XLSX") {
+                e.preventDefault();
+                // Serialize your form
+                var formData = new FormData($(this)[0]);
+
+                // Make your POST
+                $.ajax({
+                    type: 'POST',
+                    url: '/MockExaminations/Upload',
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (d) {
+                        $("#lbladdMessages").show();
+                        $('#lbladdMessages').html(d);
+                        setTimeout(function () { $("#lbladdMessages").hide(); }, 10000);
+                        $('#UploadmyModal').modal('toggle'); //or  $('#IDModal').modal('hide');
+                        return false;
+                    },
+
+                });
+
+                return true;
+            }
+            else {
+                alert("File with " + fileName.split(".")[1] + " is invalid. Upload a validfile with xls / xlsx extensions");
+                return false;
+            }
+            return true;
+            // Prevent the default behavior
+
+        });
+    })
+</script>
 <script src="~/Scripts/AdminManage/MockExaminations/MockExaminations.js"></script>

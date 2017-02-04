@@ -79,13 +79,42 @@ namespace OnlineResultCheckPortal.Controllers
         /// This Method Is To Be The Dsplay List To The Schools.
         /// </summary>
         /// <returns></returns>
-        
+
         [HttpPost]
 
         public ActionResult GetSchoolList()
         {
-            var objGetSchoolList = ObjOCRP.GetDetailsSchool().ToList();
-            return new JsonResult { Data = objGetSchoolList, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            string returnResult = string.Empty;
+            try {
+                // get Start (paging start index) and length (page size for paging)
+                var draw = Request.Form.GetValues("draw").FirstOrDefault();
+                var start = Request.Form.GetValues("start").FirstOrDefault();
+                var length = Request.Form.GetValues("length").FirstOrDefault();
+                //Get Sort columns value
+                var sortColumn = Request.Form.GetValues("columns[" + Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][name]").FirstOrDefault();
+                var sortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
+
+                int pageSize = length != null ? Convert.ToInt32(length) : 0;
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+                int totalRecords = 0;
+
+                using (OnlineResultCheckPortal ObjOCRP = new OnlineResultCheckPortal())
+                {
+                    var objGetSchoolList = ObjOCRP.GetDetailsSchool().ToList();
+                    totalRecords = objGetSchoolList.Count();
+                    var data = objGetSchoolList.Skip(skip).Take(pageSize).ToList();
+                    return Json(new { draw = draw, recordsFiltered = totalRecords, recordsTotal = totalRecords, data = data }, JsonRequestBehavior.AllowGet);
+
+                }
+
+                //var objGetSchoolList = ObjOCRP.GetDetailsSchool().ToList();
+                //return new JsonResult { Data = objGetSchoolList, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+            catch(Exception ex)
+            {
+                returnResult = "";
+            }
+            return new JsonResult { Data = returnResult, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
        

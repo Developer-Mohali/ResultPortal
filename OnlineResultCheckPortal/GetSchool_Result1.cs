@@ -10,9 +10,8 @@
 namespace OnlineResultCheckPortal
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class School1
+    public partial class GetSchool_Result1
     {
         public int ID { get; set; }
         public string SchoolName { get; set; }

@@ -44,7 +44,7 @@ namespace OnlineResultCheckPortal.Controllers
         public void SchoolName()
         {
 
-            ViewBag.SchoolName = new SelectList(ObjOCRP.Schools.ToList(), "ID", "SchoolName");
+            ViewBag.SchoolName = new SelectList(ObjOCRP.GetSchool().ToList(), "ID", "SchoolName");
 
         }
         /// <summary>
@@ -103,8 +103,21 @@ namespace OnlineResultCheckPortal.Controllers
             var ObjAdmin = ObjOCRP.Users.Where(c => (c.ID == createdBy));
             if (ObjAdmin != null)
             {
-                var ObjUserProfile = ObjOCRP.GetEditMangement(userID).ToList();
 
+                var ObjUserProfile = (from c in ObjOCRP.GetEditMangement(userID)
+                                      select new
+                                      {
+                                          FirstName = c.FirstName,
+                                          LastName = c.LastName,
+                                          Password = Models.Utility.Decrypt(c.Password),
+                                          EmailID = c.EmailID,
+                                          Gender=c.Gender,
+                                          ContactNo=c.ContactNo,
+                                          Address=c.Address,
+                                          RoleID = c.RoleID,
+                                          SchoolID=c.SchoolID,
+                                          UserId=c.UserId,
+                                      }).ToList();
                 return new JsonResult { Data = ObjUserProfile, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
             return View();
@@ -132,7 +145,7 @@ namespace OnlineResultCheckPortal.Controllers
                     ObjUserUpdateProfile.FirstName = objAdminManage.FirstName;
                     ObjUserUpdateProfile.LastName = objAdminManage.Lastname;
                     ObjUserUpdateProfile.RoleId = objAdminManage.RoleId;
-                    ObjUserUpdateProfile.Password = objAdminManage.ConfirmPassword;
+                    ObjUserUpdateProfile.Password =Models.Utility.Encrypt(objAdminManage.ConfirmPassword);
                     ObjOCRP.SaveChanges();
                  
                         //This use to save School Id in SchoolName table.
@@ -200,7 +213,7 @@ namespace OnlineResultCheckPortal.Controllers
                         ObjUserNewProfile.FirstName = objAdminManage.FirstName;
                         ObjUserNewProfile.LastName = objAdminManage.Lastname;
                         ObjUserNewProfile.EmailID = objAdminManage.Email;
-                        ObjUserNewProfile.Password = objAdminManage.ConfirmPassword;
+                        ObjUserNewProfile.Password =Models.Utility.Encrypt(objAdminManage.ConfirmPassword);
                         ObjUserNewProfile.RoleId = objAdminManage.RoleId;
                         ObjUserNewProfile.IsDeleted = false;
                         ObjUserNewProfile.IsApproved = false;

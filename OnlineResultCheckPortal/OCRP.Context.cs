@@ -35,8 +35,6 @@ namespace OnlineResultCheckPortal
         public DbSet<Status> Status { get; set; }
         public DbSet<UsedToken> UsedTokens { get; set; }
         public DbSet<ManageManagement> ManageManagements { get; set; }
-        public DbSet<School> Schools { get; set; }
-        public DbSet<Token> Tokens { get; set; }
         public DbSet<SchoolName> SchoolNames { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<JSCEResult> JSCEResults { get; set; }
@@ -46,25 +44,13 @@ namespace OnlineResultCheckPortal
         public DbSet<EndOfTermExamination> EndOfTermExaminations { get; set; }
         public DbSet<EndOfTermExaminationsResult> EndOfTermExaminationsResults { get; set; }
         public DbSet<Student> Students { get; set; }
-        public DbSet<School1> School1 { get; set; }
+        public DbSet<School> Schools { get; set; }
+        public DbSet<StudentDownloadResult> StudentDownloadResults { get; set; }
+        public DbSet<Token> Tokens { get; set; }
     
         public virtual ObjectResult<AdminMangement_Result3> AdminMangement()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AdminMangement_Result3>("AdminMangement");
-        }
-    
-        public virtual ObjectResult<EditTokenLists_Result> EditTokenLists(Nullable<int> iD)
-        {
-            var iDParameter = iD.HasValue ?
-                new ObjectParameter("ID", iD) :
-                new ObjectParameter("ID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<EditTokenLists_Result>("EditTokenLists", iDParameter);
-        }
-    
-        public virtual ObjectResult<GetTokenList_Result> GetTokenList()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetTokenList_Result>("GetTokenList");
         }
     
         public virtual ObjectResult<GetDetailsSchool_Result1> GetDetailsSchool()
@@ -122,15 +108,6 @@ namespace OnlineResultCheckPortal
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetDisplayStudentProfile_Result>("GetDisplayStudentProfile", schoolIdParameter);
         }
     
-        public virtual ObjectResult<AdminProfile_Result2> AdminProfile(Nullable<int> adminId)
-        {
-            var adminIdParameter = adminId.HasValue ?
-                new ObjectParameter("AdminId", adminId) :
-                new ObjectParameter("AdminId", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AdminProfile_Result2>("AdminProfile", adminIdParameter);
-        }
-    
         public virtual ObjectResult<AdminManageProfile_Result> AdminManageProfile(Nullable<int> userId)
         {
             var userIdParameter = userId.HasValue ?
@@ -167,16 +144,6 @@ namespace OnlineResultCheckPortal
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetDisplayManageListJSCE_Result2>("GetDisplayManageListJSCE", createdByParameter);
         }
     
-        public virtual ObjectResult<AdminUserProfileDisplay_Result19> AdminUserProfileDisplay()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AdminUserProfileDisplay_Result19>("AdminUserProfileDisplay");
-        }
-    
-        public virtual ObjectResult<PurchaseToken_Result1> PurchaseToken()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PurchaseToken_Result1>("PurchaseToken");
-        }
-    
         public virtual ObjectResult<GetJSCEResultEdit_Result2> GetJSCEResultEdit(Nullable<int> jsceId)
         {
             var jsceIdParameter = jsceId.HasValue ?
@@ -184,16 +151,6 @@ namespace OnlineResultCheckPortal
                 new ObjectParameter("JsceId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetJSCEResultEdit_Result2>("GetJSCEResultEdit", jsceIdParameter);
-        }
-    
-        public virtual ObjectResult<GetUploadResultDetails_Result3> GetUploadResultDetails()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetUploadResultDetails_Result3>("GetUploadResultDetails");
-        }
-    
-        public virtual ObjectResult<GetDetailsMockExamanation_Result8> GetDetailsMockExamanation()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetDetailsMockExamanation_Result8>("GetDetailsMockExamanation");
         }
     
         public virtual ObjectResult<GetMockExamanationEdit_Result> GetMockExamanationEdit(Nullable<int> mockExamID)
@@ -205,11 +162,6 @@ namespace OnlineResultCheckPortal
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetMockExamanationEdit_Result>("GetMockExamanationEdit", mockExamIDParameter);
         }
     
-        public virtual ObjectResult<GetDetailsEndMockExamanation_Result5> GetDetailsEndMockExamanation()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetDetailsEndMockExamanation_Result5>("GetDetailsEndMockExamanation");
-        }
-    
         public virtual ObjectResult<GetEndMockExamanationEdit_Result> GetEndMockExamanationEdit(Nullable<int> endofTermId)
         {
             var endofTermIdParameter = endofTermId.HasValue ?
@@ -217,32 +169,6 @@ namespace OnlineResultCheckPortal
                 new ObjectParameter("EndofTermId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetEndMockExamanationEdit_Result>("GetEndMockExamanationEdit", endofTermIdParameter);
-        }
-    
-        public virtual ObjectResult<GetOnlyPurchaseTokenResult_Result1> GetOnlyPurchaseTokenResult(string registration, string checkResult)
-        {
-            var registrationParameter = registration != null ?
-                new ObjectParameter("Registration", registration) :
-                new ObjectParameter("Registration", typeof(string));
-    
-            var checkResultParameter = checkResult != null ?
-                new ObjectParameter("CheckResult", checkResult) :
-                new ObjectParameter("CheckResult", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetOnlyPurchaseTokenResult_Result1>("GetOnlyPurchaseTokenResult", registrationParameter, checkResultParameter);
-        }
-    
-        public virtual ObjectResult<string> GetResutFileDownload(string registration, string checkResult)
-        {
-            var registrationParameter = registration != null ?
-                new ObjectParameter("Registration", registration) :
-                new ObjectParameter("Registration", typeof(string));
-    
-            var checkResultParameter = checkResult != null ?
-                new ObjectParameter("CheckResult", checkResult) :
-                new ObjectParameter("CheckResult", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("GetResutFileDownload", registrationParameter, checkResultParameter);
         }
     
         public virtual ObjectResult<GetStudentName_Result3> GetStudentName()
@@ -259,22 +185,203 @@ namespace OnlineResultCheckPortal
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetEditMangement_Result9>("GetEditMangement", adminIdParameter);
         }
     
-        public virtual ObjectResult<EditUserProfile_Result7> EditUserProfile(Nullable<int> id)
+        public virtual ObjectResult<EditUserProfile_Result13> EditUserProfile(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("Id", id) :
                 new ObjectParameter("Id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<EditUserProfile_Result7>("EditUserProfile", idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<EditUserProfile_Result13>("EditUserProfile", idParameter);
         }
     
-        public virtual ObjectResult<CreateSchoolByExcel_Result3> CreateSchoolByExcel(string schoolName)
+        public virtual ObjectResult<AdministratorSchool_Result> AdministratorSchool(Nullable<int> administratorID)
+        {
+            var administratorIDParameter = administratorID.HasValue ?
+                new ObjectParameter("AdministratorID", administratorID) :
+                new ObjectParameter("AdministratorID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AdministratorSchool_Result>("AdministratorSchool", administratorIDParameter);
+        }
+    
+        public virtual ObjectResult<GetDetailsEndMockExamanation_Result6> GetDetailsEndMockExamanation()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetDetailsEndMockExamanation_Result6>("GetDetailsEndMockExamanation");
+        }
+    
+        public virtual ObjectResult<GetDetailsMockExamanation_Result9> GetDetailsMockExamanation()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetDetailsMockExamanation_Result9>("GetDetailsMockExamanation");
+        }
+    
+        public virtual ObjectResult<GetUploadResultDetails_Result4> GetUploadResultDetails()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetUploadResultDetails_Result4>("GetUploadResultDetails");
+        }
+    
+        public virtual ObjectResult<GetResutFileDownload_Result1> GetResutFileDownload(string registration, string checkResult)
+        {
+            var registrationParameter = registration != null ?
+                new ObjectParameter("Registration", registration) :
+                new ObjectParameter("Registration", typeof(string));
+    
+            var checkResultParameter = checkResult != null ?
+                new ObjectParameter("CheckResult", checkResult) :
+                new ObjectParameter("CheckResult", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetResutFileDownload_Result1>("GetResutFileDownload", registrationParameter, checkResultParameter);
+        }
+    
+        public virtual ObjectResult<PurchaseToken_Result3> PurchaseToken()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PurchaseToken_Result3>("PurchaseToken");
+        }
+    
+        public virtual ObjectResult<GetDisplayListJSCEResult_Result4> GetDisplayListJSCEResult(Nullable<int> createdBy)
+        {
+            var createdByParameter = createdBy.HasValue ?
+                new ObjectParameter("CreatedBy", createdBy) :
+                new ObjectParameter("CreatedBy", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetDisplayListJSCEResult_Result4>("GetDisplayListJSCEResult", createdByParameter);
+        }
+    
+        public virtual ObjectResult<GetvalueEndMockExamanation_Result2> GetvalueEndMockExamanation(Nullable<int> iD)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetvalueEndMockExamanation_Result2>("GetvalueEndMockExamanation", iDParameter);
+        }
+    
+        public virtual ObjectResult<GetvalueMockExamanation_Result2> GetvalueMockExamanation(Nullable<int> iD)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetvalueMockExamanation_Result2>("GetvalueMockExamanation", iDParameter);
+        }
+    
+        public virtual ObjectResult<StudenDetails_Result7> StudenDetails(Nullable<int> userId)
+        {
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<StudenDetails_Result7>("StudenDetails", userIdParameter);
+        }
+    
+        public virtual ObjectResult<EditTokenLists_Result2> EditTokenLists(Nullable<int> iD)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<EditTokenLists_Result2>("EditTokenLists", iDParameter);
+        }
+    
+        public virtual ObjectResult<AdminProfile_Result3> AdminProfile(Nullable<int> adminId)
+        {
+            var adminIdParameter = adminId.HasValue ?
+                new ObjectParameter("AdminId", adminId) :
+                new ObjectParameter("AdminId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AdminProfile_Result3>("AdminProfile", adminIdParameter);
+        }
+    
+        public virtual ObjectResult<DownloadResultGetProfile_Result1> DownloadResultGetProfile(string registration, string checkResult)
+        {
+            var registrationParameter = registration != null ?
+                new ObjectParameter("Registration", registration) :
+                new ObjectParameter("Registration", typeof(string));
+    
+            var checkResultParameter = checkResult != null ?
+                new ObjectParameter("CheckResult", checkResult) :
+                new ObjectParameter("CheckResult", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DownloadResultGetProfile_Result1>("DownloadResultGetProfile", registrationParameter, checkResultParameter);
+        }
+    
+        public virtual ObjectResult<GetOnlyPurchaseTokenResult_Result23> GetOnlyPurchaseTokenResult(string tokentID, string checkResult, string registration, Nullable<int> schoolId)
+        {
+            var tokentIDParameter = tokentID != null ?
+                new ObjectParameter("TokentID", tokentID) :
+                new ObjectParameter("TokentID", typeof(string));
+    
+            var checkResultParameter = checkResult != null ?
+                new ObjectParameter("CheckResult", checkResult) :
+                new ObjectParameter("CheckResult", typeof(string));
+    
+            var registrationParameter = registration != null ?
+                new ObjectParameter("Registration", registration) :
+                new ObjectParameter("Registration", typeof(string));
+    
+            var schoolIdParameter = schoolId.HasValue ?
+                new ObjectParameter("SchoolId", schoolId) :
+                new ObjectParameter("SchoolId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetOnlyPurchaseTokenResult_Result23>("GetOnlyPurchaseTokenResult", tokentIDParameter, checkResultParameter, registrationParameter, schoolIdParameter);
+        }
+    
+        public virtual ObjectResult<CreateSchoolByExcel_Result4> CreateSchoolByExcel(string schoolName)
         {
             var schoolNameParameter = schoolName != null ?
                 new ObjectParameter("SchoolName", schoolName) :
                 new ObjectParameter("SchoolName", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CreateSchoolByExcel_Result3>("CreateSchoolByExcel", schoolNameParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CreateSchoolByExcel_Result4>("CreateSchoolByExcel", schoolNameParameter);
+        }
+    
+        public virtual ObjectResult<GetManageJSCEEdit1_Result1> GetManageJSCEEdit1(Nullable<int> jSCEID)
+        {
+            var jSCEIDParameter = jSCEID.HasValue ?
+                new ObjectParameter("JSCEID", jSCEID) :
+                new ObjectParameter("JSCEID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetManageJSCEEdit1_Result1>("GetManageJSCEEdit1", jSCEIDParameter);
+        }
+    
+        public virtual ObjectResult<AdminUserProfileDisplay_Result28> AdminUserProfileDisplay()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AdminUserProfileDisplay_Result28>("AdminUserProfileDisplay");
+        }
+    
+        public virtual ObjectResult<GetTokenList_Result4> GetTokenList()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetTokenList_Result4>("GetTokenList");
+        }
+    
+        public virtual ObjectResult<CreateSchoolByExcel1_Result1> CreateSchoolByExcel1(string schoolName)
+        {
+            var schoolNameParameter = schoolName != null ?
+                new ObjectParameter("SchoolName", schoolName) :
+                new ObjectParameter("SchoolName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CreateSchoolByExcel1_Result1>("CreateSchoolByExcel1", schoolNameParameter);
+        }
+    
+        public virtual ObjectResult<GetManageJSCEEdit2_Result> GetManageJSCEEdit2(Nullable<int> jSCEID)
+        {
+            var jSCEIDParameter = jSCEID.HasValue ?
+                new ObjectParameter("JSCEID", jSCEID) :
+                new ObjectParameter("JSCEID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetManageJSCEEdit2_Result>("GetManageJSCEEdit2", jSCEIDParameter);
+        }
+    
+        public virtual ObjectResult<GetSchool_Result1> GetSchool()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetSchool_Result1>("GetSchool");
+        }
+    
+        public virtual ObjectResult<GetStudentProfileByAdministrator_Result3> GetStudentProfileByAdministrator(Nullable<int> administrator)
+        {
+            var administratorParameter = administrator.HasValue ?
+                new ObjectParameter("Administrator", administrator) :
+                new ObjectParameter("Administrator", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetStudentProfileByAdministrator_Result3>("GetStudentProfileByAdministrator", administratorParameter);
         }
     }
 }

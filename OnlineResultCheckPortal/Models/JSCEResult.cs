@@ -20,6 +20,8 @@ namespace OnlineResultCheckPortal.Models
       public bool IsDeleted { get; set; }
       public int CreatedBy { get; set; }
       public int UpdateBy { get; set; }
+      public string TokenNumber { get; set; }
+      public int SchoolID { get; set; }
     }
 }
 

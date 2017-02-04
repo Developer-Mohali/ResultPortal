@@ -31,6 +31,6 @@ namespace OnlineResultCheckPortal.Models
         public string StudentId { get; set; }
         public string LocalGoverment { get; set; }
         public string State { get; set; }
-
+        public int AcadmicID { get; set; }
     }
 }

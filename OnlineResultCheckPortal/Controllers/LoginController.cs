@@ -25,7 +25,8 @@ namespace OnlineResultCheckPortal.Controllers
         public ActionResult login(Models.Registration objRegistration)
         {
             string returnResult = string.Empty;
-            var objRegistrationLogin = ObjOCRP.Users.FirstOrDefault(c => (c.EmailID == objRegistration.EmailID && c.Password == objRegistration.Password && c.IsDeleted == false));
+            string dcyrptPassword = Models.Utility.Encrypt(objRegistration.Password);
+            var objRegistrationLogin = ObjOCRP.Users.FirstOrDefault(c => (c.EmailID == objRegistration.EmailID && c.Password == dcyrptPassword && c.IsDeleted == false));
             if (objRegistrationLogin != null)
             {
                 if (objRegistrationLogin.IsApproved == true)

@@ -1,9 +1,50 @@
 ﻿$(document).ready(function () {
+    GetSchoolists();
     $('[data-toggle="tooltip"]').tooltip();
     //Call The Get List .//
-    GetSchoolList();
+   
 });
    
+
+function GetSchoolists()
+{
+    var table = $("#SchoolDetailsTable").DataTable({
+        searching: true,
+        scrollY: false,
+        paging: true,
+        processing: true, // for show progress bar
+        serverSide: true, // for process server side
+        filter: true, // this is for disable filter (search box)
+        orderMult: false, // for disable multiple column at once
+        ajax: {
+            url: '/ManageSchool/GetSchoolLIst',
+            type: "POST",
+            datatype: "json"
+        }, 
+        columns: [
+                { data: "RowNumber", "autoWidth": true },
+                { data: "SchoolName", "autoWidth": true },
+                { data: "Address", "autoWidth": true },
+                { data: "Zipcode", "autoWidth": true },
+                { data: "Zone", "autoWidth": true },
+                {
+                    data: null,
+                    className: "center",
+                    "render": function (data, type, row) {
+                        var inner = null;
+                        inner = "<a data-toggle='modal' data-target='#myModal' data-placement='top' title='Edit' onclick='EditSchoolDetail(" + row.ID + ")' href='#' class='glyphicon glyphicon-edit' ></a>&nbsp;|&nbsp;<a data-toggle='tooltip' data-placement='top' title='Delete' onclick='DeleteRecords(" + row.ID + ")' href='#'  class='glyphicon glyphicon-trash' style='color: red;'></a>"
+                     
+                        return inner;
+                    }
+                }
+
+        ]
+    });
+    setInterval(function () {
+        table.ajax.reload();
+    }, 10000)
+}
+
 function AddSchool(Controller) {
     var request = new GetvalueAddSchool();
          $.ajax({
@@ -17,7 +58,6 @@ function AddSchool(Controller) {
                  $("#lblUpdateMessages").show();
                  $('#lblUpdateMessages').html(response);
                  setTimeout(function () { $("#lblUpdateMessages").hide(); }, 5000);
-                 GetSchoolList();
                  $('#myModal').modal('toggle'); //or  $('#IDModal').modal('hide');
                  return false;
              }
@@ -36,33 +76,31 @@ function GetvalueAddSchool()
 
 }
 
+
 //Display The School List.//
 
-function GetSchoolList()
-{
+//function GetSchoolList()
+//{
+//    $.ajax({
+//        url: '/ManageSchool/GetSchoolLIst',
+//        dataType: 'json',
+//        contentType: "application/json",
+//        type: "POST",
+//        success: function (data) {
+//            var oTable = $('#SchoolDetailsTable').dataTable();
+//            oTable.fnClearTable();
+//            for (i = 0; i < data.length; i++)
+//            {
+//                $('#SchoolDetailsTable').dataTable().fnAddData([
+//                data[i].RowNumber, data[i].SchoolName, data[i].Address, data[i].Zipcode, data[i].Zone, "<a data-toggle='modal' data-target='#myModal' data-placement='top' title='Edit' onclick='EditSchoolDetail(" + data[i].ID + ")' href='#' class='glyphicon glyphicon-edit' ></a>&nbsp;|&nbsp;<a data-toggle='tooltip' data-placement='top' title='Delete' onclick='DeleteRecords(" + data[i].ID + ")' href='#'  class='glyphicon glyphicon-trash' style='color: red;'></a>"
 
- 
-
-    $.ajax({
-        url: '/ManageSchool/GetSchoolLIst',
-        dataType: 'json',
-        contentType: "application/json",
-        type: "POST",
-        success: function (data) {
-            var oTable = $('#SchoolDetailsTable').dataTable();
-            oTable.fnClearTable();
-            for (i = 0; i < data.length; i++)
-            {
-                $('#SchoolDetailsTable').dataTable().fnAddData([
-                data[i].RowNumber, data[i].SchoolName, data[i].Address, data[i].Zipcode, data[i].Zone, "<a data-toggle='modal' data-target='#myModal' data-placement='top' title='Edit' onclick='EditSchoolDetail(" + data[i].ID + ")' href='#' class='glyphicon glyphicon-edit' ></a>&nbsp;|&nbsp;<a data-toggle='tooltip' data-placement='top' title='Delete' onclick='DeleteRecords(" + data[i].ID + ")' href='#'  class='glyphicon glyphicon-trash' style='color: red;'></a>"
-
-                ]);
+//                ]);
               
-            }
-        }
-    });
+//            }
+//        }
+//    });
 
-}
+//}
 
 //Edit School Details By Json Process.//
 
@@ -101,7 +139,6 @@ function DeleteRecords(schoolId)
             type: "POST",
             data: { 'schoolId': schoolId },
             success: function (data) {
-                GetSchoolList();
                 $("#lblMessage").show();
                 $('#lblMessage').html(data);
                 setTimeout(function () { $("#lblMessage").hide(); }, 5000);

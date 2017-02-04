@@ -32,21 +32,29 @@ namespace OnlineResultCheckPortal.Controllers
         /// <returns></returns>
         public ActionResult UserProfile()
         {
-            string returnResult = string.Empty;
-            Int32 createdBy = Models.Utility.Number.Zero;
-            //Getting user id by session.
-            if (Session["UserId"] != null)
-            {
-                createdBy = Convert.ToInt32(Session["UserId"]);
-            }
-            var ObjAdmin = ObjOCRP.Users.Where(c => (c.ID == createdBy));
-            if (ObjAdmin != null)
+
+            // get Start (paging start index) and length (page size for paging)
+            var draw = Request.Form.GetValues("draw").FirstOrDefault();
+            var start = Request.Form.GetValues("start").FirstOrDefault();
+            var length = Request.Form.GetValues("length").FirstOrDefault();
+            //Get Sort columns value
+            var sortColumn = Request.Form.GetValues("columns[" + Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][name]").FirstOrDefault();
+            var sortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
+
+            int pageSize = length != null ? Convert.ToInt32(length) : 0;
+            int skip = start != null ? Convert.ToInt32(start) : 0;
+            int totalRecords = 0;
+
+            using (OnlineResultCheckPortal ObjOCRP = new OnlineResultCheckPortal())
             {
                 var ObjUserProfile = ObjOCRP.AdminUserProfileDisplay().ToList();
-
-                return new JsonResult { Data = ObjUserProfile, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                //Sorting
+                totalRecords = ObjUserProfile.Count();
+                var data = ObjUserProfile.Skip(skip).Take(pageSize).ToList();
+                return Json(new { draw = draw, recordsFiltered = totalRecords, recordsTotal = totalRecords, data = data }, JsonRequestBehavior.AllowGet);
             }
-            return View();
+
+
         }
         /// <summary>
         /// This method use get get amdin profile by Admin id.
@@ -104,7 +112,7 @@ namespace OnlineResultCheckPortal.Controllers
 
         }
         /// <summary>
-        /// 
+        /// This method use to update student profile by student id.
         /// </summary>
         /// <param name="UserID"></param>
         /// <returns></returns>
@@ -133,7 +141,7 @@ namespace OnlineResultCheckPortal.Controllers
         public void SchoolName()
         {
 
-            ViewBag.SchoolName = new SelectList(ObjOCRP.Schools.ToList(), "ID", "SchoolName");
+            ViewBag.SchoolName = new SelectList(ObjOCRP.GetSchool().ToList(), "ID", "SchoolName");
 
         }
 
@@ -188,6 +196,7 @@ namespace OnlineResultCheckPortal.Controllers
                         ObjUserNewProfile.LastName = objRegistration.Lastname;
                         ObjUserNewProfile.StudentID = objRegistration.StudentId;
                         ObjUserNewProfile.RoleId =2;
+                        ObjUserNewProfile.CreatedBy = createdBy;
                         ObjUserNewProfile.IsDeleted = false;
                         ObjUserNewProfile.IsApproved = true;
                         ObjUserNewProfile.CreatedDate = DateTime.Now;
@@ -446,10 +455,10 @@ namespace OnlineResultCheckPortal.Controllers
                     DataSet ds = new DataSet();
 
                     //A 32-bit provider which enables the use of
-                    
-                    string ConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" +
-                  filePath + ";Extended Properties=\"Excel 12.0;HDR=No;IMEX=2\"";
-                    //"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + filePath + ";Extended Properties=Excel 12.0;";
+
+                    //  string ConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" +
+                    //filePath + ";Extended Properties=\"Excel 12.0;HDR=No;IMEX=2\"";
+                    string ConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + filePath + ";Extended Properties=Excel 12.0;";
                     using (OleDbConnection conn = new System.Data.OleDb.OleDbConnection(ConnectionString))
                     {
                         conn.Open();
@@ -472,9 +481,7 @@ namespace OnlineResultCheckPortal.Controllers
                                     {
                                         
                                         //Now we can insert this data to database...
-                                        //string studentId = (ds.Tables[0].Rows[i].ItemArray[0]).ToString();
-                                        //studentFirstName = (ds.Tables[0].Rows[i].ItemArray[1]).ToString();
-                                        //studentLastName = (ds.Tables[0].Rows[i].ItemArray[2]).ToString();
+                                       
                                         string studentId = (ds.Tables[0].Rows[i].ItemArray[0]).ToString();
                                         objRegistration.FirstName = (ds.Tables[0].Rows[i].ItemArray[1]).ToString();
                                         objRegistration.Lastname = (ds.Tables[0].Rows[i].ItemArray[2]).ToString();
@@ -492,6 +499,7 @@ namespace OnlineResultCheckPortal.Controllers
                                             {
                                                 objCreateSchool = new School();
                                                 objCreateSchool.SchoolName = School;
+                                                objCreateSchool.IsDeleted = false;
                                                 ObjOCRP.Schools.Add(objCreateSchool);
                                                 ObjOCRP.SaveChanges();
                                                 objRegistration.School = objCreateSchool.ID;
@@ -500,6 +508,23 @@ namespace OnlineResultCheckPortal.Controllers
                                             {
                                                 objRegistration.School = objCreateSchool.ID;
                                             }
+                                            if (objRegistration.AcademicYear!=null)
+                                            {
+                                                var objAcadmicSchool = ObjOCRP.Academic_Sessions.FirstOrDefault(c => (c.AcademicYear == objRegistration.AcademicYear));
+                                                if (objAcadmicSchool == null)
+                                                {
+                                                    objAcadmicSchool = new Academic_Session();
+                                                    objAcadmicSchool.AcademicYear = objRegistration.AcademicYear;
+                                                    ObjOCRP.Academic_Sessions.Add(objAcadmicSchool);
+                                                    ObjOCRP.SaveChanges();
+                                                    objRegistration.AcadmicID = objAcadmicSchool.ID;
+                                                }
+                                                else
+                                                {
+                                                    objRegistration.AcadmicID = objAcadmicSchool.ID;
+                                                }
+                                            }
+                                           
                                             var objStudentRegister = ObjOCRP.Users.FirstOrDefault(c => (c.StudentID == studentId));
                                             if (objStudentRegister == null)
                                             {
@@ -524,7 +549,7 @@ namespace OnlineResultCheckPortal.Controllers
 
                                                     ObjStudnentProfile = new Student();
                                                     ObjStudnentProfile.Dob = objRegistration.DOB;
-                                                    ObjStudnentProfile.AcademicYear = objRegistration.AcademicYear;
+                                                    ObjStudnentProfile.AcademicYear = objRegistration.AcadmicID.ToString();
                                                     ObjStudnentProfile.School = objRegistration.School;
                                                     ObjStudnentProfile.Address = objRegistration.Address;
                                                     ObjStudnentProfile.Gender = objRegistration.Gender;
@@ -551,7 +576,7 @@ namespace OnlineResultCheckPortal.Controllers
                                                 {
 
                                                     ObjStudnentProfile.Dob = objRegistration.DOB;
-                                                    ObjStudnentProfile.AcademicYear = objRegistration.AcademicYear;
+                                                    ObjStudnentProfile.AcademicYear = objRegistration.AcadmicID.ToString();
                                                     ObjStudnentProfile.School = objRegistration.School; ;
                                                     ObjStudnentProfile.Address = objRegistration.Address;
                                                     ObjStudnentProfile.Gender = objRegistration.Gender;
@@ -562,7 +587,7 @@ namespace OnlineResultCheckPortal.Controllers
                                             }
                                         }
                                         
-                                        returnResult = "<br/><font color=white><b>Add new record total: " + Addcount + "</br></br>Update record total: " + update + "</br></b></font>";//edit it    
+                                        returnResult = "<br/><font color=white><b>Add new record total: " + Addcount + "</br></br>Update record total: " + update + "</br></b></font><br/>";//edit it    
                                     }
                                 }
                             }
@@ -576,6 +601,7 @@ namespace OnlineResultCheckPortal.Controllers
 
             return new JsonResult { Data = returnResult, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
+
     }
 
 }

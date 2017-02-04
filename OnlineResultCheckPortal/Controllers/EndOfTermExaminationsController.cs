@@ -1,8 +1,11 @@
 ﻿using OnlineResultCheckPortal.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.OleDb;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -36,20 +39,36 @@ namespace OnlineResultCheckPortal.Controllers
         public ActionResult GetDetailsEndMockExaminations()
         {
             string returnResult = string.Empty;
-            Int32 createdBy = Models.Utility.Number.Zero;
-            //Getting user id by session.
-            if (Session["UserId"] != null)
+            try
             {
-                createdBy = Convert.ToInt32(Session["UserId"]);
-            }
-            var ObjAdmin = ObjOCRP.Users.Where(c => (c.ID == createdBy));
-            if (ObjAdmin != null)
-            {
-                var ObjUserProfile = ObjOCRP.GetDetailsEndMockExamanation().ToList();
+                // get Start (paging start index) and length (page size for paging)
+                var draw = Request.Form.GetValues("draw").FirstOrDefault();
+                var start = Request.Form.GetValues("start").FirstOrDefault();
+                var length = Request.Form.GetValues("length").FirstOrDefault();
+                //Get Sort columns value
+                var sortColumn = Request.Form.GetValues("columns[" + Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][name]").FirstOrDefault();
+                var sortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
 
-                return new JsonResult { Data = ObjUserProfile, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                int pageSize = length != null ? Convert.ToInt32(length) : 0;
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+                int totalRecords = 0;
+
+                using (OnlineResultCheckPortal ObjOCRP = new OnlineResultCheckPortal())
+                {
+                    var objEndofTerm = ObjOCRP.GetDetailsEndMockExamanation().ToList();
+                    //Sorting
+                    totalRecords = objEndofTerm.Count();
+                    var data = objEndofTerm.Skip(skip).Take(pageSize).ToList();
+                    return Json(new { draw = draw, recordsFiltered = totalRecords, recordsTotal = totalRecords, data = data }, JsonRequestBehavior.AllowGet);
+
+                }
             }
-            return View();
+            catch (Exception ex)
+            {
+
+            }
+            return new JsonResult { Data = returnResult, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
         }
 
         /// <summary>
@@ -59,14 +78,9 @@ namespace OnlineResultCheckPortal.Controllers
         /// <returns></returns>
         public ActionResult GetEditEndMockExamanation(Int32 Id = Models.Utility.Number.Zero)
         {
-            var objEndMockExamanation = ObjOCRP.EndOfTermExaminations.FirstOrDefault(c => (c.ID == Id));
-            if (objEndMockExamanation != null)
-            {
-                var objEndMockExam = ObjOCRP.GetEndMockExamanationEdit(Id).ToList();
-                return new JsonResult { Data = objEndMockExam, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            var objJSCEResults = ObjOCRP.GetEndMockExamanationEdit(Id).ToList();
+            return new JsonResult { Data = objJSCEResults, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
-            }
-            return View();
         }
         /// <summary>
         /// 
@@ -179,7 +193,12 @@ namespace OnlineResultCheckPortal.Controllers
                     {
                         endmockId = data.UpdateID;
                     }
-
+                    var objEndMockExam = ObjOCRP.EndOfTermExaminations.FirstOrDefault(C => (C.ID == endmockId));
+                    if (objEndMockExam != null && data.Description != null)
+                    {
+                        objEndMockExam.Description = data.Description;
+                        ObjOCRP.SaveChanges();
+                    }
                     var objEndMockExamResults = ObjOCRP.EndOfTermExaminationsResults.FirstOrDefault(C => (C.EndofTermId == endmockId && C.SubjectName == data.SubjectName));
                     if (objEndMockExamResults == null)
                     {
@@ -269,7 +288,7 @@ namespace OnlineResultCheckPortal.Controllers
                         //returnResult = filename;
 
                         //  Get the complete folder path and store the file inside it.  
-                        filename = Path.Combine(Server.MapPath("~/StudentExecelSheet/"), Title);
+                        filename = Path.Combine(Server.MapPath("~/EndofTermExam/"), Title);
                         file.SaveAs(filename);
 
 
@@ -277,7 +296,7 @@ namespace OnlineResultCheckPortal.Controllers
                         var objEndMockExamantion = ObjOCRP.EndOfTermExaminations.FirstOrDefault(c => c.ID == UserId);
                         if (objEndMockExamantion != null)
                         {
-                            objEndMockExamantion.FileName = Title;
+                            objEndMockExamantion.ReportCardFile = Title;
                         }
                         ObjOCRP.SaveChanges();
                         returnResult = Models.Utility.Message.Add_Message;
@@ -308,7 +327,11 @@ namespace OnlineResultCheckPortal.Controllers
             var objEndofTermMockExamResult = ObjOCRP.EndOfTermExaminations.FirstOrDefault(c => (c.RegistrationNumber == regitrationNo));
             if (objEndofTermMockExamResult != null)
             {
-                fileName = objEndofTermMockExamResult.FileName;
+                fileName = objEndofTermMockExamResult.ReportCardFile;
+            }
+            if (fileName == null)
+            {
+                fileName = "Result not uploaded";
             }
             return new JsonResult { Data = fileName, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
@@ -321,9 +344,194 @@ namespace OnlineResultCheckPortal.Controllers
         public ActionResult DownloadFile(string file)
         {
 
-            var filepath = System.IO.Path.Combine(Server.MapPath("/StudentExecelSheet/"), file);
+            var filepath = System.IO.Path.Combine(Server.MapPath("/EndofTermExam/"), file);
             return File(filepath, MimeMapping.GetMimeMapping(filepath), file);
 
+        }
+        /// <summary>
+        /// This method use to Import excel sheet  Result Import.
+        /// </summary>
+        /// <param name="uploadFile"></param>
+        /// <returns></returns>
+        public ActionResult Upload(HttpPostedFileBase uploadFile)
+        {
+            int Addcount = 0;
+            int update = 0;
+            int notvalid = 0;
+            int i = 0;
+            int endOFtermId = 0;
+            int studentID = 0;
+            string School = string.Empty;
+            // 
+            Models.EndMockExamanation objEndofTermExam = new Models.EndMockExamanation();
+
+            string returnResult = string.Empty;
+            StringBuilder strValidations = new StringBuilder(string.Empty);
+
+            Int32 createdBy = Models.Utility.Number.Zero;
+            //Getting user id by session.
+            if (Session["UserId"] != null)
+            {
+                createdBy = Convert.ToInt32(Session["UserId"]);
+            }
+
+            try
+            {
+                if (uploadFile.ContentLength > 0)
+                {
+                    string filePath = Path.Combine(HttpContext.Server.MapPath("~/StudentExecelSheet/"),
+                    Path.GetFileName(uploadFile.FileName));
+                    uploadFile.SaveAs(filePath);
+                    DataSet ds = new DataSet();
+
+                    //A 32-bit provider which enables the use of
+
+                    //  string ConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" +
+                    //filePath + ";Extended Properties=\"Excel 12.0;HDR=No;IMEX=2\"";
+                    string ConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + filePath + ";Extended Properties=Excel 12.0;";
+                    using (OleDbConnection conn = new System.Data.OleDb.OleDbConnection(ConnectionString))
+                    {
+                        conn.Open();
+
+                        using (DataTable dtExcelSchema = conn.GetSchema("Tables"))
+                        {
+
+                            string sheetName = dtExcelSchema.Rows[0]["TABLE_NAME"].ToString();
+                            string query = "SELECT * FROM [" + sheetName + "]";
+                            OleDbDataAdapter adapter = new OleDbDataAdapter(query, conn);
+                            //DataSet ds = new DataSet();
+                            adapter.Fill(ds, "Items");
+                            if (ds.Tables.Count > 0)
+                            {
+                                int totalColumns = dtExcelSchema.Columns.Count;
+                                int totalRows = dtExcelSchema.Rows.Count;
+                                if (ds.Tables[0].Rows.Count > 0)
+                                {
+                                    for (i = 0; i < ds.Tables[0].Rows.Count; i++)
+                                    {
+
+                                        //Now we can insert this data to database...
+                                        objEndofTermExam.StudentID = (ds.Tables[0].Rows[i].ItemArray[0]).ToString();
+                                        objEndofTermExam.RegistrationNumber = (ds.Tables[0].Rows[i].ItemArray[1].ToString());
+                                        objEndofTermExam.SubjectName = (ds.Tables[0].Rows[i].ItemArray[2].ToString());
+                                        objEndofTermExam.Grade = (ds.Tables[0].Rows[i].ItemArray[3].ToString());
+                                        objEndofTermExam.Remarks = (ds.Tables[0].Rows[i].ItemArray[4].ToString());
+
+                                        var objGetStudentName = ObjOCRP.Users.FirstOrDefault(c => (c.StudentID == objEndofTermExam.StudentID));
+                                        if (objGetStudentName != null)
+                                        {
+                                            studentID = objGetStudentName.ID;
+                                        }
+                                        var objGetEndofTermID = ObjOCRP.EndOfTermExaminations.FirstOrDefault(c => (c.RegistrationNumber == objEndofTermExam.RegistrationNumber));
+                                        if (objGetEndofTermID != null)
+                                        {
+                                            endOFtermId = objGetEndofTermID.ID;
+                                        }
+                                        if (StudentVarification(objEndofTermExam.StudentID) == true)
+                                        {
+                                            var objEndofTermExamDetailResult = ObjOCRP.EndOfTermExaminations.FirstOrDefault(c => (c.RegistrationNumber == objEndofTermExam.RegistrationNumber && c.StudentID == objEndofTermExam.ID));
+                                            //  Idjsce = objJsceDetailResult.ID;
+                                            if (objEndofTermExamDetailResult == null)
+                                            {
+                                                objEndofTermExamDetailResult = ObjOCRP.EndOfTermExaminations.FirstOrDefault(c => (c.RegistrationNumber == objEndofTermExam.RegistrationNumber));
+                                                if (objEndofTermExamDetailResult == null)
+                                                {
+                                                    Addcount = Addcount + 1;
+                                                    objEndofTermExamDetailResult = new EndOfTermExamination();
+                                                    objEndofTermExamDetailResult.StudentID = studentID;
+                                                    objEndofTermExamDetailResult.IsDeleted = false;
+                                                    objEndofTermExamDetailResult.RegistrationNumber = objEndofTermExam.RegistrationNumber;
+                                                    objEndofTermExamDetailResult.Description = objEndofTermExam.Description;
+                                                    ObjOCRP.EndOfTermExaminations.Add(objEndofTermExamDetailResult);
+                                                    ObjOCRP.SaveChanges();
+                                                    endOFtermId = objEndofTermExamDetailResult.ID;
+                                                }
+
+                                                var objResults = ObjOCRP.EndOfTermExaminationsResults.FirstOrDefault(C => (C.EndofTermId == endOFtermId && C.SubjectName == objEndofTermExam.SubjectName));
+                                                if (objResults == null)
+                                                {
+
+                                                    objResults = new EndOfTermExaminationsResult();
+                                                    if (objEndofTermExam.Remarks == null && objEndofTermExam.Grade == null)
+                                                    {
+
+                                                    }
+                                                    else
+                                                    {
+
+                                                        objResults.EndofTermId = endOFtermId;
+                                                        objResults.SubjectName = objEndofTermExam.SubjectName;
+                                                        objResults.Grade = objEndofTermExam.Grade;
+                                                        objResults.Remarks = objEndofTermExam.Remarks;
+                                                        objResults.CreatedBy = createdBy;
+                                                        objResults.CreatedDate = DateTime.Now;
+                                                        ObjOCRP.EndOfTermExaminationsResults.Add(objResults);
+                                                        ObjOCRP.SaveChanges();
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    update = update + 1;
+                                                    if (objEndofTermExam.Remarks == null && objEndofTermExam.Grade == null)
+                                                    {
+
+                                                    }
+                                                    else
+                                                    {
+                                                        update = update + 1;
+                                                        objResults.EndofTermId = endOFtermId;
+                                                        objResults.SubjectName = objEndofTermExam.SubjectName;
+                                                        objResults.Grade = objEndofTermExam.Grade;
+                                                        objResults.Remarks = objEndofTermExam.Remarks;
+                                                        objResults.CreatedBy = createdBy;
+                                                        objResults.UpdatedDate = DateTime.Now;
+
+                                                        ObjOCRP.SaveChanges();
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            notvalid = notvalid + 1;
+                                        }
+
+                                        returnResult = "<br/><font color=white><b>Add new record total: " + Addcount + "</br></br>Not valid studentID total: " + notvalid + "</br></b></br>Update record total: " + update + "</br></b></font><br/>";//edit it    
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                returnResult = "Already exists";
+            }
+
+            return new JsonResult { Data = returnResult, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+        /// <summary>
+        /// This method use to StudentVarification from Student Table.
+        /// </summary>
+        /// <param name="tokenId"></param>
+        /// <returns></returns>
+        private bool StudentVarification(string studentID)
+        {
+            bool flag = false;
+            try
+            {
+                var objToken = ObjOCRP.Users.FirstOrDefault(c => (c.StudentID == studentID));
+                if (objToken != null)
+                {
+                    flag = true;
+                }
+            }
+            catch (Exception EX)
+            {
+
+            }
+            return flag;
         }
     }
 }

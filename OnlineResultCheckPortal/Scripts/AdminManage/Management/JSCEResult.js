@@ -3,7 +3,50 @@
     DisplayManageJSCEResult();
 });
 
+function DisplayManageJSCEResult() {
+    var table = $("#ManageJSCEResultTable").DataTable({
+        "search": true,
+        "processing": true, // for show progress bar
+        "serverSide": true, // for process server side
+        "filter": true, // this is for disable filter (search box)
+        "orderMulti": false, // for disable multiple column at once
+        ajax: {
+            url: '/JSCEResult/DisplayManageJSCEResult',
+            type: "POST",
+            datatype: "json"
+        },
+        columns: [
+                { data: "RowNumber", "autoWidth": true },
+                { data: "RegistrationNumber", "autoWidth": true },
+                { data: "StudentID", "autoWidth": true },
+                { data: "FullName", "autoWidth": true },
+                {
+                    data: null,
+                    className: "center",
+                    "render": function (data, type, row) {
+                        var inner = null;
+                        inner = "<a href='#' data-toggle='tooltip' data-placement='top' title='Download file' style='margin-left:10px; margin-top: 11px;' onclick='DownloadResult(" + row.RegistrationNumber + ")' class='btn btn-info'> <span class='glyphicon glyphicon-download'></span> Report card download</a>";
+                        return inner;
+                    }
 
+
+                },
+                 {
+                     data: null,
+                     className: "center",
+                     "render": function (data, type, row) {
+                         var inner = null;
+                         inner ="<a href='#'  data-toggle='modal' data-placement='top' title='Edit' data-target='#myStudentProfile' onclick='JsceResultEdit(" + row.ID + ")' class='glyphicon glyphicon-edit'/></a>&nbsp;|&nbsp;<a  href='#' data-toggle='tooltip' data-placement='top' title='Delete' onclick='DeleteJSCEResult(" +row.ID + ")'class='glyphicon glyphicon-trash' alt='Mountain View' style='width:15px;height:18px;margin-left:2px;color: red;'></a>";
+                         return inner;
+                     }
+                 }
+
+        ]
+    });
+    setInterval(function () {
+        table.ajax.reload();
+    }, 10000)
+}
 
 function InsertJSCEResult(controller) {
 
@@ -70,17 +113,28 @@ function InsertJSCEResult(controller) {
             }
             else
             {
-               
-                UploadUserProfileImage(d);
-                UploadReport(d);
-                $('#AddNewManageJSCEResult').bootstrapValidator('resetForm', true);
-                $("#lblMessages").show();
-                $("#lblMessages").html(d);
-                setTimeout(function () { $("#lblMessages").hide(); }, 10000);
-                $('#myStudentProfile').modal('toggle'); //or  $('#IDModal').modal('hide');
-                return false;
+                if ($('#FileUpload').get(0).files.length === 0) {
+                  
+                    $('#AddNewManageJSCEResult').bootstrapValidator('resetForm', true);
+                    $("#lblMessagess").show();
+                    $("#lblMessagess").html('Record save successfully.');
+                    setTimeout(function () { $("#lblMessagess").hide(); }, 10000);
+                    $('#myStudentProfile').modal('toggle'); //or  $('#IDModal').modal('hide');
+                    return false;
+                  
+                   
+                }
+                else {
+                    UploadUserProfileImage(d);
+                    $('#AddNewManageJSCEResult').bootstrapValidator('resetForm', true);
+                    $("#lblMessages").show();
+                    $("#lblMessages").html(d);
+                    setTimeout(function () { $("#lblMessages").hide(); }, 10000);
+                    $('#myStudentProfile').modal('toggle'); //or  $('#IDModal').modal('hide');
+                    return false;
 
-                DisplayManageJSCEResult();
+                 
+                }
             }
             
         }
@@ -89,33 +143,33 @@ function InsertJSCEResult(controller) {
 
 
 
-function DisplayManageJSCEResult() {
-    $.ajax({
-        type: "POST",
-        url: '/JSCEResult/DisplayManageJSCEResult',
-        type: 'GET',
-        dataType: "json",
-        success: function (d) {
-            var oTable = $('#ManageJSCEResultTable').dataTable();
-            oTable.fnClearTable();
-            //  var obj = jQuery.parseJSON(msg);
-            if (d.length > 0) {
-                for (var i = 0; i < d.length;i++) {
-                    // console.log("row:" + JSCEID);
-                    $('#ManageJSCEResultTable').dataTable().fnAddData([
-                    d[i].RowNumber, d[i].RegistrationNumber, d[i].FullName, d[i].Description, "<a href='#' data-toggle='tooltip' data-placement='top' title='Download file' style='margin-left:10px; margin-top: 11px;' onclick='DownloadResult(" + d[i].RegistrationNumber + ")' class='btn btn-info'> <span class='glyphicon glyphicon-download'></span> Result Downlolad</a>", "<a href='#' data-toggle='tooltip' data-placement='top' title='Download file' style='margin-left:10px; margin-top: 11px;' onclick='DownloadResultReport(" + d[i].RegistrationNumber + ")' class='btn btn-info'> <span class='glyphicon glyphicon-download'></span> Report Card Downlolad</a>", "<a href='#'  data-toggle='modal' data-placement='top' title='Edit' data-target='#myStudentProfile' onclick='JsceResultEdit(" + d[i].ID + ")' class='glyphicon glyphicon-edit'/></a>&nbsp;|&nbsp;<a  href='#' data-toggle='tooltip' data-placement='top' title='Delete' onclick='DeleteJSCEResult(" + d[i].ID + ")'class='glyphicon glyphicon-trash' alt='Mountain View' style='width:15px;height:18px;margin-left:2px;color: red;'></a>"
+//function DisplayManageJSCEResult() {
+//    $.ajax({
+//        type: "POST",
+//        url: '/JSCEResult/DisplayManageJSCEResult',
+//        type: 'GET',
+//        dataType: "json",
+//        success: function (d) {
+//            var oTable = $('#ManageJSCEResultTable').dataTable();
+//            oTable.fnClearTable();
+//            //  var obj = jQuery.parseJSON(msg);
+//            if (d.length > 0) {
+//                for (var i = 0; i < d.length;i++) {
+//                    // console.log("row:" + JSCEID);
+//                    $('#ManageJSCEResultTable').dataTable().fnAddData([
+//                    d[i].RowNumber, d[i].RegistrationNumber,d[i].StudentID, d[i].FullName,"<a href='#' data-toggle='tooltip' data-placement='top' title='Download file' style='margin-left:10px; margin-top: 11px;' onclick='DownloadResult(" + d[i].RegistrationNumber + ")' class='btn btn-info'> <span class='glyphicon glyphicon-download'></span> Report card download</a>", "<a href='#'  data-toggle='modal' data-placement='top' title='Edit' data-target='#myStudentProfile' onclick='JsceResultEdit(" + d[i].ID + ")' class='glyphicon glyphicon-edit'/></a>&nbsp;|&nbsp;<a  href='#' data-toggle='tooltip' data-placement='top' title='Delete' onclick='DeleteJSCEResult(" + d[i].ID + ")'class='glyphicon glyphicon-trash' alt='Mountain View' style='width:15px;height:18px;margin-left:2px;color: red;'></a>"
+//                    //"<a href='#' data-toggle='tooltip' data-placement='top' title='Download file' style='margin-left:10px; margin-top: 11px;' onclick='DownloadResultReport(" + d[i].RegistrationNumber + ")' class='btn btn-info'> <span class='glyphicon glyphicon-download'></span> Report Card Downlolad</a>", 
+//                    ]);
 
-                    ]);
-
-                };
-            }
-            else {
+//                };
+//            }
+//            else {
               
-            }
-        }
-    });
+//            }
+//        }
+//    });
    
-}
+//}
 
 function DownloadResultReport(RegistrationId)
 {
@@ -130,8 +184,12 @@ function DownloadResult(RegistrationId) {
         data: { 'RegistrationId': RegistrationId },
         dataType: 'json',
         success: function (returnValue) {
-
-            window.location = '/JSCEResult/DownloadFile?file=' + returnValue;
+            if (returnValue == 'Result not uploaded') {
+                alert('Report card not uploaded.');
+            }
+            else {
+                window.location = '/JSCEResult/DownloadFile?file=' + returnValue;
+            }
         }
     });
 
@@ -166,7 +224,6 @@ function UploadUserProfileImage(UserId) {
                 // data: JSON.stringify(request),
                 data: fileData,
                 success: function (d) {
-                    DisplayManageJSCEResult();
                     $("#lblMessages").show();
                     $("#lblMessages").html(d);
                     setTimeout(function () { $("#lblMessages").hide(); }, 10000);
@@ -187,56 +244,56 @@ function UploadUserProfileImage(UserId) {
     }
 }
 
-function UploadReport(UserId) {
-    // var Id = Id;
-    var fileUploadName ='ReportCard';
-    if (window.FormData !== undefined) {
+//function UploadReport(UserId) {
+//    // var Id = Id;
+//    var fileUploadName ='ReportCard';
+//    if (window.FormData !== undefined) {
 
-        var fileUpload = $("#ReportUpload").get(0);
-        console.log();
-        var files = fileUpload.files;
-        if (fileUpload.files.length > 0) {
-            // Create FormData object  
-            var fileData = new FormData();
+//        var fileUpload = $("#ReportUpload").get(0);
+//        console.log();
+//        var files = fileUpload.files;
+//        if (fileUpload.files.length > 0) {
+//            // Create FormData object  
+//            var fileData = new FormData();
 
-            // Looping over all files and add it to FormData object  
-            for (var i = 0; i < files.length; i++) {
+//            // Looping over all files and add it to FormData object  
+//            for (var i = 0; i < files.length; i++) {
 
-                fileData.append(files[i].name, files[i]);
-            }
-            // Adding one more key to FormData object  
-            fileData.append('UserId', UserId);
-            fileData.append('fileUploadName', fileUploadName);
-            console.log(fileData);
-            $.ajax({
+//                fileData.append(files[i].name, files[i]);
+//            }
+//            // Adding one more key to FormData object  
+//            fileData.append('UserId', UserId);
+//            fileData.append('fileUploadName', fileUploadName);
+//            console.log(fileData);
+//            $.ajax({
              
-                url: '/JSCEResult/UploadJsceResultExcelSheet',
-                type: "POST",
-                contentType: false, // Not to set any content header  
-                processData: false, // Not to process data  
-                // data: JSON.stringify(request),
-                data: fileData,
-                success: function (d) {
-                    DisplayManageJSCEResult();
-                    $("#lblMessages").show();
-                    $("#lblMessages").html(d);
-                    setTimeout(function () { $("#lblMessages").hide(); }, 10000);
+//                url: '/JSCEResult/UploadJsceResultExcelSheet',
+//                type: "POST",
+//                contentType: false, // Not to set any content header  
+//                processData: false, // Not to process data  
+//                // data: JSON.stringify(request),
+//                data: fileData,
+//                success: function (d) {
+//                    DisplayManageJSCEResult();
+//                    $("#lblMessages").show();
+//                    $("#lblMessages").html(d);
+//                    setTimeout(function () { $("#lblMessages").hide(); }, 10000);
 
-                    $('#AddNewManageJSCEResult').bootstrapValidator('resetForm', true);
-                    $("#img").attr('src', '/UploadFiles/' + response);
+//                    $('#AddNewManageJSCEResult').bootstrapValidator('resetForm', true);
+//                    $("#img").attr('src', '/UploadFiles/' + response);
 
-                },
-                error: function (err) {
+//                },
+//                error: function (err) {
 
-                }
-            });
+//                }
+//            });
 
-        }
-        else {
-            //  alert("FormData is not supported.");
-        }
-    }
-}
+//        }
+//        else {
+//            //  alert("FormData is not supported.");
+//        }
+//    }
+//}
 
 
 
@@ -326,11 +383,9 @@ function DeleteJSCEResult(Id) {
             type: "GET",
             data: { 'Id': Id },
             success: function (d) {
-          
-                DisplayManageJSCEResult();
                 $("#lblMessage").show();
                 $('#lblMessage').html(d);
-                setTimeout(function () { $("#lblMessage").hide(); }, 5000);
+                setTimeout(function () { $("#lblMessage").hide(); }, 10000);
             },
         });
     }

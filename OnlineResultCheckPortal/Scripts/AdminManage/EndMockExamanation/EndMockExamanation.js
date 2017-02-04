@@ -1,36 +1,80 @@
 ﻿$(document).ready(function () {
     EndExaminationsDetails();
     $('[data-toggle="tooltip"]').tooltip();
+   
 });
-
-//This function use to Get User list..
 function EndExaminationsDetails() {
-    $.ajax({
-        type: "POST",
-        url: '/EndOfTermExaminations/GetDetailsEndMockExaminations',
-        type: 'GET',
-        dataType: "json",
-        success: function (d) {
-            var oTable = $('#EndofTermMockExamresultTable').dataTable();
-            oTable.fnClearTable();
-            //  var obj = jQuery.parseJSON(msg);
-            if (d.length > 0) {
-                for (var i = 0; i < d.length; i++) {
-                    // console.log("row:" + JSCEID);
-                    $('#EndofTermMockExamresultTable').dataTable().fnAddData([
-                    d[i].RowNumber, d[i].RegistrationNumber, d[i].FullName, d[i].Description, "<a href='#' data-toggle='tooltip' data-placement='top' title='Download file' style='margin-left:20px; margin-top: 11px;' onclick='DownloadResult(" + d[i].RegistrationNumber + ")' class='btn btn-info'> <span class='glyphicon glyphicon-download'></span> Result Downlolad</a>", "<a href='#'  data-placement='top' title='Edit'  data-toggle='modal' data-target='#myStudentProfile' onclick='EndMockExamResultEdit(" + d[i].ID + ")' class='glyphicon glyphicon-edit'/></a>&nbsp;|&nbsp;<a  href='#' data-toggle='tooltip' data-placement='top' title='Delete' onclick='DeleteMockExamResult(" + d[i].ID + ")'class='glyphicon glyphicon-trash' alt='Mountain View' style='width:15px;height:18px;margin-left:2px;color: red;'></a>"
+    var table = $("#EndofTermMockExamresultTable").DataTable({
+        "search": true,
+        "processing": true, // for show progress bar
+        "serverSide": true, // for process server side
+        "filter": true, // this is for disable filter (search box)
+        "orderMulti": false, // for disable multiple column at once
+        ajax: {
+            url: '/EndOfTermExaminations/GetDetailsEndMockExaminations',
+            type: "POST",
+            datatype: "json"
+        },
+        columns: [
+                { data: "RowNumber", "autoWidth": true },
+                { data: "RegistrationNumber", "autoWidth": true },
+                { data: "StudentID", "autoWidth": true },
+                { data: "FullName", "autoWidth": true },
+                {
+                    data: null,
+                    className: "center",
+                    "render": function (data, type, row) {
+                        var inner = null;
+                        inner = "<a href='#' data-toggle='tooltip' data-placement='top' title='Download file' style='margin-left:20px; margin-top: 11px;' onclick='DownloadResult(" + row.RegistrationNumber + ")' class='btn btn-info' ID='Download'> <span class='glyphicon glyphicon-download'></span> Report card download</a>";
+                        return inner;
+                    }
 
-                    ]);
 
-                };
-            }
-            else {
+                },
+                 {
+                     data: null,
+                     className: "center",
+                     "render": function (data, type, row) {
+                         var inner = null;
+                         inner = "<a href='#'  data-placement='top' title='Edit'  data-toggle='modal' data-target='#myStudentProfile' onclick='EndMockExamResultEdit(" + row.ID + ")' class='glyphicon glyphicon-edit'/></a>&nbsp;|&nbsp;<a  href='#' data-toggle='tooltip' data-placement='top' title='Delete' onclick='DeleteMockExamResult(" + row.ID + ")'class='glyphicon glyphicon-trash' alt='Mountain View' style='width:15px;height:18px;margin-left:2px;color: red;'></a>";
+                         return inner;
+                     }
+                 }
 
-            }
-        }
+        ]
     });
-
+    setInterval(function () {
+        table.ajax.reload();
+    }, 10000)
 }
+//This function use to Get User list..
+//function EndExaminationsDetails() {
+//    $.ajax({
+//        type: "POST",
+//        url: '/EndOfTermExaminations/GetDetailsEndMockExaminations',
+//        type: 'GET',
+//        dataType: "json",
+//        success: function (d) {
+//            var oTable = $('#EndofTermMockExamresultTable').dataTable();
+//            oTable.fnClearTable();
+//            //  var obj = jQuery.parseJSON(msg);
+//            if (d.length > 0) {
+//                for (var i = 0; i < d.length; i++) {
+//                    // console.log("row:" + JSCEID);
+//                    $('#EndofTermMockExamresultTable').dataTable().fnAddData([
+//                    d[i].RowNumber, d[i].RegistrationNumber,d[i].StudentID, d[i].FullName,"<a href='#' data-toggle='tooltip' data-placement='top' title='Download file' style='margin-left:20px; margin-top: 11px;' onclick='DownloadResult(" + d[i].RegistrationNumber + ")' class='btn btn-info' ID='Download'> <span class='glyphicon glyphicon-download'></span> Report card download</a>", "<a href='#'  data-placement='top' title='Edit'  data-toggle='modal' data-target='#myStudentProfile' onclick='EndMockExamResultEdit(" + d[i].ID + ")' class='glyphicon glyphicon-edit'/></a>&nbsp;|&nbsp;<a  href='#' data-toggle='tooltip' data-placement='top' title='Delete' onclick='DeleteMockExamResult(" + d[i].ID + ")'class='glyphicon glyphicon-trash' alt='Mountain View' style='width:15px;height:18px;margin-left:2px;color: red;'></a>"
+
+//                    ]);
+
+//                };
+//            }
+//            else {
+
+//            }
+//        }
+//    });
+
+//}
 
 
 function DownloadResult(RegistrationId) {
@@ -41,8 +85,12 @@ function DownloadResult(RegistrationId) {
         data: { 'RegistrationId': RegistrationId },
         dataType: 'json',
         success: function (returnValue) {
-
-            window.location = '/EndOfTermExaminations/DownloadFile?file=' + returnValue;
+            if (returnValue == 'Result not uploaded') {
+                alert('Report card not uploaded.');
+            }
+            else {
+                window.location = '/EndOfTermExaminations/DownloadFile?file=' + returnValue;
+            }
         }
     });
 
@@ -76,7 +124,7 @@ function UploadUserProfileImage(UserId) {
                 // data: JSON.stringify(request),
                 data: fileData,
                 success: function (d) {
-                    EndExaminationsDetails();
+               
                     $("#lblMessages").show();
                     $("#lblMessages").html(d);
                     setTimeout(function () { $("#lblMessages").hide(); }, 10000);
@@ -109,7 +157,7 @@ function EndMockExamResultEdit(Id) {
         type: "POST",
         data: { 'Id': Id },
         success: function (data) {
-            console.log(data)
+     
             if (data.length > 0) {
                 $.each(data, function (i, row) {
                     //$("#ddlJSCEID").attr("disabled", "disabled");
@@ -186,11 +234,9 @@ function DeleteMockExamResult(Id) {
             type: "GET",
             data: { 'Id': Id },
             success: function (d) {
-
-                EndExaminationsDetails();
                 $("#lblMessage").show();
                 $('#lblMessage').html(d);
-                setTimeout(function () { $("#lblMessage").hide(); }, 5000);
+                setTimeout(function () { $("#lblMessage").hide(); }, 10000);
             },
         });
     }
@@ -260,16 +306,23 @@ function InsertEndofTermMockExamResult(controller) {
                 return false;
             }
             else {
-
-                UploadUserProfileImage(d)
-                $('#AddNewManageJSCEResult').bootstrapValidator('resetForm', true);
-                $("#lblMessages").show();
-                $("#lblMessages").html(d);
-                setTimeout(function () { $("#lblMessages").hide(); }, 10000);
-                $('#myStudentProfile').modal('toggle'); //or  $('#IDModal').modal('hide');
-                return false;
-
-                EndExaminationsDetails();
+                if ($('#FileUpload').get(0).files.length === 0) {
+                    $('#AddNewManageJSCEResult').bootstrapValidator('resetForm', true);
+                    $("#lblMessagess").show();
+                    $("#lblMessagess").html('Record save successfully.');
+                    setTimeout(function () { $("#lblMessagess").hide(); }, 10000);
+                    $('#myStudentProfile').modal('toggle'); //or  $('#IDModal').modal('hide');
+                    return false;
+                }
+                else {
+                    UploadUserProfileImage(d)
+                    $('#AddNewManageJSCEResult').bootstrapValidator('resetForm', true);
+                    $("#lblMessages").show();
+                    $("#lblMessages").html(d);
+                    setTimeout(function () { $("#lblMessages").hide(); }, 10000);
+                    $('#myStudentProfile').modal('toggle'); //or  $('#IDModal').modal('hide');
+                    return false;
+                }
             }
 
         }

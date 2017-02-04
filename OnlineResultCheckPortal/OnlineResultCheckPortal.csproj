@@ -162,6 +162,9 @@
     <Compile Include="Academic_Session.cs">
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
+    <Compile Include="AdministratorSchool_Result.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
     <Compile Include="AdminManageProfile_Result.cs">
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
@@ -184,6 +187,9 @@
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
     <Compile Include="AdminProfile_Result2.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AdminProfile_Result3.cs">
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
     <Compile Include="AdminUserProfileDisplay1_Result.cs">
@@ -228,6 +234,33 @@
     <Compile Include="AdminUserProfileDisplay_Result2.cs">
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
+    <Compile Include="AdminUserProfileDisplay_Result20.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AdminUserProfileDisplay_Result21.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AdminUserProfileDisplay_Result22.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AdminUserProfileDisplay_Result23.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AdminUserProfileDisplay_Result24.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AdminUserProfileDisplay_Result25.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AdminUserProfileDisplay_Result26.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AdminUserProfileDisplay_Result27.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AdminUserProfileDisplay_Result28.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
     <Compile Include="AdminUserProfileDisplay_Result3.cs">
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
@@ -259,6 +292,7 @@
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AdministratorAddStudentController.cs" />
     <Compile Include="Controllers\AdminProfileController.cs" />
     <Compile Include="Controllers\EndOfTermExaminationsController.cs" />
     <Compile Include="Controllers\ForgotPasswordController.cs" />
@@ -277,6 +311,12 @@
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Controllers\TokenController.cs" />
     <Compile Include="Controllers\UserProfileController.cs" />
+    <Compile Include="CreateSchoolByExcel1_Result.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CreateSchoolByExcel1_Result1.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
     <Compile Include="CreateSchoolByExcel_Result.cs">
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
@@ -289,6 +329,15 @@
     <Compile Include="CreateSchoolByExcel_Result3.cs">
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
+    <Compile Include="CreateSchoolByExcel_Result4.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DownloadResultGetProfile_Result.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DownloadResultGetProfile_Result1.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
     <Compile Include="EditSchoolList_Result.cs">
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
@@ -298,10 +347,28 @@
     <Compile Include="EditTokenLists_Result.cs">
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
+    <Compile Include="EditTokenLists_Result1.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EditTokenLists_Result2.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
     <Compile Include="EditUserProfile_Result.cs">
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
     <Compile Include="EditUserProfile_Result1.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EditUserProfile_Result10.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EditUserProfile_Result11.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EditUserProfile_Result12.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EditUserProfile_Result13.cs">
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
     <Compile Include="EditUserProfile_Result2.cs">
@@ -320,6 +387,12 @@
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
     <Compile Include="EditUserProfile_Result7.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EditUserProfile_Result8.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EditUserProfile_Result9.cs">
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
     <Compile Include="EndOfTermExamination.cs">
@@ -345,6 +418,9 @@
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
     <Compile Include="GetDetailsEndMockExamanation_Result5.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetDetailsEndMockExamanation_Result6.cs">
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
     <Compile Include="GetDetailsMockExamanation_Result.cs">
@@ -374,6 +450,9 @@
     <Compile Include="GetDetailsMockExamanation_Result8.cs">
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
+    <Compile Include="GetDetailsMockExamanation_Result9.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
     <Compile Include="GetDetailsSchool_Result.cs">
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
@@ -390,6 +469,9 @@
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
     <Compile Include="GetDisplayListJSCEResult_Result3.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetDisplayListJSCEResult_Result4.cs">
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
     <Compile Include="GetDisplayManageListJSCE_Result.cs">
@@ -452,6 +534,15 @@
     <Compile Include="GetJSCEResultEdit_Result2.cs">
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
+    <Compile Include="GetManageJSCEEdit1_Result.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetManageJSCEEdit1_Result1.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetManageJSCEEdit2_Result.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
     <Compile Include="GetManageJSCEEdit_Result.cs">
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
@@ -476,6 +567,72 @@
     <Compile Include="GetOnlyPurchaseTokenResult_Result1.cs">
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
+    <Compile Include="GetOnlyPurchaseTokenResult_Result10.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetOnlyPurchaseTokenResult_Result11.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetOnlyPurchaseTokenResult_Result12.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetOnlyPurchaseTokenResult_Result13.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetOnlyPurchaseTokenResult_Result14.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetOnlyPurchaseTokenResult_Result15.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetOnlyPurchaseTokenResult_Result16.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetOnlyPurchaseTokenResult_Result17.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetOnlyPurchaseTokenResult_Result18.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetOnlyPurchaseTokenResult_Result19.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetOnlyPurchaseTokenResult_Result2.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetOnlyPurchaseTokenResult_Result20.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetOnlyPurchaseTokenResult_Result21.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetOnlyPurchaseTokenResult_Result22.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetOnlyPurchaseTokenResult_Result23.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetOnlyPurchaseTokenResult_Result3.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetOnlyPurchaseTokenResult_Result4.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetOnlyPurchaseTokenResult_Result5.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetOnlyPurchaseTokenResult_Result6.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetOnlyPurchaseTokenResult_Result7.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetOnlyPurchaseTokenResult_Result8.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetOnlyPurchaseTokenResult_Result9.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
     <Compile Include="GetOnlyPurchaseToken_Result.cs">
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
@@ -483,6 +640,12 @@
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
     <Compile Include="GetOnlyPurchaseToken_Result2.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetResutFileDownload_Result.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetResutFileDownload_Result1.cs">
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
     <Compile Include="GetSchoolDetailsAndAddSchool_Result.cs">
@@ -503,6 +666,12 @@
     <Compile Include="GetSchoolNameDetails_Result.cs">
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
+    <Compile Include="GetSchool_Result.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetSchool_Result1.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
     <Compile Include="GetStudentName_Result.cs">
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
@@ -513,6 +682,18 @@
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
     <Compile Include="GetStudentName_Result3.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetStudentProfileByAdministrator_Result.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetStudentProfileByAdministrator_Result1.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetStudentProfileByAdministrator_Result2.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetStudentProfileByAdministrator_Result3.cs">
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
     <Compile Include="GetStudentProfile_Result.cs">
@@ -527,7 +708,22 @@
     <Compile Include="GetStudentProfile_Result3.cs">
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
+    <Compile Include="GetTokenList1_Result.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
     <Compile Include="GetTokenList_Result.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetTokenList_Result1.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetTokenList_Result2.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetTokenList_Result3.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetTokenList_Result4.cs">
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
     <Compile Include="GetUploadResultDetails_Result.cs">
@@ -542,16 +738,25 @@
     <Compile Include="GetUploadResultDetails_Result3.cs">
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
+    <Compile Include="GetUploadResultDetails_Result4.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
     <Compile Include="GetvalueEndMockExamanation_Result.cs">
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
     <Compile Include="GetvalueEndMockExamanation_Result1.cs">
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
+    <Compile Include="GetvalueEndMockExamanation_Result2.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
     <Compile Include="GetvalueMockExamanation_Result.cs">
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
     <Compile Include="GetvalueMockExamanation_Result1.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetvalueMockExamanation_Result2.cs">
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
@@ -613,13 +818,16 @@
     <Compile Include="PurchaseToken_Result1.cs">
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
+    <Compile Include="PurchaseToken_Result2.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PurchaseToken_Result3.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
     <Compile Include="Role.cs">
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
     <Compile Include="School.cs">
-      <DependentUpon>OCRP.tt</DependentUpon>
-    </Compile>
-    <Compile Include="School1.cs">
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
     <Compile Include="SchoolName.cs">
@@ -649,6 +857,9 @@
     <Compile Include="StudenDetails_Result6.cs">
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
+    <Compile Include="StudenDetails_Result7.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
     <Compile Include="Student.cs">
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
@@ -656,6 +867,9 @@
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
     <Compile Include="StudentDetails_Result1.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StudentDownloadResult.cs">
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
     <Compile Include="StudentProfile_Result.cs">
@@ -771,6 +985,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>OCRP.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <Content Include="HtmlPage1.html" />
     <Content Include="Images\caricamento_big.gif" />
     <Content Include="Images\details-icon-png-cc-by-3-0--it-1.png" />
     <Content Include="Images\Empty.jpg" />
@@ -798,6 +1013,7 @@
       <DependentUpon>OCRP.edmx</DependentUpon>
       <LastGenOutput>OCRP.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\AdminManage\AdministratorAddStudent\AdministratorAddStudent.js" />
     <Content Include="Scripts\AdminManage\AdminProfile\AdminProfile.js" />
     <Content Include="Scripts\AdminManage\AdminProfile\ManageProfile\ManageProfile.js" />
     <Content Include="Scripts\AdminManage\AdminUserProfile\AdminUserProfile.js" />
@@ -4185,7 +4401,9 @@
     <Content Include="vendors\input-mask\input-mask.min.js" />
     <Content Include="vendors\sparklines\jquery.sparkline.js" />
     <Content Include="vendors\sparklines\jquery.sparkline.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -4633,12 +4851,16 @@
     <Content Include="Views\ManageJSCE\Index.cshtml" />
     <Content Include="Views\Result\Index.cshtml" />
     <Content Include="Views\PurchaseToken\Index.cshtml" />
+    <Content Include="Views\AdministratorAddStudent\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\fonts\" />
+    <Folder Include="EndofTermExam\" />
     <Folder Include="img\" />
+    <Folder Include="JsceResult\" />
     <Folder Include="js\" />
+    <Folder Include="MockExamination\" />
     <Folder Include="StudentExecelSheet\" />
     <Folder Include="vendors\bower_components\bower\Packager\" />
     <Folder Include="vendors\bower_components\jquery.sparkline\dist\" />

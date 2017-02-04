@@ -43,6 +43,7 @@
 .container{
             
         }
+
     </style>
 </head>
 <body>
@@ -54,9 +55,14 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">Result Portal</div>
                 <div class="panel-body">
-                    <div class="col-md-6" style="margin-left:156px;">
+                    <div class="col-md-12" style="margin-left: 141px;">
                         <form action="#" method="get" id="ResultForm">
-                            <div class="form-group col-sm-12">
+                            <div class="form-group col-sm-7">
+                                <label class="heading" style="font-size:medium;padding-bottom:0px;"></label>
+                                @Html.DropDownList("ddlSchool", ViewBag.SchoolName as SelectList, "----School Name----", new { id = "ddlSchool", @class = "form-control" })
+                            </div>
+
+                            <div class="form-group col-sm-7">
                                 <label class="heading" style="font-size:medium;padding-bottom:10px;"></label>
                                 @{
                                     var domainsList = new SelectList(new[]
@@ -71,13 +77,21 @@
                                 @Html.DropDownList("DrpExamTypes", domainsList, "----Exam Types----", new { id = "DrpExamTypes", @class = "form-control" })
                                
                             </div>
-                            <div class="form-group col-sm-12">
+                          
+
+                       
+
+                            <div class="form-group col-sm-7">
+                                <input class="form-control" id="TxtToken" name="TxtToken" placeholder="----Token Number----">
+                            </div>
+
+                            <div class="form-group col-sm-7">
                                 <!-- USE TWITTER TYPEAHEAD JSON WITH API TO SEARCH -->
                                 <input class="form-control" id="TxtSearchResult" name="TxtSearchResult" placeholder="----Registration Number----">
                             </div>
                             <div class="form-group col-sm-12">
                                 <!-- USE TWITTER TYPEAHEAD JSON WITH API TO SEARCH -->
-                                <button type="submit" data-toggle="tooltip" data-placement="right" title="Search Result" class="btn btn-info" style="height:34px;width:100px;" id="SearchButtton" onclick="SearchResult();">Search</button>
+                                <button type="submit" data-toggle="tooltip" data-placement="right"  class="btn btn-info" style="height:34px;width:100px;" id="SearchButtton" onclick="SearchResult();">Search</button>
                    
                                     <label class="label label-danger" id="lblMessage"></label>
                                
@@ -96,7 +110,7 @@
 
                     <div class="table-responsive table" id="UserDetailsTables" style="display:none;">
                         <button  style="margin-left: 16px;float:right;margin-bottom: 31px;margin-top: 11px;" id="ResultsDownload" class="btn btn-info " value="Save" data-toggle='modal' data-target='#UploadmyModal'> 
-                            <span class="glyphicon glyphicon-download"></span> Result Downlolad</button>
+                            <span class="glyphicon glyphicon-download"></span> Report card download</button>
                         @*<button style="margin-left: 16px;float:right;margin-bottom: 31px;margin-top: 11px;" id="ReportDownload" class="btn btn-info " value="Save" data-toggle='modal' data-target='#UploadmyModal'>
                             <span class="glyphicon glyphicon-download"></span> Report card Downlolad
                         </button>*@
@@ -166,7 +180,22 @@
 
                         }
                     },
+                    ddlSchool: {
+                        validators: {
+                            notEmpty: {
+                                message: 'The school name is required'
+                            }
 
+                        }
+                    },
+                    TxtToken: {
+                        validators: {
+                            notEmpty: {
+                                message: 'The token Id is required'
+                            }
+
+                        }
+                    },
                 }
             })
         .on('success.form.fv', function (e) {
