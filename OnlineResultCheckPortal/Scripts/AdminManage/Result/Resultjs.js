@@ -92,14 +92,15 @@ function SearchResult(Controller) {
              
                 else {
 
-                    var oTable = $('#UserDetailsTable').dataTable();
+                    var oTable = $('#UserDetailsTable').dataTable({ paging: false, "sDom": "" });
                     oTable.fnClearTable();
                     $('#UserDetailsTables').show();
+                    console.log(d);
                     //Append for loop row to html table
                     for (var i = 0; i < d.length; i++) {
                         $('#fileResult').val(d[i].RegistrationNumber);
                         $('#UserDetailsTable').dataTable().fnAddData([
-                        d[i].RowNumber,d[i].RegistrationNumber, d[i].FullName, d[i].SubjectName, d[i].Grade, d[i].Remarks //"<a  href='#'  onclick='DeleteUserProfile(" + d[i].ID + ")'class='glyphicon glyphicon-trash' alt='Mountain View' style='width:15px;height:18px;margin-left:2px;color: red;'></a>&nbsp;|&nbsp;<a href='#'  data-toggle='modal' data-target='#myStudentProfile' onclick='DisplayStudentProfile(" + d[i].ID + ")'/><img src='/Images/details-icon-png-cc-by-3-0--it-1.PNG' alt='Mountain View' style='width:17px;height:15px;margin-left:2px;'></a>"
+                         d[i].SubjectName, d[i].Grade, d[i].Remarks //"<a  href='#'  onclick='DeleteUserProfile(" + d[i].ID + ")'class='glyphicon glyphicon-trash' alt='Mountain View' style='width:15px;height:18px;margin-left:2px;color: red;'></a>&nbsp;|&nbsp;<a href='#'  data-toggle='modal' data-target='#myStudentProfile' onclick='DisplayStudentProfile(" + d[i].ID + ")'/><img src='/Images/details-icon-png-cc-by-3-0--it-1.PNG' alt='Mountain View' style='width:17px;height:15px;margin-left:2px;'></a>"
 
                         ]);
 
