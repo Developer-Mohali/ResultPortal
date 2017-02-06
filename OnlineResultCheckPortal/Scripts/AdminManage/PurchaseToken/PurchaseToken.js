@@ -51,7 +51,7 @@ function PurchaseToken() {
     });
     setInterval(function () {
         table.ajax.reload();
-    }, 10000)
+    }, 20000)
 }
 
 

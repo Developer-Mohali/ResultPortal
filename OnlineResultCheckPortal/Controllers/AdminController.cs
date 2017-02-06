@@ -37,6 +37,8 @@ namespace OnlineResultCheckPortal.Controllers
             var draw = Request.Form.GetValues("draw").FirstOrDefault();
             var start = Request.Form.GetValues("start").FirstOrDefault();
             var length = Request.Form.GetValues("length").FirstOrDefault();
+
+
             //Get Sort columns value
             var sortColumn = Request.Form.GetValues("columns[" + Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][name]").FirstOrDefault();
             var sortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
@@ -444,34 +446,35 @@ namespace OnlineResultCheckPortal.Controllers
             {
                 createdBy = Convert.ToInt32(Session["UserId"]);
             }
-
-            try
+            if (uploadFile.ContentLength > 0)
             {
-                if (uploadFile.ContentLength > 0)
+                
+                try
                 {
                     string filePath = Path.Combine(HttpContext.Server.MapPath("~/StudentExecelSheet/"),
                     Path.GetFileName(uploadFile.FileName));
                     uploadFile.SaveAs(filePath);
                     DataSet ds = new DataSet();
-
+                    string ConnectionString = string.Empty;
                     //A 32-bit provider which enables the use of
 
                     //  string ConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" +
                     //filePath + ";Extended Properties=\"Excel 12.0;HDR=No;IMEX=2\"";
-                    string ConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + filePath + ";Extended Properties=Excel 12.0;";
+
+                    ConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + filePath + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
                     using (OleDbConnection conn = new System.Data.OleDb.OleDbConnection(ConnectionString))
                     {
                         conn.Open();
-                       
+
                         using (DataTable dtExcelSchema = conn.GetSchema("Tables"))
-                        { 
+                        {
 
                             string sheetName = dtExcelSchema.Rows[0]["TABLE_NAME"].ToString();
                             string query = "SELECT * FROM [" + sheetName + "]";
                             OleDbDataAdapter adapter = new OleDbDataAdapter(query, conn);
                             //DataSet ds = new DataSet();
                             adapter.Fill(ds, "Items");
-                            if (ds.Tables.Count> 0)
+                            if (ds.Tables.Count > 0)
                             {
                                 int totalColumns = dtExcelSchema.Columns.Count;
                                 int totalRows = dtExcelSchema.Rows.Count;
@@ -479,23 +482,23 @@ namespace OnlineResultCheckPortal.Controllers
                                 {
                                     for (i = 0; i < ds.Tables[0].Rows.Count; i++)
                                     {
-                                        
+
                                         //Now we can insert this data to database...
-                                       
+
                                         string studentId = (ds.Tables[0].Rows[i].ItemArray[0]).ToString();
                                         objRegistration.FirstName = (ds.Tables[0].Rows[i].ItemArray[1]).ToString();
                                         objRegistration.Lastname = (ds.Tables[0].Rows[i].ItemArray[2]).ToString();
                                         objRegistration.DOB = (ds.Tables[0].Rows[i].ItemArray[3]).ToString();
                                         objRegistration.Address = (ds.Tables[0].Rows[i].ItemArray[4]).ToString();
-                                         School = (ds.Tables[0].Rows[i].ItemArray[5]).ToString();
+                                        School = (ds.Tables[0].Rows[i].ItemArray[5]).ToString();
                                         objRegistration.LocalGoverment = (ds.Tables[0].Rows[i].ItemArray[6]).ToString();
                                         objRegistration.State = (ds.Tables[0].Rows[i].ItemArray[7]).ToString();
                                         objRegistration.Gender = (ds.Tables[0].Rows[i].ItemArray[8]).ToString();
                                         objRegistration.AcademicYear = (ds.Tables[0].Rows[i].ItemArray[9]).ToString();
-                                        if(School != null)
+                                        if (School != null)
                                         {
-                                            var objCreateSchool = ObjOCRP.Schools.FirstOrDefault(c=>(c.SchoolName==School));
-                                            if(objCreateSchool==null)
+                                            var objCreateSchool = ObjOCRP.Schools.FirstOrDefault(c => (c.SchoolName == School));
+                                            if (objCreateSchool == null)
                                             {
                                                 objCreateSchool = new School();
                                                 objCreateSchool.SchoolName = School;
@@ -508,7 +511,7 @@ namespace OnlineResultCheckPortal.Controllers
                                             {
                                                 objRegistration.School = objCreateSchool.ID;
                                             }
-                                            if (objRegistration.AcademicYear!=null)
+                                            if (objRegistration.AcademicYear != null)
                                             {
                                                 var objAcadmicSchool = ObjOCRP.Academic_Sessions.FirstOrDefault(c => (c.AcademicYear == objRegistration.AcademicYear));
                                                 if (objAcadmicSchool == null)
@@ -524,7 +527,7 @@ namespace OnlineResultCheckPortal.Controllers
                                                     objRegistration.AcadmicID = objAcadmicSchool.ID;
                                                 }
                                             }
-                                           
+
                                             var objStudentRegister = ObjOCRP.Users.FirstOrDefault(c => (c.StudentID == studentId));
                                             if (objStudentRegister == null)
                                             {
@@ -586,17 +589,23 @@ namespace OnlineResultCheckPortal.Controllers
                                                 }
                                             }
                                         }
-                                        
+
                                         returnResult = "<br/><font color=white><b>Add new record total: " + Addcount + "</br></br>Update record total: " + update + "</br></b></font><br/>";//edit it    
                                     }
                                 }
                             }
                         }
                     }
+
                 }
+                catch (Exception ex)
+                {
+                    returnResult = "Your file not correct format.";
+                }  
             }
-            catch (Exception ex) {
-                returnResult ="Already exists";
+            else
+            {
+                returnResult = "Excel sheet empty.";
             }
 
             return new JsonResult { Data = returnResult, JsonRequestBehavior = JsonRequestBehavior.AllowGet };

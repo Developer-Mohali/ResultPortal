@@ -496,7 +496,7 @@ namespace OnlineResultCheckPortal.Controllers
                                             notvalid = notvalid + 1;
                                         }
 
-                                        returnResult = "<br/><font color=white><b>Add new record total: " + Addcount + "</br></br>Not valid studentID total: " + notvalid + "</br></b></br>Update record total: " + update + "</br></b></font><br/>";//edit it    
+                                        returnResult = "<br/><font color=white><b>Add new record total: " + Addcount + "</br></br>Not valid studentID total: " + notvalid + "</br></b></b></font><br/>";//edit it    
                                     }
                                 }
                             }

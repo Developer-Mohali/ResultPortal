@@ -198,21 +198,31 @@
                         notEmpty: {
                             message: 'The last name is required'
                         },
-                    }
+                    },
+                    stringLength: {
+                        max: 30,
+                        message: 'The last name must be less than 30 characters long'
+                    },
                 },
                 txtdob: {
                     validators: {
                         notEmpty: {
                             message: 'The date of birth name is required'
                         },
-                    }
+                    },stringLength: {
+                        max: 30,
+                        message: 'The date of birth must be less than 30 characters long'
+                    },
                 },
                 txtFirstName: {
                     validators: {
                         notEmpty: {
                             message: 'The first name is required'
                         },
-                    }
+                    }, stringLength: {
+                        max: 30,
+                        message: 'The first name must be less than 30 characters long'
+                    },
                 },
                 txtPassword: {
                     validators: {
@@ -231,9 +241,13 @@
                 txtRegistration: {
                     validators: {
                         notEmpty: {
-                            message: 'The registration name is required'
+                            message: 'The registration number is required'
                         },
-                    }
+                    },
+                    stringLength: {
+            max: 30,
+            message: 'The registration number must be less than 30 characters long'
+        },
                 },
                 ddlAcademicYears: {
                     validators: {
@@ -268,7 +282,11 @@
                         notEmpty: {
                             message: 'The address name is required'
                         },
-                    }
+                    },
+                    stringLength: {
+                        max: 100,
+                        message: 'The address must be less than 100 characters long'
+                    },
                 },
             }
         })

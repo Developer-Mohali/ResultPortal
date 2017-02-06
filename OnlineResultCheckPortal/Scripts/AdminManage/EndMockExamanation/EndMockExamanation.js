@@ -5,10 +5,10 @@
 });
 function EndExaminationsDetails() {
     var table = $("#EndofTermMockExamresultTable").DataTable({
-        "search": true,
+    
         "processing": true, // for show progress bar
         "serverSide": true, // for process server side
-        "filter": true, // this is for disable filter (search box)
+        "filter": false, // this is for disable filter (search box)
         "orderMulti": false, // for disable multiple column at once
         ajax: {
             url: '/EndOfTermExaminations/GetDetailsEndMockExaminations',
@@ -45,7 +45,7 @@ function EndExaminationsDetails() {
     });
     setInterval(function () {
         table.ajax.reload();
-    }, 10000)
+    }, 20000)
 }
 //This function use to Get User list..
 //function EndExaminationsDetails() {
