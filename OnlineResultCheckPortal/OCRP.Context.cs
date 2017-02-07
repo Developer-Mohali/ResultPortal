@@ -383,5 +383,59 @@ namespace OnlineResultCheckPortal
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetStudentProfileByAdministrator_Result3>("GetStudentProfileByAdministrator", administratorParameter);
         }
+    
+        public virtual ObjectResult<searchToken_Result> searchToken(string search)
+        {
+            var searchParameter = search != null ?
+                new ObjectParameter("Search", search) :
+                new ObjectParameter("Search", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<searchToken_Result>("searchToken", searchParameter);
+        }
+    
+        public virtual ObjectResult<SearchSchool_Result> SearchSchool(string search)
+        {
+            var searchParameter = search != null ?
+                new ObjectParameter("Search", search) :
+                new ObjectParameter("Search", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SearchSchool_Result>("SearchSchool", searchParameter);
+        }
+    
+        public virtual ObjectResult<SearchStudent_Result> SearchStudent(string search)
+        {
+            var searchParameter = search != null ?
+                new ObjectParameter("Search", search) :
+                new ObjectParameter("Search", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SearchStudent_Result>("SearchStudent", searchParameter);
+        }
+    
+        public virtual ObjectResult<SearchEndofTermExam_Result> SearchEndofTermExam(string search)
+        {
+            var searchParameter = search != null ?
+                new ObjectParameter("Search", search) :
+                new ObjectParameter("Search", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SearchEndofTermExam_Result>("SearchEndofTermExam", searchParameter);
+        }
+    
+        public virtual ObjectResult<SearchJSCEResult_Result> SearchJSCEResult(string search)
+        {
+            var searchParameter = search != null ?
+                new ObjectParameter("Search", search) :
+                new ObjectParameter("Search", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SearchJSCEResult_Result>("SearchJSCEResult", searchParameter);
+        }
+    
+        public virtual ObjectResult<SearchMockExam_Result> SearchMockExam(string search)
+        {
+            var searchParameter = search != null ?
+                new ObjectParameter("Search", search) :
+                new ObjectParameter("Search", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SearchMockExam_Result>("SearchMockExam", searchParameter);
+        }
     }
 }

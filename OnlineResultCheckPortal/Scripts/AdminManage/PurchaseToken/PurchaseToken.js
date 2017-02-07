@@ -9,7 +9,7 @@ function PurchaseToken() {
         searching: true,
         processing: true, // for show progress bar
         serverSide: true, // for process server side
-        filter: false, // this is for disable filter (search box)
+        filter: true, // this is for disable filter (search box)
         orderMult: false, // for disable multiple column at once
         ajax: {
             url: '/PurchaseToken/PurchaseTokenDetails/',

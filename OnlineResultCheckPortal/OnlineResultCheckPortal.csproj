@@ -834,6 +834,24 @@
     <Compile Include="SchoolName.cs">
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
+    <Compile Include="SearchEndofTermExam_Result.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SearchJSCEResult_Result.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SearchMockExam_Result.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SearchSchool_Result.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SearchStudent_Result.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="searchToken_Result.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
     <Compile Include="Status.cs">
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>

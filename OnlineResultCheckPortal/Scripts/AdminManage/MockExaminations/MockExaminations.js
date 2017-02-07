@@ -10,7 +10,7 @@ function MockExamDetails() {
     var table = $("#ManageMockExamresultTable").DataTable({
         "processing": true, // for show progress bar
         "serverSide": true, // for process server side
-        "filter": false,  // this is for disable filter (search box)
+        "filter": true,  // this is for disable filter (search box)
         "orderMulti": false, // for disable multiple column at once
         ajax: {
             url: "/MockExaminations/GetDetailsMockExaminations",

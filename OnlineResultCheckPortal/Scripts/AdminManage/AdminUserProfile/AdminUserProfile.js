@@ -14,6 +14,7 @@ function UserDetails() {
     var table = $("#UserDetailsTable").DataTable({
         "serverSide": true,
         "processing": true,
+        "filter": true,
         ajax: {
             url: "/Admin/UserProfile/",
             type: "POST",

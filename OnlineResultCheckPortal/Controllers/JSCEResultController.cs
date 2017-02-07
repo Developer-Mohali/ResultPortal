@@ -49,22 +49,55 @@ namespace OnlineResultCheckPortal.Controllers
                 var draw = Request.Form.GetValues("draw").FirstOrDefault();
                 var start = Request.Form.GetValues("start").FirstOrDefault();
                 var length = Request.Form.GetValues("length").FirstOrDefault();
-                //Get Sort columns value
-                var sortColumn = Request.Form.GetValues("columns[" + Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][name]").FirstOrDefault();
-                var sortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
-
-                int pageSize = length != null ? Convert.ToInt32(length) : 0;
-                int skip = start != null ? Convert.ToInt32(start) : 0;
-                int totalRecords = 0;
-
-                using (OnlineResultCheckPortal ObjOCRP = new OnlineResultCheckPortal())
+                string search = Request.Form.GetValues("search[value]")[0];
+                if (search != string.Empty)
                 {
-                    var objJSCEDetails = ObjOCRP.GetUploadResultDetails().ToList();
-                    //Sorting
-                    totalRecords = objJSCEDetails.Count();
-                    var data = objJSCEDetails.Skip(skip).Take(pageSize).ToList();
-                    return Json(new { draw = draw, recordsFiltered = totalRecords, recordsTotal = totalRecords, data = data }, JsonRequestBehavior.AllowGet);
+                    try
+                    {
+                        //Get Sort columns value
+                        var sortColumn = Request.Form.GetValues("columns[" + Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][name]").FirstOrDefault();
+                        var sortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
 
+                        int pageSize = length != null ? Convert.ToInt32(length) : 0;
+                        int skip = start != null ? Convert.ToInt32(start) : 0;
+                        int totalRecords = 0;
+
+                        using (OnlineResultCheckPortal ObjOCRP = new OnlineResultCheckPortal())
+                        {
+                            var ObjJSCEResult = ObjOCRP.SearchJSCEResult(search).ToList();
+
+                            //Sorting
+                            totalRecords = ObjJSCEResult.Count();
+                            var data = ObjJSCEResult.Skip(skip).Take(pageSize).ToList();
+                            return Json(new { draw = draw, recordsFiltered = totalRecords, recordsTotal = totalRecords, data = data }, JsonRequestBehavior.AllowGet);
+
+                        }
+                    }
+                    catch (Exception Ex)
+                    {
+
+                    }
+
+                }
+                else
+                {
+                    //Get Sort columns value
+                    var sortColumn = Request.Form.GetValues("columns[" + Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][name]").FirstOrDefault();
+                    var sortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
+
+                    int pageSize = length != null ? Convert.ToInt32(length) : 0;
+                    int skip = start != null ? Convert.ToInt32(start) : 0;
+                    int totalRecords = 0;
+
+                    using (OnlineResultCheckPortal ObjOCRP = new OnlineResultCheckPortal())
+                    {
+                        var objJSCEDetails = ObjOCRP.GetUploadResultDetails().ToList();
+                        //Sorting
+                        totalRecords = objJSCEDetails.Count();
+                        var data = objJSCEDetails.Skip(skip).Take(pageSize).ToList();
+                        return Json(new { draw = draw, recordsFiltered = totalRecords, recordsTotal = totalRecords, data = data }, JsonRequestBehavior.AllowGet);
+
+                    }
                 }
             }
             catch (Exception ex)

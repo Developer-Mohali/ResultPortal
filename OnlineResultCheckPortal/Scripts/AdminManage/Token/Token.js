@@ -24,11 +24,10 @@ function addnewRecorToken(controller) {
              
                 $("#lblUpdateMessages").show();
                 $('#lblUpdateMessages').html(data);
+                $('#TokenForm').bootstrapValidator('resetForm', true);
                 setTimeout(function () { $("#lblUpdateMessages").hide(); }, 5000);
                 $('#myModal').modal('toggle'); //or  $('#IDModal').modal('hide');
                 return false;
-                $('#TokenForm').bootstrapValidator('resetForm', true);
-                TokenDetails();
                
             }
         }
@@ -53,7 +52,7 @@ function TokenDetails() {
     var table = $('#TokenTable').DataTable({
         "processing": true, // for show progress bar
         "serverSide": true, // for process server side
-        "filter": false, // this is for disable filter (search box)
+        "filter": true, // this is for disable filter (search box)
         "orderMulti": false, // for disable multiple column at once
         "ajax": {
             "url": "/Token/TokenList",
@@ -86,7 +85,7 @@ function TokenDetails() {
     });
     setInterval(function () {
         table.ajax.reload();
-    }, 20000);
+    }, 10000);
 }
 
 
