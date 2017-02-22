@@ -615,7 +615,7 @@
    
     <!-- Javascript Libraries -->
     <div id="spinner">
-        <img src='/Images/caricamento_big.gif' width="50" height="50" alt="Loading..." />
+        <img src='/Images/caricamento_big.gif' id="ImageId" width="50" height="50" alt="Loading..." />
     </div>
     <script src="~/vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
@@ -710,14 +710,14 @@
 </script>
 <style>
     div#spinner {
-    position: fixed;
-    display:none;
-    top: 60%;
-    left: 60%;
-    text-align: center;
-    margin-left: -50px;
-    margin-top: -100px;
-    z-index: 2;
-    background-color:lightgray;
-}
+        display: none;
+        position: fixed;
+        top: 60%;
+        left: 60%;
+        text-align: center;
+        margin-left: -50px;
+        margin-top: -100px;
+        z-index: 2;
+        background-color: gainsboro;
+    }
 </style>

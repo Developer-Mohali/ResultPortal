@@ -380,6 +380,10 @@
 </script>
 <script type="text/javascript">
     $(document).ready(function () {
+        $('#ClearTextbox').click(function () {
+            $("#txtEmail").removeAttr("disabled", "disabled");
+            document.getElementById("AddNewRegisterform").reset();
+        });
         $(function () {
             $('[data-toggle="tooltip"]').tooltip();
             $(document).ajaxStart(function () {
@@ -417,6 +421,7 @@
                     contentType: false,
                     processData: false,
                     success: function (d) {
+                        UserDetails();
                         $("#lbladdMessages").show();
                         $('#lbladdMessages').html(d);
                         setTimeout(function () { $("#lbladdMessages").hide(); }, 10000);
@@ -588,6 +593,7 @@
         .on('success.form.fv', function (e) {
             e.preventDefault();
             UpdatUserProfile('/Admin/UpdateUserProfile/');
+            UserDetails();
         });
 
     });
@@ -723,10 +729,7 @@
         $(this).parent().find('.form-control').val($(this).val().replace(/C:\\fakepath\\/i, ''));
     });
 
-    $('#ClearTextbox').click(function () {
-        $("#txtEmail").removeAttr("disabled", "disabled");
-        document.getElementById("AddNewRegisterform").reset();
-    });
+   
 
 </script>
 <style>

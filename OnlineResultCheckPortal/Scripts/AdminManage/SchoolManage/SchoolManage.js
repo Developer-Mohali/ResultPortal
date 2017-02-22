@@ -8,7 +8,9 @@
 
 function GetSchoolists()
 {
-    var table = $("#SchoolDetailsTable").DataTable({
+    var $myTable = $("#SchoolDetailsTable");
+    $myTable.dataTable().fnDestroy();
+    var table = $myTable.DataTable({
         scrollY: false,
         paging: true,
         processing: true, // for show progress bar
@@ -39,9 +41,7 @@ function GetSchoolists()
 
         ]
     });
-    setInterval(function () {
-        table.ajax.reload();
-    }, 10000)
+
 }
 
 function AddSchool(Controller) {
@@ -141,6 +141,7 @@ function DeleteRecords(schoolId)
                 $("#lblMessage").show();
                 $('#lblMessage').html(data);
                 setTimeout(function () { $("#lblMessage").hide(); }, 5000);
+                GetSchoolists();
             }
         });
 

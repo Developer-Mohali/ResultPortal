@@ -7,7 +7,9 @@
 
 
 function MockExamDetails() {
-    var table = $("#ManageMockExamresultTable").DataTable({
+    var $myTable = $("#ManageMockExamresultTable");
+    $myTable.dataTable().fnDestroy();
+    var table = $myTable.DataTable({
         "processing": true, // for show progress bar
         "serverSide": true, // for process server side
         "filter": true,  // this is for disable filter (search box)
@@ -45,9 +47,7 @@ function MockExamDetails() {
 
         ]
     });
-    setInterval(function () {
-        table.ajax.reload();
-    }, 20000)
+  
 }
 
 //function MockExaminations() {
@@ -238,6 +238,7 @@ function DeleteMockExamResult(Id) {
                 $("#lblMessage").show();
                 $('#lblMessage').html(d);
                 setTimeout(function () { $("#lblMessage").hide(); }, 5000);
+                MockExamDetails();
             },
         });
     }
@@ -300,7 +301,7 @@ function InsertMockExamResult(controller) {
         success: function (d) {
             if (d == "Registration no already exists !") {
                 $("#lblMessage").show();
-                $("#lblMessage").html("Registration no already exists !");
+                $("#lblMessage").html("Registration number already exists !");
                 setTimeout(function () { $("#lblMessage").hide(); }, 10000);
                 $('#myStudentProfile').modal('toggle'); //or  $('#IDModal').modal('hide');
                 return false;
@@ -316,13 +317,14 @@ function InsertMockExamResult(controller) {
                 }
                 else {
                     UploadUserProfileImage(d)
+                    $("#ImageId").hide();
                     $('#AddNewManageJSCEResult').bootstrapValidator('resetForm', true);
                     $("#lblMessages").show();
                     $("#lblMessages").html(d);
                     setTimeout(function () { $("#lblMessages").hide(); }, 10000);
                     $('#myStudentProfile').modal('toggle'); //or  $('#IDModal').modal('hide');
                     return false;
-                 
+                   
                 }
             }
 

@@ -58,6 +58,7 @@ namespace OnlineResultCheckPortal.Controllers
                             var ObjUserProfile = ObjOCRP.SearchStudent(search).ToList();
 
                             //Sorting
+                           
                             totalRecords = ObjUserProfile.Count();
                             var data = ObjUserProfile.Skip(skip).Take(pageSize).ToList();
                             return Json(new { draw = draw, recordsFiltered = totalRecords, recordsTotal = totalRecords, data = data }, JsonRequestBehavior.AllowGet);
