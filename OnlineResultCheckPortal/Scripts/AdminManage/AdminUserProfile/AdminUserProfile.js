@@ -10,9 +10,8 @@
 
 
 function UserDetails() {
-    var $myTable = $("#UserDetailsTable");
-    $myTable.dataTable().fnDestroy();
-    var table = $myTable.DataTable({
+
+    var table = $("#UserDetailsTable").DataTable({
         "serverSide": true,
         "processing": true,
         "filter": true,
@@ -43,7 +42,9 @@ function UserDetails() {
 
         ]
     });
-   
+    setInterval(function () {
+        table.ajax.reload();
+    }, 20000);
 }
 
 
@@ -143,7 +144,6 @@ function DeleteUserProfile(userID) {
                 $("#lblMessage").show();
                 $('#lblMessage').html(d);
                 setTimeout(function () { $("#lblMessage").hide(); }, 10000);
-                UserDetails();
             },
         });
     }

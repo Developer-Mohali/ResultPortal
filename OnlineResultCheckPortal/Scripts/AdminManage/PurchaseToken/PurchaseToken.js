@@ -5,9 +5,7 @@
 });
 
 function PurchaseToken() {
-    var $myTable = $("#UserDetailsTable");
-    $myTable.dataTable().fnDestroy();
-    var table = $myTable.DataTable({
+    var table= $("#UserDetailsTable").DataTable({
         searching: true,
         processing: true, // for show progress bar
         serverSide: true, // for process server side
@@ -51,7 +49,9 @@ function PurchaseToken() {
 
         ]
     });
-  
+    setInterval(function () {
+        table.ajax.reload();
+    }, 20000)
 }
 
 
@@ -112,7 +112,7 @@ function ApprovedPurchaseToken(userID) {
                 $("#lblMessages").show();
                 $('#lblMessages').html(d);
                 setTimeout(function () { $("#lblMessages").hide(); }, 10000);
-                PurchaseToken();
+                //PurchaseToken();
             },
         });
     }
@@ -131,7 +131,7 @@ function UnPurchaseToken(userID) {
                 $("#lblMessages").show();
                 $('#lblMessages').html(d);
                 setTimeout(function () { $("#lblMessages").hide(); }, 10000);
-                PurchaseToken();
+                //PurchaseToken();
 
             },
         });

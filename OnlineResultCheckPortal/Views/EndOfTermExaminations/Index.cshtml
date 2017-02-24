@@ -388,7 +388,7 @@
     .on('success.form.fv', function (e) {
         e.preventDefault();
         InsertEndofTermMockExamResult('/EndOfTermExaminations/ResultUploadEndOfTermMockExam');
-        EndExaminationsDetails();
+
     });
 
     });
@@ -423,7 +423,7 @@
                                 // data: JSON.stringify(request),
                                 data: fileData,
                                 success: function (response) {
-                                    //EndExaminationsDetails();
+                                  //  AlbumListDisplay();
                                 },
                                 error: function (err) {
 
@@ -503,7 +503,6 @@
                     contentType: false,
                     processData: false,
                     success: function (d) {
-                        EndExaminationsDetails();
                         $("#lbladdMessages").show();
                         $('#lbladdMessages').html(d);
                         setTimeout(function () { $("#lbladdMessages").hide(); }, 10000);

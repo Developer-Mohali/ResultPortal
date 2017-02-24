@@ -4,9 +4,7 @@
 });
 
 function DisplayManageJSCEResult() {
-    var $myTable = $("#ManageJSCEResultTable");
-    $myTable.dataTable().fnDestroy();
-    var table = $myTable.DataTable({
+    var table = $("#ManageJSCEResultTable").DataTable({
         "processing": true, // for show progress bar
         "serverSide": true, // for process server side
         "filter": true, // this is for disable filter (search box)
@@ -44,7 +42,9 @@ function DisplayManageJSCEResult() {
 
         ]
     });
-
+    setInterval(function () {
+        table.ajax.reload();
+    }, 20000)
 }
 
 function InsertJSCEResult(controller) {
@@ -105,7 +105,7 @@ function InsertJSCEResult(controller) {
             {
             
                 $("#lblMessage").show();
-                $("#lblMessage").html("Registration number already exists !");
+                $("#lblMessage").html("Registration no already exists !");
                 setTimeout(function () { $("#lblMessage").hide(); }, 10000);
                 $('#myStudentProfile').modal('toggle'); //or  $('#IDModal').modal('hide');
                 return false;
@@ -125,7 +125,6 @@ function InsertJSCEResult(controller) {
                 }
                 else {
                     UploadUserProfileImage(d);
-                    $("#ImageId").hide();
                     $('#AddNewManageJSCEResult').bootstrapValidator('resetForm', true);
                     $("#lblMessages").show();
                     $("#lblMessages").html(d);
@@ -386,7 +385,6 @@ function DeleteJSCEResult(Id) {
                 $("#lblMessage").show();
                 $('#lblMessage').html(d);
                 setTimeout(function () { $("#lblMessage").hide(); }, 10000);
-                DisplayManageJSCEResult();
             },
         });
     }

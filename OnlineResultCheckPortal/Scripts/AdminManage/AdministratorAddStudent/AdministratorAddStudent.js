@@ -5,9 +5,8 @@
 });
 
 function UserDetails() {
-    var $myTable = $("#UserDetailsTable");
-    $myTable.dataTable().fnDestroy();
-    var table = $myTable.DataTable({
+
+    var table = $("#UserDetailsTable").DataTable({
         searching: true,
         "processing": true, // for show progress bar
         "serverSide": true, // for process server side
@@ -40,7 +39,9 @@ function UserDetails() {
 
         ]
     });
-  
+    setInterval(function () {
+        table.ajax.reload();
+    }, 10000);
 }
 
 //This function use to Get User list..
@@ -91,7 +92,6 @@ function DeleteUserProfile(userID) {
                 $("#lblMessage").show();
                 $('#lblMessage').html(d);
                 setTimeout(function () { $("#lblMessage").hide(); }, 5000);
-                UserDetails();
             },
         });
     }

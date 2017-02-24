@@ -17,9 +17,9 @@ function addnewRecorToken(controller) {
         data: JSON.stringify(request),
         success: function (data) {
             if (data == "Already Exists") {
-                $("#lblMessages").show();
-                $('#lblMessages').html("Token ID already exists.");
-                setTimeout(function () { $("#lblMessages").hide(); }, 5000);
+                $("#lblMessage").show();
+                $('#lblMessage').html("Token ID already exists.");
+                setTimeout(function () { $("#lblMessage").hide(); }, 5000);
             } else {
              
                 $("#lblUpdateMessages").show();
@@ -49,9 +49,7 @@ function TokenAdded()
 }
 
 function TokenDetails() {
-    var $myTable = $("#TokenTable");
-    $myTable.dataTable().fnDestroy();
-    var table = $myTable.DataTable({
+    var table = $('#TokenTable').DataTable({
         "processing": true, // for show progress bar
         "serverSide": true, // for process server side
         "filter": true, // this is for disable filter (search box)
@@ -83,9 +81,11 @@ function TokenDetails() {
                     }
 
         ],
-       
+
     });
-   
+    setInterval(function () {
+        table.ajax.reload();
+    }, 10000);
 }
 
 
@@ -146,11 +146,11 @@ function DeleteTokenRecords(tokenId)
             type: "POST",
             data: { tokenId: tokenId },
             success: function (data) {
-             
+               
                 $("#lblMessage").show();
                 $('#lblMessage').html(data);
                 setTimeout(function () { $("#lblMessage").hide(); }, 10000);
-                TokenDetails();
+               
             }
         });
     }

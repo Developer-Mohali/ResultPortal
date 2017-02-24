@@ -375,6 +375,15 @@ namespace OnlineResultCheckPortal
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetSchool_Result1>("GetSchool");
         }
     
+        public virtual ObjectResult<GetStudentProfileByAdministrator_Result3> GetStudentProfileByAdministrator(Nullable<int> administrator)
+        {
+            var administratorParameter = administrator.HasValue ?
+                new ObjectParameter("Administrator", administrator) :
+                new ObjectParameter("Administrator", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetStudentProfileByAdministrator_Result3>("GetStudentProfileByAdministrator", administratorParameter);
+        }
+    
         public virtual ObjectResult<searchToken_Result> searchToken(string search)
         {
             var searchParameter = search != null ?
@@ -427,15 +436,6 @@ namespace OnlineResultCheckPortal
                 new ObjectParameter("Search", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SearchMockExam_Result>("SearchMockExam", searchParameter);
-        }
-    
-        public virtual ObjectResult<GetStudentProfileByAdministrator_Result4> GetStudentProfileByAdministrator(Nullable<int> administrator)
-        {
-            var administratorParameter = administrator.HasValue ?
-                new ObjectParameter("Administrator", administrator) :
-                new ObjectParameter("Administrator", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetStudentProfileByAdministrator_Result4>("GetStudentProfileByAdministrator", administratorParameter);
         }
     }
 }
