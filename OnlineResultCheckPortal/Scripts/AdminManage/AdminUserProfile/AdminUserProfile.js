@@ -10,7 +10,6 @@
 
 
 function UserDetails() {
-
     var table = $("#UserDetailsTable").DataTable({
         "serverSide": true,
         "processing": true,
@@ -42,9 +41,7 @@ function UserDetails() {
 
         ]
     });
-    setInterval(function () {
-        table.ajax.reload();
-    }, 20000);
+    
 }
 
 
