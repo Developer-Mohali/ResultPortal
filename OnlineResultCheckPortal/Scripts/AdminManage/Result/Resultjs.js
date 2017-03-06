@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-   
+
     $(document).ajaxStart(function () {
         $("#wait").css("display", "block");
 
@@ -13,42 +13,30 @@
     });
 
 
-    });
+});
+
 
 $('#ResultsDownload').click(function () {
 
     var request = new GetTextboxValue();
-    $.ajax({
-        url: '/Result/ResultDownloadFile',
-        dataType: 'json',
-        contentType: "application/json",
-        type: "POST",
-        data: JSON.stringify(request),
-        success: function (returnValue) {
-            for (i = 0; i < returnValue.length; i++) {
-                var checkfolder = returnValue[i].CheckID;
-                var excelfile = returnValue[i].ReportCardFile;
-                if (excelfile ==null) {
-                    alert("Your report card not uploaded.");
-                }
-                else {
 
-                    window.location = '/Result/DownloadFile?file=' + excelfile + '&checkfolder=' + checkfolder;
-                }
-            }
-          
-        }
-    });
+    console.log("SchoolName :" + request.SchoolID);
+    console.log("request.TokenID :" + request.TokenNumber);
+    window.location = '/Result/ResultDownloadFile?ExamTypes=' + request.ExamTypes + '&Registration=' + request.Registration + '&SchID=' + request.SchoolID +'&TokenNumber=' + request.TokenNumber;
 
 });
 
 
+
 function GetTextboxValue() {
+   
     var self = this;
     self.ExamTypes = $('#DrpExamTypes').val();
     self.Registration = $('#TxtSearchResult').val();
     self.TokenNumber = $('#TxtToken').val();
     self.SchoolID = $('#ddlSchool').val();
+    console.log("all" + self);
+
 }
 
 function SearchResult(Controller) {
@@ -67,8 +55,7 @@ function SearchResult(Controller) {
                     $('#lblMessage').html("Token Id already provided.");
                     setTimeout(function () { $("#lblMessage").hide(); }, 10000);
                 }
-                else if(d=="2")
-                {
+                else if (d == "2") {
                     $("#lblMessage").show();
                     $('#lblMessage').html("Your token number is not verified.");
                     setTimeout(function () { $("#lblMessage").hide(); }, 10000);
@@ -89,7 +76,7 @@ function SearchResult(Controller) {
                     $('#lblMessage').html("Please purchase new token.");
                     setTimeout(function () { $("#lblMessage").hide(); }, 10000);
                 }
-             
+
                 else {
 
                     var oTable = $('#UserDetailsTable').dataTable({ paging: false, "sDom": "" });

@@ -383,7 +383,7 @@
     .on('success.form.fv', function (e) {
         e.preventDefault();
         InsertMockExamResult('/MockExaminations/ResultUploadMockExam');
-
+        MockExamDetails();
     });
 
     });
@@ -498,6 +498,7 @@
                     contentType: false,
                     processData: false,
                     success: function (d) {
+                        MockExamDetails();
                         $("#lbladdMessages").show();
                         $('#lbladdMessages').html(d);
                         setTimeout(function () { $("#lbladdMessages").hide(); }, 10000);

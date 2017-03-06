@@ -388,7 +388,7 @@
     .on('success.form.fv', function (e) {
         e.preventDefault();
         InsertJSCEResult('/JSCEResult/ResultUpload');
-
+        DisplayManageJSCEResult();
     });
 
     });
@@ -505,6 +505,7 @@
                     contentType: false,
                     processData: false,
                     success: function (d) {
+                        DisplayManageJSCEResult();
                         $("#lbladdMessages").show();
                         $('#lbladdMessages').html(d);
                         setTimeout(function () { $("#lbladdMessages").hide(); }, 10000);

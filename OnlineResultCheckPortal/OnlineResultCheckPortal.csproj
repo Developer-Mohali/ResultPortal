@@ -41,7 +41,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="itextsharp, Version=4.1.2.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="RazorPDF">
+      <HintPath>..\..\..\..\..\..\..\RazorPDF.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -695,6 +702,9 @@
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
     <Compile Include="GetStudentProfileByAdministrator_Result3.cs">
+      <DependentUpon>OCRP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetStudentProfileByAdministrator_Result4.cs">
       <DependentUpon>OCRP.tt</DependentUpon>
     </Compile>
     <Compile Include="GetStudentProfile_Result.cs">
@@ -1377,6 +1387,7 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\FTP update.pubxml" />
     <None Include="Properties\PublishProfiles\Local.pubxml" />
     <None Include="Properties\PublishProfiles\onl.pubxml" />
@@ -4783,15 +4794,6 @@
     <Content Include="vendors\input-mask\input-mask.min.js" />
     <Content Include="vendors\sparklines\jquery.sparkline.js" />
     <Content Include="vendors\sparklines\jquery.sparkline.min.js" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Images\accent.png" />
@@ -5220,6 +5222,14 @@
     <Content Include="Views\PurchaseToken\Index.cshtml" />
     <Content Include="Views\AdministratorAddStudent\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutHome.cshtml" />
+    <Content Include="Views\Result\pdf.cshtml" />
+    <Content Include="Web.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -5232,10 +5242,10 @@
     <Folder Include="vendors\bower_components\jquery.sparkline\dist\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

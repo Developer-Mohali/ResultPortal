@@ -4,8 +4,9 @@
    
 });
 function EndExaminationsDetails() {
-    var table = $("#EndofTermMockExamresultTable").DataTable({
-    
+    var $myTable = $("#EndofTermMockExamresultTable");
+    $myTable.dataTable().fnDestroy();
+    var table = $myTable.DataTable({
         "processing": true, // for show progress bar
         "serverSide": true, // for process server side
         "filter": true, // this is for disable filter (search box)
@@ -43,9 +44,7 @@ function EndExaminationsDetails() {
 
         ]
     });
-    setInterval(function () {
-        table.ajax.reload();
-    }, 20000)
+  
 }
 //This function use to Get User list..
 //function EndExaminationsDetails() {
@@ -237,6 +236,7 @@ function DeleteMockExamResult(Id) {
                 $("#lblMessage").show();
                 $('#lblMessage').html(d);
                 setTimeout(function () { $("#lblMessage").hide(); }, 10000);
+                EndExaminationsDetails();
             },
         });
     }
@@ -300,7 +300,7 @@ function InsertEndofTermMockExamResult(controller) {
             if (d == "Registration no already exists !") {
 
                 $("#lblMessage").show();
-                $("#lblMessage").html("Registration no already exists !");
+                $("#lblMessage").html("Registration number already exists !");
                 setTimeout(function () { $("#lblMessage").hide(); }, 10000);
                 $('#myStudentProfile').modal('toggle'); //or  $('#IDModal').modal('hide');
                 return false;
@@ -316,6 +316,7 @@ function InsertEndofTermMockExamResult(controller) {
                 }
                 else {
                     UploadUserProfileImage(d)
+                    $("#ImageId").hide();
                     $('#AddNewManageJSCEResult').bootstrapValidator('resetForm', true);
                     $("#lblMessages").show();
                     $("#lblMessages").html(d);
