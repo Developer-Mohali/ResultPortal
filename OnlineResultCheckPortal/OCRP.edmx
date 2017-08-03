@@ -364,6 +364,24 @@
           <Parameter Name="ID" Type="int" Mode="In" />
         </Function>
         <Function Name="PurchaseToken" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SearchEndofTermExam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Search" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SearchJSCEResult" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Search" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SearchMockExam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Search" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SearchSchool" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Search" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SearchStudent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Search" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="searchToken" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Search" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="StudenDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserId" Type="int" Mode="In" />
         </Function>
@@ -458,9 +476,6 @@
           <Parameter Name="AdminId" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="Students" EntityType="OnlineResultCheckPortalModel.Student" />
-          <FunctionImport Name="CreateSchoolByExcel" ReturnType="Collection(OnlineResultCheckPortalModel.CreateSchoolByExcel_Result3)">
-          <Parameter Name="SchoolName" Mode="In" Type="String" />
-          </FunctionImport>
           <EntitySet Name="Schools" EntityType="OnlineResultCheckPortalModel.School" />
           <FunctionImport Name="EditUserProfile" ReturnType="Collection(OnlineResultCheckPortalModel.EditUserProfile_Result13)">
           <Parameter Name="Id" Mode="In" Type="Int32" />
@@ -468,10 +483,6 @@
           <FunctionImport Name="AdministratorSchool" ReturnType="Collection(OnlineResultCheckPortalModel.AdministratorSchool_Result)">
           <Parameter Name="AdministratorID" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="GetStudentProfileByAdministrator" ReturnType="Collection(OnlineResultCheckPortalModel.GetStudentProfileByAdministrator_Result2)">
-          <Parameter Name="Administrator" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="GetSchool" ReturnType="Collection(OnlineResultCheckPortalModel.GetSchool_Result)" />
           <FunctionImport Name="GetDetailsEndMockExamanation" ReturnType="Collection(OnlineResultCheckPortalModel.GetDetailsEndMockExamanation_Result6)" />
           <FunctionImport Name="GetDetailsMockExamanation" ReturnType="Collection(OnlineResultCheckPortalModel.GetDetailsMockExamanation_Result9)" />
           <FunctionImport Name="GetUploadResultDetails" ReturnType="Collection(OnlineResultCheckPortalModel.GetUploadResultDetails_Result4)" />
@@ -479,11 +490,7 @@
             <Parameter Name="Registration" Mode="In" Type="String" />
             <Parameter Name="CheckResult" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="AdminUserProfileDisplay" ReturnType="Collection(OnlineResultCheckPortalModel.AdminUserProfileDisplay_Result23)" />
           <FunctionImport Name="PurchaseToken" ReturnType="Collection(OnlineResultCheckPortalModel.PurchaseToken_Result3)" />
-          <FunctionImport Name="CreateSchoolByExcel1" ReturnType="Collection(OnlineResultCheckPortalModel.CreateSchoolByExcel1_Result)">
-          <Parameter Name="SchoolName" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="GetDisplayListJSCEResult" ReturnType="Collection(OnlineResultCheckPortalModel.GetDisplayListJSCEResult_Result4)">
           <Parameter Name="CreatedBy" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -496,7 +503,6 @@
           <FunctionImport Name="StudenDetails" ReturnType="Collection(OnlineResultCheckPortalModel.StudenDetails_Result7)">
           <Parameter Name="UserId" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="GetTokenList" ReturnType="Collection(OnlineResultCheckPortalModel.GetTokenList_Result2)" />
           <FunctionImport Name="EditTokenLists" ReturnType="Collection(OnlineResultCheckPortalModel.EditTokenLists_Result2)">
           <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -504,7 +510,6 @@
           <Parameter Name="AdminId" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="StudentDownloadResults" EntityType="OnlineResultCheckPortalModel.StudentDownloadResult" />
-          <EntitySet Name="Tokens" EntityType="OnlineResultCheckPortalModel.Token" />
           <FunctionImport Name="DownloadResultGetProfile" ReturnType="Collection(OnlineResultCheckPortalModel.DownloadResultGetProfile_Result1)">
             <Parameter Name="Registration" Mode="In" Type="String" />
             <Parameter Name="CheckResult" Mode="In" Type="String" />
@@ -514,6 +519,43 @@
             <Parameter Name="CheckResult" Mode="In" Type="String" />
             <Parameter Name="Registration" Mode="In" Type="String" />
             <Parameter Name="SchoolId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="CreateSchoolByExcel" ReturnType="Collection(OnlineResultCheckPortalModel.CreateSchoolByExcel_Result4)">
+          <Parameter Name="SchoolName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetManageJSCEEdit1" ReturnType="Collection(OnlineResultCheckPortalModel.GetManageJSCEEdit1_Result1)">
+          <Parameter Name="JSCEID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Tokens" EntityType="OnlineResultCheckPortalModel.Token" />
+          <FunctionImport Name="AdminUserProfileDisplay" ReturnType="Collection(OnlineResultCheckPortalModel.AdminUserProfileDisplay_Result28)" />
+          <FunctionImport Name="GetTokenList" ReturnType="Collection(OnlineResultCheckPortalModel.GetTokenList_Result4)" />
+          <FunctionImport Name="CreateSchoolByExcel1" ReturnType="Collection(OnlineResultCheckPortalModel.CreateSchoolByExcel1_Result1)">
+          <Parameter Name="SchoolName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetManageJSCEEdit2" ReturnType="Collection(OnlineResultCheckPortalModel.GetManageJSCEEdit2_Result)">
+          <Parameter Name="JSCEID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetSchool" ReturnType="Collection(OnlineResultCheckPortalModel.GetSchool_Result1)" />
+          <FunctionImport Name="searchToken" ReturnType="Collection(OnlineResultCheckPortalModel.searchToken_Result)">
+          <Parameter Name="Search" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SearchSchool" ReturnType="Collection(OnlineResultCheckPortalModel.SearchSchool_Result)">
+          <Parameter Name="Search" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SearchStudent" ReturnType="Collection(OnlineResultCheckPortalModel.SearchStudent_Result)">
+          <Parameter Name="Search" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SearchEndofTermExam" ReturnType="Collection(OnlineResultCheckPortalModel.SearchEndofTermExam_Result)">
+          <Parameter Name="Search" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SearchJSCEResult" ReturnType="Collection(OnlineResultCheckPortalModel.SearchJSCEResult_Result)">
+          <Parameter Name="Search" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SearchMockExam" ReturnType="Collection(OnlineResultCheckPortalModel.SearchMockExam_Result)">
+          <Parameter Name="Search" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetStudentProfileByAdministrator" ReturnType="Collection(OnlineResultCheckPortalModel.GetStudentProfileByAdministrator_Result4)">
+            <Parameter Name="Administrator" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="AdminUserProfileDisplay_Result">
@@ -3595,23 +3637,6 @@
           <Property Name="SchoolID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UsedTokenNumber" Type="Int32" />
         </EntityType>
-        <EntityType Name="Token">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TokenName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="TokenPrice" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="NumberOfTimeUse" Type="Int32" />
-          <Property Name="TokenDescription" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
-          <Property Name="TokenID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="IsDeleted" Type="Boolean" />
-          <Property Name="UpdatedBy" Type="Int32" />
-          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
-          <Property Name="DeletedBy" Type="Boolean" />
-        </EntityType>
         <ComplexType Name="GetOnlyPurchaseTokenResult_Result11">
           <Property Type="Int64" Name="RowNumber" Nullable="true" />
           <Property Type="String" Name="RegistrationNumber" Nullable="true" MaxLength="50" />
@@ -3774,6 +3799,309 @@
           <Property Type="String" Name="Remarks" Nullable="true" MaxLength="50" />
           <Property Type="Boolean" Name="IsDeleted" Nullable="true" />
           <Property Type="Int32" Name="CreatedBy" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="AdminUserProfileDisplay_Result24">
+          <Property Type="Int64" Name="RowNumber" Nullable="true" />
+          <Property Type="String" Name="StudentID" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Boolean" Name="IsDeleted" Nullable="true" />
+          <Property Type="String" Name="fullName" Nullable="true" MaxLength="201" />
+          <Property Type="String" Name="RoleName" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="EmailID" Nullable="true" MaxLength="50" />
+          <Property Type="Int16" Name="RoleId" Nullable="true" />
+          <Property Type="Boolean" Name="IsApproved" Nullable="true" />
+          <Property Type="String" Name="CreateDate" Nullable="true" MaxLength="4000" />
+          <Property Type="String" Name="FatherName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Dob" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="LocalGovernment" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="SchoolName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="State" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Address" Nullable="true" />
+          <Property Type="String" Name="Contact" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Gender" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="AcademicYear" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="School" Nullable="true" />
+          <Property Type="Int32" Name="UserId" Nullable="true" />
+          <Property Type="String" Name="Picture" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="AdminUserProfileDisplay_Result25">
+          <Property Type="Int64" Name="RowNumber" Nullable="true" />
+          <Property Type="String" Name="StudentID" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Boolean" Name="IsDeleted" Nullable="true" />
+          <Property Type="String" Name="fullName" Nullable="true" MaxLength="201" />
+          <Property Type="String" Name="RoleName" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="EmailID" Nullable="true" MaxLength="50" />
+          <Property Type="Int16" Name="RoleId" Nullable="true" />
+          <Property Type="Boolean" Name="IsApproved" Nullable="true" />
+          <Property Type="String" Name="CreateDate" Nullable="true" MaxLength="4000" />
+          <Property Type="String" Name="FatherName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Dob" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="LocalGovernment" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="SchoolName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="State" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Address" Nullable="true" />
+          <Property Type="String" Name="Contact" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Gender" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="AcademicYear" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="School" Nullable="true" />
+          <Property Type="Int32" Name="UserId" Nullable="true" />
+          <Property Type="String" Name="Picture" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="AdminUserProfileDisplay_Result26">
+          <Property Type="Int64" Name="RowNumber" Nullable="true" />
+          <Property Type="String" Name="StudentID" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Boolean" Name="IsDeleted" Nullable="true" />
+          <Property Type="String" Name="fullName" Nullable="true" MaxLength="201" />
+          <Property Type="String" Name="RoleName" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="EmailID" Nullable="true" MaxLength="50" />
+          <Property Type="Int16" Name="RoleId" Nullable="true" />
+          <Property Type="Boolean" Name="IsApproved" Nullable="true" />
+          <Property Type="String" Name="CreateDate" Nullable="true" MaxLength="4000" />
+          <Property Type="String" Name="FatherName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Dob" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="LocalGovernment" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="SchoolName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="State" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Address" Nullable="true" />
+          <Property Type="String" Name="Contact" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Gender" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="AcademicYear" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="School" Nullable="true" />
+          <Property Type="Int32" Name="UserId" Nullable="true" />
+          <Property Type="String" Name="Picture" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="AdminUserProfileDisplay_Result27">
+          <Property Type="Int64" Name="RowNumber" Nullable="true" />
+          <Property Type="String" Name="StudentID" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="fullName" Nullable="true" MaxLength="201" />
+          <Property Type="String" Name="Dob" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="LocalGovernment" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="SchoolName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="State" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Gender" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="School" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="CreateSchoolByExcel_Result4">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="SchoolName" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="GetManageJSCEEdit1_Result1">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="CreatedBy" Nullable="true" />
+          <Property Type="String" Name="FullName" Nullable="true" MaxLength="201" />
+          <Property Type="Int32" Name="StundentID" Nullable="true" />
+          <Property Type="String" Name="JSCERegNumber" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CreateDate" Nullable="true" MaxLength="4000" />
+          <Property Type="Boolean" Name="IsDeleted" Nullable="true" />
+          <Property Type="Int32" Name="JSCEID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetTokenList_Result3">
+          <Property Type="Int64" Name="RowNumber" Nullable="true" />
+          <Property Type="Int64" Name="ID" Nullable="false" />
+          <Property Type="String" Name="TokenName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="TokenDescription" Nullable="true" MaxLength="2000" />
+          <Property Type="Int32" Name="NumberOfTimeUse" Nullable="true" />
+          <Property Type="String" Name="TokenPrice" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="TokenID" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <EntityType Name="Token">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TokenName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TokenPrice" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="NumberOfTimeUse" Type="Int32" />
+          <Property Name="TokenDescription" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="TokenID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="DeletedBy" Type="Boolean" />
+        </EntityType>
+        <ComplexType Name="AdminUserProfileDisplay_Result28">
+          <Property Type="Int64" Name="RowNumber" Nullable="true" />
+          <Property Type="String" Name="StudentID" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Boolean" Name="IsDeleted" Nullable="true" />
+          <Property Type="String" Name="fullName" Nullable="true" MaxLength="201" />
+          <Property Type="String" Name="RoleName" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="EmailID" Nullable="true" MaxLength="50" />
+          <Property Type="Int16" Name="RoleId" Nullable="true" />
+          <Property Type="Boolean" Name="IsApproved" Nullable="true" />
+          <Property Type="String" Name="CreateDate" Nullable="true" MaxLength="4000" />
+          <Property Type="String" Name="FatherName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Dob" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="LocalGovernment" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="SchoolName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="State" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Address" Nullable="true" />
+          <Property Type="String" Name="Contact" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Gender" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="AcademicYear" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="School" Nullable="true" />
+          <Property Type="Int32" Name="UserId" Nullable="true" />
+          <Property Type="String" Name="Picture" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="GetTokenList_Result4">
+          <Property Type="Int64" Name="RowNumber" Nullable="true" />
+          <Property Type="Int64" Name="ID" Nullable="false" />
+          <Property Type="String" Name="TokenName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="TokenDescription" Nullable="true" MaxLength="2000" />
+          <Property Type="Int32" Name="NumberOfTimeUse" Nullable="true" />
+          <Property Type="String" Name="TokenPrice" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="TokenID" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="CreateSchoolByExcel1_Result1">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="SchoolName" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="GetManageJSCEEdit2_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="CreatedBy" Nullable="true" />
+          <Property Type="String" Name="FullName" Nullable="true" MaxLength="201" />
+          <Property Type="Int32" Name="StundentID" Nullable="true" />
+          <Property Type="String" Name="JSCERegNumber" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CreateDate" Nullable="true" MaxLength="4000" />
+          <Property Type="Boolean" Name="IsDeleted" Nullable="true" />
+          <Property Type="Int32" Name="JSCEID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetSchool_Result1">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="SchoolName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Address" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Zipcode" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Zone" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="CreatedBy" Nullable="true" />
+          <Property Type="Boolean" Name="IsDeleted" Nullable="true" />
+          <Property Type="Int32" Name="UpdatedBy" Nullable="true" />
+          <Property Type="DateTime" Name="UpdatedDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="DeletedBy" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetStudentProfileByAdministrator_Result3">
+          <Property Type="Int64" Name="RowNumber" Nullable="true" />
+          <Property Type="String" Name="StudentID" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Boolean" Name="IsDeleted" Nullable="true" />
+          <Property Type="String" Name="fullName" Nullable="true" MaxLength="201" />
+          <Property Type="String" Name="RoleName" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="EmailID" Nullable="true" MaxLength="50" />
+          <Property Type="Int16" Name="RoleId" Nullable="true" />
+          <Property Type="Boolean" Name="IsApproved" Nullable="true" />
+          <Property Type="String" Name="CreateDate" Nullable="true" MaxLength="4000" />
+          <Property Type="String" Name="FatherName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Dob" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="LocalGovernment" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="State" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="SchoolName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Address" Nullable="true" />
+          <Property Type="String" Name="Contact" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Gender" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="AcademicYear" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="School" Nullable="true" />
+          <Property Type="Int32" Name="UserId" Nullable="true" />
+          <Property Type="String" Name="Picture" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="searchToken_Result">
+          <Property Type="Int64" Name="RowNumber" Nullable="true" />
+          <Property Type="Int64" Name="ID" Nullable="false" />
+          <Property Type="String" Name="TokenName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="TokenDescription" Nullable="true" MaxLength="2000" />
+          <Property Type="Int32" Name="NumberOfTimeUse" Nullable="true" />
+          <Property Type="String" Name="TokenPrice" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="TokenID" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="SearchSchool_Result">
+          <Property Type="Int64" Name="RowNumber" Nullable="true" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="SchoolName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Address" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Zipcode" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Zone" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="SearchStudent_Result">
+          <Property Type="Int64" Name="RowNumber" Nullable="true" />
+          <Property Type="String" Name="StudentID" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Boolean" Name="IsDeleted" Nullable="true" />
+          <Property Type="String" Name="fullName" Nullable="true" MaxLength="201" />
+          <Property Type="String" Name="RoleName" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="EmailID" Nullable="true" MaxLength="50" />
+          <Property Type="Int16" Name="RoleId" Nullable="true" />
+          <Property Type="Boolean" Name="IsApproved" Nullable="true" />
+          <Property Type="String" Name="CreateDate" Nullable="true" MaxLength="4000" />
+          <Property Type="String" Name="FatherName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Dob" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="LocalGovernment" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="SchoolName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="State" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Address" Nullable="true" />
+          <Property Type="String" Name="Contact" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Gender" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="AcademicYear" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="School" Nullable="true" />
+          <Property Type="Int32" Name="UserId" Nullable="true" />
+          <Property Type="String" Name="Picture" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="SearchEndofTermExam_Result">
+          <Property Type="Int64" Name="RowNumber" Nullable="true" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="RegistrationNumber" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="FileName" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="ReportCardFile" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="FullName" Nullable="true" MaxLength="201" />
+          <Property Type="String" Name="StudentID" Nullable="true" MaxLength="200" />
+        </ComplexType>
+        <ComplexType Name="SearchJSCEResult_Result">
+          <Property Type="Int64" Name="RowNumber" Nullable="true" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="RegistrationNumber" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="FileName" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="ReportCardFile" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="FullName" Nullable="true" MaxLength="201" />
+          <Property Type="String" Name="StudentID" Nullable="true" MaxLength="200" />
+        </ComplexType>
+        <ComplexType Name="SearchMockExam_Result">
+          <Property Type="Int64" Name="RowNumber" Nullable="true" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="RegistrationNumber" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="FileName" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="ReportCardFile" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="FullName" Nullable="true" MaxLength="201" />
+          <Property Type="String" Name="StudentID" Nullable="true" MaxLength="200" />
+        </ComplexType>
+        <ComplexType Name="GetStudentProfileByAdministrator_Result4">
+          <Property Type="Int64" Name="RowNumber" Nullable="true" />
+          <Property Type="String" Name="StudentID" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Boolean" Name="IsDeleted" Nullable="true" />
+          <Property Type="String" Name="fullName" Nullable="true" MaxLength="201" />
+          <Property Type="String" Name="RoleName" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="EmailID" Nullable="true" MaxLength="50" />
+          <Property Type="Int16" Name="RoleId" Nullable="true" />
+          <Property Type="Boolean" Name="IsApproved" Nullable="true" />
+          <Property Type="String" Name="CreateDate" Nullable="true" MaxLength="4000" />
+          <Property Type="String" Name="FatherName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Dob" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="LocalGovernment" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="State" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="SchoolName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Address" Nullable="true" />
+          <Property Type="String" Name="Contact" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Gender" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="AcademicYear" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="School" Nullable="true" />
+          <Property Type="Int32" Name="UserId" Nullable="true" />
+          <Property Type="String" Name="Picture" Nullable="true" MaxLength="500" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -4386,52 +4714,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetStudentProfileByAdministrator" FunctionName="OnlineResultCheckPortalModel.Store.GetStudentProfileByAdministrator">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="OnlineResultCheckPortalModel.GetStudentProfileByAdministrator_Result2">
-                <ScalarProperty Name="RowNumber" ColumnName="RowNumber" />
-                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
-                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
-                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="FatherName" ColumnName="FatherName" />
-                <ScalarProperty Name="Dob" ColumnName="Dob" />
-                <ScalarProperty Name="LocalGovernment" ColumnName="LocalGovernment" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Contact" ColumnName="Contact" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="AcademicYear" ColumnName="AcademicYear" />
-                <ScalarProperty Name="School" ColumnName="School" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Picture" ColumnName="Picture" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetSchool" FunctionName="OnlineResultCheckPortalModel.Store.GetSchool">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="OnlineResultCheckPortalModel.GetSchool_Result">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Zipcode" ColumnName="Zipcode" />
-                <ScalarProperty Name="Zone" ColumnName="Zone" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
-                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetDetailsEndMockExamanation" FunctionName="OnlineResultCheckPortalModel.Store.GetDetailsEndMockExamanation">
             <ResultMapping>
               <ComplexTypeMapping TypeName="OnlineResultCheckPortalModel.GetDetailsEndMockExamanation_Result6">
@@ -4482,34 +4764,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="AdminUserProfileDisplay" FunctionName="OnlineResultCheckPortalModel.Store.AdminUserProfileDisplay">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="OnlineResultCheckPortalModel.AdminUserProfileDisplay_Result23">
-                <ScalarProperty Name="RowNumber" ColumnName="RowNumber" />
-                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="fullName" ColumnName="fullName" />
-                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
-                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
-                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="FatherName" ColumnName="FatherName" />
-                <ScalarProperty Name="Dob" ColumnName="Dob" />
-                <ScalarProperty Name="LocalGovernment" ColumnName="LocalGovernment" />
-                <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Contact" ColumnName="Contact" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="AcademicYear" ColumnName="AcademicYear" />
-                <ScalarProperty Name="School" ColumnName="School" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Picture" ColumnName="Picture" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="PurchaseToken" FunctionName="OnlineResultCheckPortalModel.Store.PurchaseToken">
             <ResultMapping>
               <ComplexTypeMapping TypeName="OnlineResultCheckPortalModel.PurchaseToken_Result3">
@@ -4536,14 +4790,6 @@
                 <ScalarProperty Name="School" ColumnName="School" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Picture" ColumnName="Picture" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="CreateSchoolByExcel1" FunctionName="OnlineResultCheckPortalModel.Store.CreateSchoolByExcel">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="OnlineResultCheckPortalModel.CreateSchoolByExcel1_Result">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -4622,19 +4868,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetTokenList" FunctionName="OnlineResultCheckPortalModel.Store.GetTokenList">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="OnlineResultCheckPortalModel.GetTokenList_Result2">
-                <ScalarProperty Name="RowNumber" ColumnName="RowNumber" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="TokenName" ColumnName="TokenName" />
-                <ScalarProperty Name="TokenDescription" ColumnName="TokenDescription" />
-                <ScalarProperty Name="NumberOfTimeUse" ColumnName="NumberOfTimeUse" />
-                <ScalarProperty Name="TokenPrice" ColumnName="TokenPrice" />
-                <ScalarProperty Name="TokenID" ColumnName="TokenID" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="EditTokenLists" FunctionName="OnlineResultCheckPortalModel.Store.EditTokenLists">
             <ResultMapping>
               <ComplexTypeMapping TypeName="OnlineResultCheckPortalModel.EditTokenLists_Result2">
@@ -4675,24 +4908,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Tokens">
-            <EntityTypeMapping TypeName="OnlineResultCheckPortalModel.Token">
-              <MappingFragment StoreEntitySet="Token">
-                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="TokenID" ColumnName="TokenID" />
-                <ScalarProperty Name="TokenDescription" ColumnName="TokenDescription" />
-                <ScalarProperty Name="NumberOfTimeUse" ColumnName="NumberOfTimeUse" />
-                <ScalarProperty Name="TokenPrice" ColumnName="TokenPrice" />
-                <ScalarProperty Name="TokenName" ColumnName="TokenName" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="DownloadResultGetProfile" FunctionName="OnlineResultCheckPortalModel.Store.DownloadResultGetProfile">
             <ResultMapping>
               <ComplexTypeMapping TypeName="OnlineResultCheckPortalModel.DownloadResultGetProfile_Result1">
@@ -4716,6 +4931,227 @@
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Tokens">
+            <EntityTypeMapping TypeName="OnlineResultCheckPortalModel.Token">
+              <MappingFragment StoreEntitySet="Token">
+                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="TokenID" ColumnName="TokenID" />
+                <ScalarProperty Name="TokenDescription" ColumnName="TokenDescription" />
+                <ScalarProperty Name="NumberOfTimeUse" ColumnName="NumberOfTimeUse" />
+                <ScalarProperty Name="TokenPrice" ColumnName="TokenPrice" />
+                <ScalarProperty Name="TokenName" ColumnName="TokenName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AdminUserProfileDisplay" FunctionName="OnlineResultCheckPortalModel.Store.AdminUserProfileDisplay">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OnlineResultCheckPortalModel.AdminUserProfileDisplay_Result28">
+                <ScalarProperty Name="RowNumber" ColumnName="RowNumber" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="fullName" ColumnName="fullName" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="FatherName" ColumnName="FatherName" />
+                <ScalarProperty Name="Dob" ColumnName="Dob" />
+                <ScalarProperty Name="LocalGovernment" ColumnName="LocalGovernment" />
+                <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="AcademicYear" ColumnName="AcademicYear" />
+                <ScalarProperty Name="School" ColumnName="School" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetTokenList" FunctionName="OnlineResultCheckPortalModel.Store.GetTokenList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OnlineResultCheckPortalModel.GetTokenList_Result4">
+                <ScalarProperty Name="RowNumber" ColumnName="RowNumber" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TokenName" ColumnName="TokenName" />
+                <ScalarProperty Name="TokenDescription" ColumnName="TokenDescription" />
+                <ScalarProperty Name="NumberOfTimeUse" ColumnName="NumberOfTimeUse" />
+                <ScalarProperty Name="TokenPrice" ColumnName="TokenPrice" />
+                <ScalarProperty Name="TokenID" ColumnName="TokenID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="CreateSchoolByExcel1" FunctionName="OnlineResultCheckPortalModel.Store.CreateSchoolByExcel">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OnlineResultCheckPortalModel.CreateSchoolByExcel1_Result1">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetManageJSCEEdit2" FunctionName="OnlineResultCheckPortalModel.Store.GetManageJSCEEdit">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OnlineResultCheckPortalModel.GetManageJSCEEdit2_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="StundentID" ColumnName="StundentID" />
+                <ScalarProperty Name="JSCERegNumber" ColumnName="JSCERegNumber" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="JSCEID" ColumnName="JSCEID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetSchool" FunctionName="OnlineResultCheckPortalModel.Store.GetSchool">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OnlineResultCheckPortalModel.GetSchool_Result1">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Zipcode" ColumnName="Zipcode" />
+                <ScalarProperty Name="Zone" ColumnName="Zone" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="searchToken" FunctionName="OnlineResultCheckPortalModel.Store.searchToken">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OnlineResultCheckPortalModel.searchToken_Result">
+                <ScalarProperty Name="RowNumber" ColumnName="RowNumber" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TokenName" ColumnName="TokenName" />
+                <ScalarProperty Name="TokenDescription" ColumnName="TokenDescription" />
+                <ScalarProperty Name="NumberOfTimeUse" ColumnName="NumberOfTimeUse" />
+                <ScalarProperty Name="TokenPrice" ColumnName="TokenPrice" />
+                <ScalarProperty Name="TokenID" ColumnName="TokenID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SearchSchool" FunctionName="OnlineResultCheckPortalModel.Store.SearchSchool">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OnlineResultCheckPortalModel.SearchSchool_Result">
+                <ScalarProperty Name="RowNumber" ColumnName="RowNumber" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Zipcode" ColumnName="Zipcode" />
+                <ScalarProperty Name="Zone" ColumnName="Zone" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SearchStudent" FunctionName="OnlineResultCheckPortalModel.Store.SearchStudent">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OnlineResultCheckPortalModel.SearchStudent_Result">
+                <ScalarProperty Name="RowNumber" ColumnName="RowNumber" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="fullName" ColumnName="fullName" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="FatherName" ColumnName="FatherName" />
+                <ScalarProperty Name="Dob" ColumnName="Dob" />
+                <ScalarProperty Name="LocalGovernment" ColumnName="LocalGovernment" />
+                <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="AcademicYear" ColumnName="AcademicYear" />
+                <ScalarProperty Name="School" ColumnName="School" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SearchEndofTermExam" FunctionName="OnlineResultCheckPortalModel.Store.SearchEndofTermExam">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OnlineResultCheckPortalModel.SearchEndofTermExam_Result">
+                <ScalarProperty Name="RowNumber" ColumnName="RowNumber" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="RegistrationNumber" ColumnName="RegistrationNumber" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="ReportCardFile" ColumnName="ReportCardFile" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SearchJSCEResult" FunctionName="OnlineResultCheckPortalModel.Store.SearchJSCEResult">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OnlineResultCheckPortalModel.SearchJSCEResult_Result">
+                <ScalarProperty Name="RowNumber" ColumnName="RowNumber" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="RegistrationNumber" ColumnName="RegistrationNumber" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="ReportCardFile" ColumnName="ReportCardFile" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SearchMockExam" FunctionName="OnlineResultCheckPortalModel.Store.SearchMockExam">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OnlineResultCheckPortalModel.SearchMockExam_Result">
+                <ScalarProperty Name="RowNumber" ColumnName="RowNumber" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="RegistrationNumber" ColumnName="RegistrationNumber" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="ReportCardFile" ColumnName="ReportCardFile" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetStudentProfileByAdministrator" FunctionName="OnlineResultCheckPortalModel.Store.GetStudentProfileByAdministrator">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OnlineResultCheckPortalModel.GetStudentProfileByAdministrator_Result4">
+                <ScalarProperty Name="RowNumber" ColumnName="RowNumber" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="fullName" ColumnName="fullName" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="FatherName" ColumnName="FatherName" />
+                <ScalarProperty Name="Dob" ColumnName="Dob" />
+                <ScalarProperty Name="LocalGovernment" ColumnName="LocalGovernment" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="AcademicYear" ColumnName="AcademicYear" />
+                <ScalarProperty Name="School" ColumnName="School" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

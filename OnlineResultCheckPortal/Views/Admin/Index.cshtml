@@ -4,8 +4,7 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<link href="//cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css" rel="stylesheet" />
-    <script src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+  
 <input type="hidden" id="ViewUserID" />
 <input type="hidden" id="ViewStudentID" />
 <style>
@@ -381,6 +380,10 @@
 </script>
 <script type="text/javascript">
     $(document).ready(function () {
+        $('#ClearTextbox').click(function () {
+            $("#txtEmail").removeAttr("disabled", "disabled");
+            document.getElementById("AddNewRegisterform").reset();
+        });
         $(function () {
             $('[data-toggle="tooltip"]').tooltip();
             $(document).ajaxStart(function () {
@@ -418,6 +421,7 @@
                     contentType: false,
                     processData: false,
                     success: function (d) {
+                        UserDetails();
                         $("#lbladdMessages").show();
                         $('#lbladdMessages').html(d);
                         setTimeout(function () { $("#lbladdMessages").hide(); }, 10000);
@@ -463,8 +467,8 @@
                             message: 'The email address is required'
                         },
                         stringLength: {
-                            max: 30,
-                            message: 'The email must be less than 30 characters long'
+                            max: 50,
+                            message: 'The email must be less than 50 characters long'
                         },
                         emailAddress: {
                             message: 'The email address not valid'
@@ -476,12 +480,20 @@
                         notEmpty: {
                             message: 'The last name is required'
                         },
+                        stringLength: {
+                            max: 30,
+                            message: 'The last name must be less than 30 characters long'
+                        },
                     }
                 },
                 txtdob: {
                     validators: {
                         notEmpty: {
                             message: 'The date of birth name is required'
+                        },
+                        stringLength: {
+                            max: 20,
+                            message: 'The date of birth must be less than 20 characters long'
                         },
                     }
                 },
@@ -490,6 +502,10 @@
                         notEmpty: {
                             message: 'The first name is required'
                         },
+                        stringLength: {
+                            max: 30,
+                            message: 'The first name must be less than 30 characters long'
+                        },
                     }
                 },
                 txtPassword: {
@@ -497,7 +513,11 @@
                         notEmpty: {
                             message: 'The password is required'
                         },
-                    }
+                    },
+                    stringLength: {
+                        max: 30,
+                        message: 'The password must be less than 30 characters long'
+                    },
                 },
                 DrpGender: {
                     validators: {
@@ -511,12 +531,20 @@
                         notEmpty: {
                             message: 'The registration name is required'
                         },
+                        stringLength: {
+                            max: 50,
+                            message: 'The registration must be less than 50 characters long'
+                        }
                     }
                 },
                 ddlAcademicYears: {
                     validators: {
                         notEmpty: {
                             message: 'The academic Years name is required'
+                        },
+                        stringLength: {
+                            max: 50,
+                            message: 'The email must be less than 50 characters long'
                         },
                     }
                 },
@@ -525,6 +553,10 @@
                         notEmpty: {
                             message: 'The local government name is required'
                         },
+                        stringLength: {
+                            max: 30,
+                            message: 'The local government must be less than 30 characters long'
+                        }
                     }
                 },
                 txtState: {
@@ -532,6 +564,10 @@
                         notEmpty: {
                             message: 'The state name is required'
                         },
+                        stringLength: {
+                            max: 30,
+                            message: 'The state must be less than 30 characters long'
+                        }
                     }
                 },
                 ddlSchoolName: {
@@ -546,6 +582,10 @@
                         notEmpty: {
                             message: 'The address name is required'
                         },
+                        stringLength: {
+                            max: 70,
+                            message: 'The address must be less than 70 characters long'
+                        }
                     }
                 },
             }
@@ -553,6 +593,7 @@
         .on('success.form.fv', function (e) {
             e.preventDefault();
             UpdatUserProfile('/Admin/UpdateUserProfile/');
+            UserDetails();
         });
 
     });
@@ -630,9 +671,9 @@
             },
             txtContact: {
                 validators: {
-                    notEmpty: {
-                        message: 'The contact is required'
-                    },
+                    integer: {
+                        message: 'The value is not an integer'
+                    }
                 }
             },
             txtGender: {
@@ -688,10 +729,7 @@
         $(this).parent().find('.form-control').val($(this).val().replace(/C:\\fakepath\\/i, ''));
     });
 
-    $('#ClearTextbox').click(function () {
-        $("#txtEmail").removeAttr("disabled", "disabled");
-        document.getElementById("AddNewRegisterform").reset();
-    });
+   
 
 </script>
 <style>
@@ -723,3 +761,4 @@
 </style>
 
 <script src="~/Scripts/AdminManage/AdminUserProfile/AdminUserProfile.js"></script>
+

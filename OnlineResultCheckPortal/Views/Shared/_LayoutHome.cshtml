@@ -1,0 +1,112 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <title>ResultsMasta | Check your results online</title>
+    <meta name="keywords" content="jsce, jsce result, nigeria, admamawa, mock exams, exams, examination, waec, neco, state, check result, online">
+    <meta name="description" content="ResultsMasta is a platfor for students to check their results online">
+    <meta name="viewport" content="width=device-width">
+    <meta property="og:title" content="ResultsMasta | Check your results online">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://www.resultmasta.com">
+    <meta property="og:site_name" content="Result Masta">
+    <meta property="og:description" content="ResultsMasta is a platfor for students to check their results online">
+    <!-- Styles -->
+    <link rel="stylesheet" href="~/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/animate.css">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/main.css">
+    <link rel="stylesheet" href="~/css/custom-styles.css">
+    <script src="~/js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="~/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="~/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="~/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="~/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="~/favicon.png">
+
+    <!-- Javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.2.min.js"><\/script>')</script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/main.js"></script>
+    <script src="~/Content/js/datatables.min.js"></script>
+    <script src="~/Content/js/jquery.dataTables.min.js"></script>
+    <script src="http://formvalidation.io/vendor/formvalidation/js/formValidation.min.js"></script>
+    <script src="http://formvalidation.io/vendor/formvalidation/js/framework/bootstrap.min.js"></script>
+    <script>
+      !function ($) {
+        $(function(){
+          $('#header').carousel()
+        })
+      }(window.jQuery)
+    </script>
+
+</head>
+<body >
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand img-responsive" href="/Home/Index"><img src="~/img/logo-1.png" alt="logo"></a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="active"><a href="/Home/Index">Home</a></li>
+                    <li><a href="/Result/Index">Check Results</a></li>
+                    <li><a href="/Home/Contact">Contact</a></li>
+                </ul>
+            </div><!--/.navbar-collapse -->
+        </div>
+    </div>
+
+    @RenderBody()
+
+    <!--Bottom Section-->
+    <section id="bottom">
+        <div class="container">
+            <div class="row margin-40">
+                <div class="col-sm-10 col-sm-offset-1 text-center">
+                    <p>Suite 102/103 First Floor, Bank of Industry Building #18 Muhammadu Buhari Way, Kaduna- Nigeria | 09066392353  |  <a href="mailto:support@resultsmassta.com"><i class="icon-envelope-alt"></i> support@resultsmasta.com</a></p>
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-1 text-center">
+                    <!--Social Icons-->
+                    <ul class="social-icons">
+                        <li><a class="twitter" href="http://www.twitter.com/resultsmasta" target="_blank"><i class="fa fa-twitter fa-3x"></i></a></li>
+                        <li><a class="facebook" href="http://www.facebook.com/resultsmasta" target="_blank"><i class="fa fa-facebook fa-3x"></i></a></li>
+                        <li><a class="google" href="http://www.googleplus.com" target="_blank"><i class="fa fa-google-plus fa-3x"></i></a></li>
+                        <!-- <li><a class="instagram" href="http://www.instagram.com" target="_blank"><i class="fa fa-camera-retro fa-3x"></i></a></li>
+                        <li><a class="pinterest" href="http://www.pinterest.com" target="_blank"><i class="fa fa-pinterest fa-3x"></i></a></li>
+                        <li><a class="linkedin" href="http://www.linkedin.com" target="_blank"><i class="fa fa-linkedin fa-3x"></i></a></li>
+                        <li><a class="Github" href="http://www.github.com" target="_blank"><i class="fa fa-github-alt fa-3x"></i></a></li> -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 text-center">
+                    <p>&copy; Copyright. All Rights Reserved. Powered by <a href="#">QuickNet</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+</body>
+</html>

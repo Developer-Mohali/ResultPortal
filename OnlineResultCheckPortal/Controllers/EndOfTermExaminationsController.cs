@@ -39,20 +39,69 @@ namespace OnlineResultCheckPortal.Controllers
         public ActionResult GetDetailsEndMockExaminations()
         {
             string returnResult = string.Empty;
-            Int32 createdBy = Models.Utility.Number.Zero;
-            //Getting user id by session.
-            if (Session["UserId"] != null)
+            try
             {
-                createdBy = Convert.ToInt32(Session["UserId"]);
-            }
-            var ObjAdmin = ObjOCRP.Users.Where(c => (c.ID == createdBy));
-            if (ObjAdmin != null)
-            {
-                var ObjUserProfile = ObjOCRP.GetDetailsEndMockExamanation().ToList();
+                // get Start (paging start index) and length (page size for paging)
+                var draw = Request.Form.GetValues("draw").FirstOrDefault();
+                var start = Request.Form.GetValues("start").FirstOrDefault();
+                var length = Request.Form.GetValues("length").FirstOrDefault();
+                string search = Request.Form.GetValues("search[value]")[0];
+                if (search != string.Empty)
+                {
+                    try
+                    {
+                        //Get Sort columns value
+                        var sortColumn = Request.Form.GetValues("columns[" + Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][name]").FirstOrDefault();
+                        var sortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
 
-                return new JsonResult { Data = ObjUserProfile, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                        int pageSize = length != null ? Convert.ToInt32(length) : 0;
+                        int skip = start != null ? Convert.ToInt32(start) : 0;
+                        int totalRecords = 0;
+
+                        using (OnlineResultCheckPortal ObjOCRP = new OnlineResultCheckPortal())
+                        {
+                            var ObjEndofTerm = ObjOCRP.SearchEndofTermExam(search).ToList();
+
+                            //Sorting
+                            totalRecords = ObjEndofTerm.Count();
+                            var data = ObjEndofTerm.Skip(skip).Take(pageSize).ToList();
+                            return Json(new { draw = draw, recordsFiltered = totalRecords, recordsTotal = totalRecords, data = data }, JsonRequestBehavior.AllowGet);
+
+                        }
+                    }
+                    catch (Exception Ex)
+                    {
+
+                    }
+
+                }
+                else
+                {
+                    //Get Sort columns value
+                    var sortColumn = Request.Form.GetValues("columns[" + Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][name]").FirstOrDefault();
+                    var sortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
+
+                    int pageSize = length != null ? Convert.ToInt32(length) : 0;
+                    int skip = start != null ? Convert.ToInt32(start) : 0;
+                    int totalRecords = 0;
+
+                    using (OnlineResultCheckPortal ObjOCRP = new OnlineResultCheckPortal())
+                    {
+                        var objEndofTerm = ObjOCRP.GetDetailsEndMockExamanation().ToList();
+                        //Sorting
+                        totalRecords = objEndofTerm.Count();
+                        var data = objEndofTerm.Skip(skip).Take(pageSize).ToList();
+                        return Json(new { draw = draw, recordsFiltered = totalRecords, recordsTotal = totalRecords, data = data }, JsonRequestBehavior.AllowGet);
+
+                    }
+                }
             }
-            return View();
+            catch (Exception ex)
+            {
+
+            }
+            return new JsonResult { Data = returnResult, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
         }
 
         /// <summary>
@@ -62,14 +111,9 @@ namespace OnlineResultCheckPortal.Controllers
         /// <returns></returns>
         public ActionResult GetEditEndMockExamanation(Int32 Id = Models.Utility.Number.Zero)
         {
-            var objEndMockExamanation = ObjOCRP.EndOfTermExaminations.FirstOrDefault(c => (c.ID == Id));
-            if (objEndMockExamanation != null)
-            {
-                var objEndMockExam = ObjOCRP.GetEndMockExamanationEdit(Id).ToList();
-                return new JsonResult { Data = objEndMockExam, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            var objJSCEResults = ObjOCRP.GetEndMockExamanationEdit(Id).ToList();
+            return new JsonResult { Data = objJSCEResults, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
-            }
-            return View();
         }
         /// <summary>
         /// 
@@ -485,7 +529,7 @@ namespace OnlineResultCheckPortal.Controllers
                                             notvalid = notvalid + 1;
                                         }
 
-                                        returnResult = "<br/><font color=white><b>Add new record total: " + Addcount + "</br></br>Not valid studentID total: " + notvalid + "</br></b></br>Update record total: " + update + "</br></b></font><br/>";//edit it    
+                                        returnResult = "<br/><font color=white><b>Add new record total: " + Addcount + "</br></br>Not valid studentID total: " + notvalid + "</br></b></b></font><br/>";//edit it    
                                     }
                                 }
                             }

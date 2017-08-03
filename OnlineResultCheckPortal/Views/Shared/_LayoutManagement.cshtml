@@ -615,7 +615,7 @@
    
     <!-- Javascript Libraries -->
     <div id="spinner">
-        <img src='/Images/caricamento_big.gif' width="50" height="50" alt="Loading..." />
+        <img src='/Images/caricamento_big.gif' id="ImageId" width="50" height="50" alt="Loading..." />
     </div>
     <script src="~/vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
@@ -644,12 +644,14 @@
     <![endif]-->
     <script src="~/Content/js/functions.js"></script>
     <link href="~/Content/css/demo.css" rel="stylesheet" />
-    <link href="~/Content/bootstrap/dist/css/jquery.dataTables.min.css" rel="stylesheet" />
-    <script src="~/Content/js/jquery.dataTables.min.js"></script>
-    <script src="~/Content/DT_bootstrap.js"></script>
+    @*<link href="~/Content/bootstrap/dist/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="~/Content/js/jquery.dataTables.min.js"></script>*@
+    @*<script src="~/Content/DT_bootstrap.js"></script>*@
     <link href="~/Content/Paginition.css" rel="stylesheet" />
     <link href="~/Content/DT_bootstrap.css" rel="stylesheet" />
     <script src="http://code.jquery.com/jquery-migrate-1.3.0.js"></script>
+    <script src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+    <link href="//cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css" rel="stylesheet" />
 </body>
 
 <script>
@@ -691,16 +693,31 @@
            SessionEnd();
        }
 </script>
+<script>
+    $('#spinner').ajaxStart(function () {
+        $(this).fadeIn('fast');
+    }).ajaxStop(function () {
+        $(this).stop().fadeOut('fast');
+    });
+
+
+
+    $(document).ready(function () {
+        $(function () {
+            $.ajaxSetup({ cache: false });
+        });
+    });
+</script>
 <style>
     div#spinner {
-    position: fixed;
-    display:none;
-    top: 60%;
-    left: 60%;
-    text-align: center;
-    margin-left: -50px;
-    margin-top: -100px;
-    z-index: 2;
-    background-color:lightgray;
-}
+        display: none;
+        position: fixed;
+        top: 60%;
+        left: 60%;
+        text-align: center;
+        margin-left: -50px;
+        margin-top: -100px;
+        z-index: 2;
+        background-color: gainsboro;
+    }
 </style>

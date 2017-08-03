@@ -110,51 +110,82 @@ namespace OnlineResultCheckPortal.Controllers
         [HttpPost]
         public ActionResult TokenList() 
         {
+            string returnResult = string.Empty;
+            try
+            {
+                // get Start (paging start index) and length (page size for paging)
+                var draw = Request.Form.GetValues("draw").FirstOrDefault();
+                var start = Request.Form.GetValues("start").FirstOrDefault();
+                var length = Request.Form.GetValues("length").FirstOrDefault();
+                string search = Request.Form.GetValues("search[value]")[0];
+                if (search != string.Empty)
+                {
+                    try
+                    {
+                        //Get Sort columns value
+                        var sortColumn = Request.Form.GetValues("columns[" + Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][name]").FirstOrDefault();
+                        var sortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
 
-            //// get Start (paging start index) and length (page size for paging)
-            //var draw = Request.Form.GetValues("draw").FirstOrDefault();
-            //var start = Request.Form.GetValues("start").FirstOrDefault();
-            //var length = Request.Form.GetValues("length").FirstOrDefault();
-            ////Get Sort columns value
-            //var sortColumn = Request.Form.GetValues("columns[" + Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][name]").FirstOrDefault();
-            //var sortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
+                        int pageSize = length != null ? Convert.ToInt32(length) : 0;
+                        int skip = start != null ? Convert.ToInt32(start) : 0;
+                        int totalRecords = 0;
 
-            //int pageSize = length != null ? Convert.ToInt32(length) : 0;
-            //int skip = start != null ? Convert.ToInt32(start) : 0;
-            //int totalRecords = 0;
+                        using (OnlineResultCheckPortal ObjOCRP = new OnlineResultCheckPortal())
+                        {
+                            var objTokenList = ObjOCRP.searchToken(search).ToList();
 
-            //using (OnlineResultCheckPortal ObjOCRP = new OnlineResultCheckPortal())
-            //{
-            //    var objTokenList = ObjOCRP.GetTokenList().ToList();
+                            //Sorting
+                            totalRecords = objTokenList.Count();
+                            var data = objTokenList.Skip(skip).Take(pageSize).ToList();
+                            return Json(new { draw = draw, recordsFiltered = totalRecords, recordsTotal = totalRecords, data = data }, JsonRequestBehavior.AllowGet);
 
-            //    //Sorting
-            //    if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDir)))
-            //    {
-            //        var resultGroup = objTokenList.OrderBy(r => (r.RowNumber))
-            //                                   .Skip(60)
-            //                                   .Take(30)
-            //                                   .GroupBy(p => new { Total = objTokenList.Count() })
-            //                                   .First();
-            //    }
+                        }
+                    }
+                    catch(Exception Ex)
+                    {
 
-            //    totalRecords = objTokenList.Count();
-            //    var data = objTokenList.Skip(skip).Take(pageSize).ToList();
-            //    return Json(new { draw = draw, recordsFiltered = totalRecords, recordsTotal = totalRecords, data = data }, JsonRequestBehavior.AllowGet);
+                    }
+                
+              }
+                else {
+                    //Get Sort columns value
+                    var sortColumn = Request.Form.GetValues("columns[" + Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][name]").FirstOrDefault();
+                    var sortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
 
-            //}
+                    int pageSize = length != null ? Convert.ToInt32(length) : 0;
+                    int skip = start != null ? Convert.ToInt32(start) : 0;
+                    int totalRecords = 0;
 
+                    using (OnlineResultCheckPortal ObjOCRP = new OnlineResultCheckPortal())
+                    {
+                        var objTokenList = ObjOCRP.GetTokenList().ToList();
 
-            var objTokenList = ObjOCRP.GetTokenList().ToList();
-            return new JsonResult { Data = objTokenList, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                        //Sorting
+                        totalRecords = objTokenList.Count();
+                        var data = objTokenList.Skip(skip).Take(pageSize).ToList();
+                        return Json(new { draw = draw, recordsFiltered = totalRecords, recordsTotal = totalRecords, data = data }, JsonRequestBehavior.AllowGet);
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return new JsonResult { Data = returnResult, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+            //var objTokenList = ObjOCRP.GetTokenList().ToList();
+            //return new JsonResult { Data = objTokenList, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
+        
+       
+
         
         /// <summary>
         /// This Method Is Use To Editing The List By ID.
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
-        
-      
         public ActionResult EditList(Int32 tokenId = Utility.Number.Zero)
         {
             var objEditTokenList = ObjOCRP.EditTokenLists(tokenId).ToList();

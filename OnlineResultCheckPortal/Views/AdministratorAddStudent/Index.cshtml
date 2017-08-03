@@ -43,7 +43,7 @@
                     <tr>
                         <th style="text-transform:none;border: 1px solid #D5D5D5;">#</th>
                         <th style="text-transform:none;border: 1px solid #D5D5D5;">Student ID</th>
-                        <th style="text-transform:none;border: 1px solid #D5D5D5;">First Name</th>
+                        <th style="text-transform:none;border: 1px solid #D5D5D5;">Student Name</th>
                         <th style="text-transform:none;border: 1px solid #D5D5D5;">Date of Birth</th>
                         <th style="text-transform:none;border: 1px solid #D5D5D5;">Gender</th>
                         <th style="text-transform:none;border: 1px solid #D5D5D5;">Local Government</th>
@@ -198,21 +198,31 @@
                         notEmpty: {
                             message: 'The last name is required'
                         },
-                    }
+                    },
+                    stringLength: {
+                        max: 30,
+                        message: 'The last name must be less than 30 characters long'
+                    },
                 },
                 txtdob: {
                     validators: {
                         notEmpty: {
                             message: 'The date of birth name is required'
                         },
-                    }
+                    },stringLength: {
+                        max: 30,
+                        message: 'The date of birth must be less than 30 characters long'
+                    },
                 },
                 txtFirstName: {
                     validators: {
                         notEmpty: {
                             message: 'The first name is required'
                         },
-                    }
+                    }, stringLength: {
+                        max: 30,
+                        message: 'The first name must be less than 30 characters long'
+                    },
                 },
                 txtPassword: {
                     validators: {
@@ -231,9 +241,13 @@
                 txtRegistration: {
                     validators: {
                         notEmpty: {
-                            message: 'The registration name is required'
+                            message: 'The registration number is required'
                         },
-                    }
+                    },
+                    stringLength: {
+            max: 30,
+            message: 'The registration number must be less than 30 characters long'
+        },
                 },
                 ddlAcademicYears: {
                     validators: {
@@ -268,13 +282,18 @@
                         notEmpty: {
                             message: 'The address name is required'
                         },
-                    }
+                    },
+                    stringLength: {
+                        max: 100,
+                        message: 'The address must be less than 100 characters long'
+                    },
                 },
             }
         })
         .on('success.form.fv', function (e) {
             e.preventDefault();
             UpdatUserProfile('/AdministratorAddStudent/UpdateUserProfile/');
+            UserDetails();
         });
 
     });

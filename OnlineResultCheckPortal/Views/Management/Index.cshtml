@@ -265,8 +265,8 @@
                             message: 'The email address is required'
                         },
                         stringLength: {
-                            max: 30,
-                            message: 'The email must be less than 30 characters long'
+                            max: 50,
+                            message: 'The email must be less than 50 characters long'
                         },
                         emailAddress: {
                             message: 'The email address not valid'
@@ -278,6 +278,10 @@
                         notEmpty: {
                             message: 'The last name is required'
                         },
+                        stringLength: {
+                            max: 30,
+                            message: 'The last name  must be less than 30 characters long'
+                        }
                     }
                 },
                 txtFirstName: {
@@ -285,101 +289,103 @@
                         notEmpty: {
                             message: 'The first name is required'
                         },
+                        stringLength: {
+                            max: 30,
+                            message: 'The first name  must be less than 30 characters long'
+                        }
                     }
                 },
-
-                multiselect: {
-                    validators: {
-                        notEmpty: {
-                            message: 'The school name is required'
-                        },
-                    }
-                },
+             
                 ddlGender: {
                     validators: {
                         notEmpty: {
                             message: 'The gender is required'
                         },
+                        stringLength: {
+                            max: 20,
+                            message: 'The academic Years  must be less than 20 characters long'
+                        }
                     }
                 },
-                txtFatherName: {
-                    validators: {
-                        notEmpty: {
-                            message: 'The father name is required'
-                        },
-                    }
-                },
+             
                 txtDateofBirth: {
                     validators: {
                         notEmpty: {
                             message: 'The date of birth is required'
                         },
+                        stringLength: {
+                            max: 20,
+                            message: 'The date of birth  must be less than 20 characters long'
+                        }
                     }
                 },
-                txtContact: {
+                txtRegistration: {
                     validators: {
                         notEmpty: {
-                            message: 'The contact is required'
+                            message: 'The registration name is required'
                         },
+                        stringLength: {
+                            max: 50,
+                            message: 'The registration must be less than 50 characters long'
+                        }
                     }
                 },
-                txtPassword: {
+                ddlAcademicYears: {
                     validators: {
                         notEmpty: {
-                            message: 'The password is required'
+                            message: 'The academic Years name is required'
                         },
-                    },
-
-                    stringLength: {
-                        max: 30,
-                        message: 'The password must be less than 30 characters long'
-                    },
-                },
-                txtAddress: {
-                    validators: {
-                        notEmpty: {
-                            message: 'The address is required'
-                        },
+                        stringLength: {
+                            max: 50,
+                            message: 'The academic Years  must be less than 50 characters long'
+                        }
                     }
-
                 },
-                ddlRoleName: {
+                txtLocalGoverment: {
                     validators: {
                         notEmpty: {
-                            message: 'The role name is required'
+                            message: 'The local government name is required'
                         },
+                        stringLength: {
+                            max: 30,
+                            message: 'The local government must be less than 30 characters long'
+                        }
                     }
-
                 },
-                ddlRoleName: {
+                txtState: {
                     validators: {
                         notEmpty: {
-                            message: 'The role name is required'
+                            message: 'The state name is required'
                         },
+                        stringLength: {
+                            max: 100,
+                            message: 'The state must be less than 100 characters long'
+                        }
                     }
-
                 },
                 ddlSchoolName: {
                     validators: {
                         notEmpty: {
                             message: 'The school name is required'
                         },
+                        stringLength: {
+                            max: 30,
+                            message: 'The school name must be less than 30 characters long'
+                        }
                     }
-
                 },
-                txtConformPassword: {
+                txtAddress: {
                     validators: {
                         notEmpty: {
-                            message: 'The confirm password is required'
+                            message: 'The address is required'
                         },
-                        identical: {
-                            field: 'txtPassword',
-                            message: 'The password and confirmation password do not match'
+                        stringLength: {
+                            max: 200,
+                            message: 'The address  must be less than 200 characters long'
                         }
-
                     }
-                },
 
+                },
             }
         })
     .on('success.form.fv', function (e) {

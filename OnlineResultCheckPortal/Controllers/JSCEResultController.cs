@@ -43,19 +43,70 @@ namespace OnlineResultCheckPortal.Controllers
         public ActionResult DisplayManageJSCEResult()
         {
             string returnResult = string.Empty;
-            Int32 createdBy = Utility.Number.Zero;
-            if (Session["UserId"] != null)
+            try
             {
-                createdBy = Convert.ToInt32(Session["UserId"]);
+                // get Start (paging start index) and length (page size for paging)
+                var draw = Request.Form.GetValues("draw").FirstOrDefault();
+                var start = Request.Form.GetValues("start").FirstOrDefault();
+                var length = Request.Form.GetValues("length").FirstOrDefault();
+                string search = Request.Form.GetValues("search[value]")[0];
+                if (search != string.Empty)
+                {
+                    try
+                    {
+                        //Get Sort columns value
+                        var sortColumn = Request.Form.GetValues("columns[" + Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][name]").FirstOrDefault();
+                        var sortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
+
+                        int pageSize = length != null ? Convert.ToInt32(length) : 0;
+                        int skip = start != null ? Convert.ToInt32(start) : 0;
+                        int totalRecords = 0;
+
+                        using (OnlineResultCheckPortal ObjOCRP = new OnlineResultCheckPortal())
+                        {
+                            var ObjJSCEResult = ObjOCRP.SearchJSCEResult(search).ToList();
+
+                            //Sorting
+                            totalRecords = ObjJSCEResult.Count();
+                            var data = ObjJSCEResult.Skip(skip).Take(pageSize).ToList();
+                            return Json(new { draw = draw, recordsFiltered = totalRecords, recordsTotal = totalRecords, data = data }, JsonRequestBehavior.AllowGet);
+
+                        }
+                    }
+                    catch (Exception Ex)
+                    {
+
+                    }
+
+                }
+                else
+                {
+                    //Get Sort columns value
+                    var sortColumn = Request.Form.GetValues("columns[" + Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][name]").FirstOrDefault();
+                    var sortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
+
+                    int pageSize = length != null ? Convert.ToInt32(length) : 0;
+                    int skip = start != null ? Convert.ToInt32(start) : 0;
+                    int totalRecords = 0;
+
+                    using (OnlineResultCheckPortal ObjOCRP = new OnlineResultCheckPortal())
+                    {
+                        var objJSCEDetails = ObjOCRP.GetUploadResultDetails().ToList();
+                        //Sorting
+                        totalRecords = objJSCEDetails.Count();
+                        var data = objJSCEDetails.Skip(skip).Take(pageSize).ToList();
+                        return Json(new { draw = draw, recordsFiltered = totalRecords, recordsTotal = totalRecords, data = data }, JsonRequestBehavior.AllowGet);
+
+                    }
+                }
             }
-            var ObjAdmin = ObjOCRP.JSCEResults.Where(c => (c.ID == createdBy));
-            if (ObjAdmin != null)
+            catch (Exception ex)
             {
-                var objJSCEDetails = ObjOCRP.GetUploadResultDetails().ToList();
-                return new JsonResult { Data = objJSCEDetails, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+            }
+            return new JsonResult { Data = returnResult, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            
         }
-            return View();
-    }
     ///// <summary>
     ///// This method use to Inser data mockExaminations table.
     ///// </summary>
@@ -573,7 +624,7 @@ namespace OnlineResultCheckPortal.Controllers
                                         {
                                              notvalid = notvalid+1;
                                         }
-                                        returnResult = "<br/><font color=white><b>Add new record total: " + Addcount + "</br></br>Not valid studentID total: " + notvalid + "</br></b></br>Update record total: " + update + "</br></b></font><br/>";//edit it    
+                                        returnResult = "<br/><font color=white><b>Add new record total: " + Addcount + "</br></br>Not valid studentID total: " + notvalid + "</br></b></b></font><br/>";//edit it    
                                     }
                                 }
                             }

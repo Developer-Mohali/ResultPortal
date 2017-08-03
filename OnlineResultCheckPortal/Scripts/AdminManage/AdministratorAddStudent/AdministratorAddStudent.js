@@ -1,55 +1,83 @@
 ﻿$(document).ready(function () {
-    UserProfile();
-    $(document).ajaxStart(function () {
-        $("#wait").css("display", "block");
-    });
-    $(document).ajaxComplete(function () {
-        $("#wait").css("display", "none");
-    });
-    $("#delete").click(function () {
-        $("#delete").load("demo_ajax_load.asp");
-    });
+    UserDetails();
     $('[data-toggle="tooltip"]').tooltip();
 
 });
 
+function UserDetails() {
+    var $myTable = $("#UserDetailsTable");
+    $myTable.dataTable().fnDestroy();
+    var table = $myTable.DataTable({
+        searching: true,
+        "processing": true, // for show progress bar
+        "serverSide": true, // for process server side
+        "filter": true, // this is for disable filter (search box)
+        "orderMulti": false, // for disable multiple column at once
+        ajax: {
+            url: '/AdministratorAddStudent/UserProfile/',
+            type: "POST",
+            datatype: "json"
+        },
+        columns: [
+                { data: "RowNumber", "autoWidth": true },
+                { data: "StudentID", "autoWidth": true },
+                { data: "fullName", "autoWidth": true },
+                { data: "CreateDate", "autoWidth": true },
+                { data: "Gender", "autoWidth": true },
+                { data: "LocalGovernment", "autoWidth": true },
+                { data: "State", "autoWidth": true },
+                { data: "SchoolName", "autoWidth": true },
+                {
+                    data: null,
+                    className: "center",
+                    "render": function (data, type, row) {
+                        var inner = "<a href='#''  data-placement='top' title='Edit'  onclick='EditUserProfile(" + row.ID + ")' class='glyphicon glyphicon-edit' data-toggle='modal' data-target='#myModal' alt='Mountain View' style='width:15px;height:20px;'></a>&nbsp;|&nbsp;<a  href='#'  data-toggle='tooltip' data-placement='top' title='Delete'  onclick='DeleteUserProfile(" + row.ID + ")'class='glyphicon glyphicon-trash' alt='Mountain View' style='width:13px;height:18px;color: red;'></a>";
+                        //defaultContent: "<a href='#''  data-placement='top' title='Edit'  onclick='EditUserProfile()' class='glyphicon glyphicon-edit' data-toggle='modal' data-target='#myModal' alt='Mountain View' style='width:15px;height:20px;'></a>&nbsp;|&nbsp;<a  href='#'  data-toggle='tooltip' data-placement='top' title='Delete'  onclick='DeleteUserProfile()'class='glyphicon glyphicon-trash' alt='Mountain View' style='width:13px;height:18px;color: red;'></a>&nbsp;|&nbsp;<a href='#'  data-toggle='modal' data-target='#myViewStudentProfile' data-toggle='tooltip' data-placement='top' title='Update student profile' onclick='DisplayStudentProfile( )'/><img src='/Images/details-icon-png-cc-by-3-0--it-1.PNG' alt='Mountain View' style='width:17px;height:15px;'></a>"
+                        return inner;
 
+                    }
+                }
+
+        ]
+    });
+  
+}
 
 //This function use to Get User list..
-function UserProfile() {
+//function UserProfile() {
 
-    $.ajax({
-        url: '/AdministratorAddStudent/UserProfile/',
-        type: 'GET',
-        enctype: "multipart/form-data",
-        dataType: "json",
-        success: function (d) {
-            var oTable = $('#UserDetailsTable').dataTable();
-            oTable.fnClearTable();
-            //Append for loop row to html table
-            for (var i = 0; i < d.length; i++) {
-                var ProfileImage;
+//    $.ajax({
+//        url: '/AdministratorAddStudent/UserProfile/',
+//        type: 'GET',
+//        enctype: "multipart/form-data",
+//        dataType: "json",
+//        success: function (d) {
+//            var oTable = $('#UserDetailsTable').dataTable();
+//            oTable.fnClearTable();
+//            //Append for loop row to html table
+//            for (var i = 0; i < d.length; i++) {
+//                var ProfileImage;
             
 
-                if (d[i].IsApproved == true) {
-                    $('#UserDetailsTable').dataTable().fnAddData([
-                     d[i].RowNumber, d[i].StudentID, d[i].FirstName + ' ' + d[i].LastName, d[i].Dob, d[i].Gender, d[i].LocalGovernment, d[i].State,d[i].SchoolName,"<a href='#''  data-placement='top' title='Edit' onclick='EditUserProfile(" + d[i].ID + ")' class='glyphicon glyphicon-edit' data-toggle='modal' data-target='#myModal' alt='Mountain View' style='width:15px;height:20px;'></a>&nbsp;|&nbsp;<a  href='#'  data-toggle='tooltip' data-placement='top' title='Delete' id='delete' onclick='DeleteUserProfile(" + d[i].ID + ")'class='glyphicon glyphicon-trash' alt='Mountain View' style='width:13px;height:18px;color: red;'></a>"
+//                if (d[i].IsApproved == true) {
+//                    $('#UserDetailsTable').dataTable().fnAddData([
+//                     d[i].RowNumber, d[i].StudentID, d[i].FirstName + ' ' + d[i].LastName, d[i].Dob, d[i].Gender, d[i].LocalGovernment, d[i].State,d[i].SchoolName,"<a href='#''  data-placement='top' title='Edit' onclick='EditUserProfile(" + d[i].ID + ")' class='glyphicon glyphicon-edit' data-toggle='modal' data-target='#myModal' alt='Mountain View' style='width:15px;height:20px;'></a>&nbsp;|&nbsp;<a  href='#'  data-toggle='tooltip' data-placement='top' title='Delete' id='delete' onclick='DeleteUserProfile(" + d[i].ID + ")'class='glyphicon glyphicon-trash' alt='Mountain View' style='width:13px;height:18px;color: red;'></a>"
 
-                    ]);
-                }
-                else {
-                    $('#UserDetailsTable').dataTable().fnAddData([
-                    d[i].RowNumber, d[i].StudentID, d[i].FirstName + ' ' + d[i].LastName, d[i].Dob, d[i].Gender, d[i].LocalGovernment, d[i].State,d[i].SchoolName,"<a href='#''  data-placement='top' title='Edit'  onclick='EditUserProfile(" + d[i].ID + ")' class='glyphicon glyphicon-edit' data-toggle='modal' data-target='#myModal' alt='Mountain View' style='width:15px;height:20px;'></a>&nbsp;|&nbsp;<a  href='#'  data-toggle='tooltip' data-placement='top' title='Delete'  onclick='DeleteUserProfile(" + d[i].ID + ")'class='glyphicon glyphicon-trash' alt='Mountain View' style='width:13px;height:18px;color: red;'></a>"
+//                    ]);
+//                }
+//                else {
+//                    $('#UserDetailsTable').dataTable().fnAddData([
+//                    d[i].RowNumber, d[i].StudentID, d[i].FirstName + ' ' + d[i].LastName, d[i].Dob, d[i].Gender, d[i].LocalGovernment, d[i].State,d[i].SchoolName,"<a href='#''  data-placement='top' title='Edit'  onclick='EditUserProfile(" + d[i].ID + ")' class='glyphicon glyphicon-edit' data-toggle='modal' data-target='#myModal' alt='Mountain View' style='width:15px;height:20px;'></a>&nbsp;|&nbsp;<a  href='#'  data-toggle='tooltip' data-placement='top' title='Delete'  onclick='DeleteUserProfile(" + d[i].ID + ")'class='glyphicon glyphicon-trash' alt='Mountain View' style='width:13px;height:18px;color: red;'></a>"
 
-                    ]);
-                }
-            }
+//                    ]);
+//                }
+//            }
 
 
-        }
-    });
+//        }
+//    });
 
-}
+//}
 
 //This function use delete RegisterUser.
 function DeleteUserProfile(userID) {
@@ -60,10 +88,10 @@ function DeleteUserProfile(userID) {
             type: "POST",
             data: { 'userID': userID },
             success: function (d) {
-                UserProfile();
                 $("#lblMessage").show();
                 $('#lblMessage').html(d);
                 setTimeout(function () { $("#lblMessage").hide(); }, 5000);
+                UserDetails();
             },
         });
     }
@@ -79,7 +107,6 @@ function UpdatUserProfile(controller) {
         type: "POST",
         data: JSON.stringify(request),
         success: function (d) {
-            UserProfile();
             $('#AddNewRegisterform').bootstrapValidator('resetForm', true);
             $("#lblupdatMessages").show();
             $('#lblupdatMessages').html(d);
@@ -92,6 +119,7 @@ function UpdatUserProfile(controller) {
 
 //This functon use Edit User register.
 function EditUserProfile(userID) {
+    //alert("dd");
     $.ajax({
         url: '/AdministratorAddStudent/EditUserProfile/',
         dataType: 'json',

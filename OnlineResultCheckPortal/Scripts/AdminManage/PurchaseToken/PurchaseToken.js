@@ -1,64 +1,65 @@
 ﻿$(document).ready(function () {
-    UserProfile();
+    PurchaseToken();
     $('[data-toggle="tooltip"]').tooltip();
 
 });
 
-//function UserDetails() {
-//    $("#UserDetailsTable").DataTable({
-//        searching: true,
-//        scrollY: false,
-//        paging: true,
-//        processing: true, // for show progress bar
-//        serverSide: true, // for process server side
-//        filter: false, // this is for disable filter (search box)
-//        orderMult: false, // for disable multiple column at once
-//        ajax: {
-//            url:'/PurchaseToken/UserProfile/',
-//            type: "POST",
-//            datatype: "json"
-//        },
-//        columns: [
-//                { data: "RowNumber", "autoWidth": true },
-//                { data: "StudentID", "autoWidth": true },
-//                { data: "fullName", "autoWidth": true },
-//                { data: "CreateDate", "autoWidth": true },
-//                { data: "Gender", "autoWidth": true },
-//                { data: "LocalGovernment", "autoWidth": true },
-//                { data: "State", "autoWidth": true },
-//                { data: "SchoolName", "autoWidth": true },
-//                {
-//                    data: null,
-//                    className: "center",
-//                    "render": function (data, type, row) {
-//                        var inner = null;
-//                        if (row.PurchaseToken == true) {
+function PurchaseToken() {
+    var $myTable = $("#UserDetailsTable");
+    $myTable.dataTable().fnDestroy();
+    var table = $myTable.DataTable({
+        searching: true,
+        processing: true, // for show progress bar
+        serverSide: true, // for process server side
+        filter: true, // this is for disable filter (search box)
+        orderMult: false, // for disable multiple column at once
+        ajax: {
+            url: '/PurchaseToken/PurchaseTokenDetails/',
+            type: "POST",
+            datatype: "json"
+        },
+        columns: [
+                { data: "RowNumber", "autoWidth": true },
+                { data: "StudentID", "autoWidth": true },
+                { data: "fullName", "autoWidth": true },
+                { data: "CreateDate", "autoWidth": true },
+                { data: "Gender", "autoWidth": true },
+                { data: "LocalGovernment", "autoWidth": true },
+                { data: "State", "autoWidth": true },
+                { data: "SchoolName", "autoWidth": true },
+                {
+                    data: null,
+                    className: "center",
+                    "render": function (data, type, row) {
+                        var inner = null;
+                       
+                        if (row.PurchaseToken == true) {
                              
-//                            inner = "<a href='#' onclick='UnPurchaseToken(" + row.ID + ")'><img src='/Images/symbol_check.PNG' data-toggle='tooltip' title='Purchased token' alt='Mountain View' style='width:30px;height:25px;margin-left:20px;'>"
-
-//                        }
-//                        else {
+                            inner = "<a href='#' onclick='UnPurchaseToken(" + row.ID + ")'><img src='/Images/symbol_check.PNG' data-toggle='tooltip' title='Purchased token' alt='Mountain View' style='width:30px;height:25px;margin-left:20px;'>"
                             
-//                             inner = "<a href='#' id='Approved' onclick='ApprovedPurchaseToken(" +row.ID+ ")'/><img src='/Images/iconvalide.PNG' data-toggle='tooltip' title='Not purchase token!' alt='Mountain View' style='width:20px;height:20px;margin-left:24px;'></a>"
+                        }
+                        else {
+                            
+                             inner = "<a href='#' id='Approved' onclick='ApprovedPurchaseToken(" +row.ID+ ")'/><img src='/Images/iconvalide.PNG' data-toggle='tooltip' title='Not purchase token!' alt='Mountain View' style='width:20px;height:20px;margin-left:24px;'></a>"
+                          
+                        }
+                        //var inner = "<a href='#''  data-placement='top' title='Edit'  onclick='EditUserProfile(" + row.ID + ")' class='glyphicon glyphicon-edit' data-toggle='modal' data-target='#myModal' alt='Mountain View' style='width:15px;height:20px;'></a>&nbsp;|&nbsp;<a  href='#'  data-toggle='tooltip' data-placement='top' title='Delete'  onclick='DeleteUserProfile(" + row.ID + ")'class='glyphicon glyphicon-trash' alt='Mountain View' style='width:13px;height:18px;color: red;'></a>&nbsp;|&nbsp;<a href='#'  data-toggle='modal' data-target='#myViewStudentProfile' data-toggle='tooltip' data-placement='top' title='Update student profile' onclick='DisplayStudentProfile(" + row.ID + ")'/><img src='/Images/details-icon-png-cc-by-3-0--it-1.PNG' alt='Mountain View' style='width:17px;height:15px;'></a>"
+                        //defaultContent: "<a href='#''  data-placement='top' title='Edit'  onclick='EditUserProfile()' class='glyphicon glyphicon-edit' data-toggle='modal' data-target='#myModal' alt='Mountain View' style='width:15px;height:20px;'></a>&nbsp;|&nbsp;<a  href='#'  data-toggle='tooltip' data-placement='top' title='Delete'  onclick='DeleteUserProfile()'class='glyphicon glyphicon-trash' alt='Mountain View' style='width:13px;height:18px;color: red;'></a>&nbsp;|&nbsp;<a href='#'  data-toggle='modal' data-target='#myViewStudentProfile' data-toggle='tooltip' data-placement='top' title='Update student profile' onclick='DisplayStudentProfile( )'/><img src='/Images/details-icon-png-cc-by-3-0--it-1.PNG' alt='Mountain View' style='width:17px;height:15px;'></a>"
+                        return inner;
+                    }
+                }
 
-//                        }
-//                        //var inner = "<a href='#''  data-placement='top' title='Edit'  onclick='EditUserProfile(" + row.ID + ")' class='glyphicon glyphicon-edit' data-toggle='modal' data-target='#myModal' alt='Mountain View' style='width:15px;height:20px;'></a>&nbsp;|&nbsp;<a  href='#'  data-toggle='tooltip' data-placement='top' title='Delete'  onclick='DeleteUserProfile(" + row.ID + ")'class='glyphicon glyphicon-trash' alt='Mountain View' style='width:13px;height:18px;color: red;'></a>&nbsp;|&nbsp;<a href='#'  data-toggle='modal' data-target='#myViewStudentProfile' data-toggle='tooltip' data-placement='top' title='Update student profile' onclick='DisplayStudentProfile(" + row.ID + ")'/><img src='/Images/details-icon-png-cc-by-3-0--it-1.PNG' alt='Mountain View' style='width:17px;height:15px;'></a>"
-//                        //defaultContent: "<a href='#''  data-placement='top' title='Edit'  onclick='EditUserProfile()' class='glyphicon glyphicon-edit' data-toggle='modal' data-target='#myModal' alt='Mountain View' style='width:15px;height:20px;'></a>&nbsp;|&nbsp;<a  href='#'  data-toggle='tooltip' data-placement='top' title='Delete'  onclick='DeleteUserProfile()'class='glyphicon glyphicon-trash' alt='Mountain View' style='width:13px;height:18px;color: red;'></a>&nbsp;|&nbsp;<a href='#'  data-toggle='modal' data-target='#myViewStudentProfile' data-toggle='tooltip' data-placement='top' title='Update student profile' onclick='DisplayStudentProfile( )'/><img src='/Images/details-icon-png-cc-by-3-0--it-1.PNG' alt='Mountain View' style='width:17px;height:15px;'></a>"
-//                        return inner;
-//                    }
-//                }
-
-//        ]
-//    });
-   
-//}
+        ]
+    });
+  
+}
 
 
 //This function use to Get User list..
 function UserProfile() {
 
     $.ajax({
-        url: '/PurchaseToken/UserProfile/',
+        url: '/PurchaseToken/PurchaseTokenDetails/',
         type: 'GET',
         enctype: "multipart/form-data",
         dataType: "json",
@@ -107,11 +108,11 @@ function ApprovedPurchaseToken(userID) {
             type: "POST",
             data: { 'userID': userID },
             success: function (d) {
-                UserProfile();
+               
                 $("#lblMessages").show();
                 $('#lblMessages').html(d);
                 setTimeout(function () { $("#lblMessages").hide(); }, 10000);
-
+                PurchaseToken();
             },
         });
     }
@@ -126,10 +127,11 @@ function UnPurchaseToken(userID) {
             type: "POST",
             data: { 'userID': userID },
             success: function (d) {
-                UserProfile();
+                //UserProfile();
                 $("#lblMessages").show();
                 $('#lblMessages').html(d);
                 setTimeout(function () { $("#lblMessages").hide(); }, 10000);
+                PurchaseToken();
 
             },
         });

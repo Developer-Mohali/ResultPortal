@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<script src="~/Scripts/AdminManage/SchoolManage/SchoolManage.js"></script>
+
 
 <input type="hidden" id="SchoolID"  />
 <style>
@@ -100,52 +100,69 @@
 <script>
     $(document).ready(function () {
         $('#ManageSchoolValidation').formValidation({
-        framework: 'bootstrap',
-        icon: {
-            valid: 'glyphicon glyphicon-ok',
-            invalid: 'glyphicon glyphicon-remove',
-            validating: 'glyphicon glyphicon-refresh'
-        },
-        err: {
-            // You can set it to popover
-            // The message then will be shown in Bootstrap popover
-            container: 'tooltip'
-        },
-        fields: {
-            SchoolName: {
-                validators: {
-                    notEmpty: {
-                        message: 'The school name is required'
-                    },
-                }
+            framework: 'bootstrap',
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
             },
-            Zipcode: {
-                validators: {
-                    notEmpty: {
-                        message: 'The zipcode is required'
-                    },
-                }
+            err: {
+                // You can set it to popover
+                // The message then will be shown in Bootstrap popover
+                container: 'tooltip'
             },
-            Zone: {
-                validators: {
-                    notEmpty: {
-                        message: 'The zone is required'
-                    },
-                }
-            },
-            Address: {
-                validators: {
-                    notEmpty: {
-                        message: 'The address is required'
-                    },
-                }
-            },
-           
-        }
-    })
+            fields: {
+                SchoolName: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The school name is required'
+                        },
+                        stringLength: {
+                            max: 50,
+                            message: 'The school name must be less than 50 characters long'
+                        }
+                    }
+                },
+                Zipcode: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The zipcode is required'
+                        },
+                        stringLength: {
+                            max: 30,
+                            message: 'The zipcode  must be less than 30 characters long'
+                        }
+                    }
+                },
+                Zone: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The zone is required'
+                        },
+                        stringLength: {
+                            max: 30,
+                            message: 'The zone  must be less than 30 characters long'
+                        }
+                    }
+                },
+                Address: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The address is required'
+                        },
+                        stringLength: {
+                            max: 200,
+                            message: 'The address  must be less than 200 characters long'
+                        }
+                    }
+                },
+
+            }
+        })
     .on('success.form.fv', function (e) {
         e.preventDefault();
         AddSchool('/ManageSchool/AddSchool');
+        GetSchoolists();
     });
     
     });
@@ -154,7 +171,7 @@
         document.getElementById("ManageSchoolValidation").reset();
     });
 </script>
-
+<script src="~/Scripts/AdminManage/SchoolManage/SchoolManage.js"></script>
 
 
 

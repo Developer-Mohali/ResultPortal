@@ -3,9 +3,6 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<link href="//cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css" rel="stylesheet" />
-
-    <script src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
 <style>
     #TokenForm .form-control-feedback {
         right: 7px;
@@ -62,7 +59,9 @@
                 <div class="modal-header" style="border-bottom: #edecec 1px solid;">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Manage Token</h4>
-
+                    <h4 style="text-align:center;">
+                        <label class="label label-danger" id="lblMessages"></label>
+                    </h4>
                 </div>
                 <form id="TokenForm">
                     <div class="modal-body">
@@ -133,6 +132,10 @@
                         notEmpty: {
                             message: 'The token name is required'
                         },
+                        stringLength: {
+                            max: 30,
+                            message: 'The token  name must be less than 30 characters long'
+                        }
                     }
                 },
                 TokenPrice: {
@@ -140,6 +143,10 @@
                         notEmpty: {
                             message: 'The token price is required'
                         },
+                        stringLength: {
+                            max: 30,
+                            message: 'The token price  must be less than 30 characters long'
+                        }
                     }
                 },
                 TokenId: {
@@ -147,6 +154,10 @@
                         notEmpty: {
                             message: 'The token id is required'
                         },
+                        stringLength: {
+                            max: 30,
+                            message: 'The token id must be less than 30 characters long'
+                        }
                     }
                 },
                 NumberOfTimeUse: {
@@ -154,6 +165,10 @@
                         notEmpty: {
                             message: 'The number of time use is required'
                         },
+                        stringLength: {
+                            max: 20,
+                            message: 'The number of time must be less than 20 characters long'
+                        }
                     }
                 },
                 TokenPicture: {
@@ -161,6 +176,10 @@
                         notEmpty: {
                             message: 'The token picture is required'
                         },
+                        stringLength: {
+                            max: 500,
+                            message: 'The token picture must be less than 500 characters long'
+                        }
                     }
                 },
                 TokenDescription: {
@@ -168,6 +187,10 @@
                         notEmpty: {
                             message: 'The token description is required'
                         },
+                        stringLength: {
+                            max: 200,
+                            message: 'The token description  must be less than 200 characters long'
+                        }
                     }
                 },
             }
@@ -175,7 +198,7 @@
         .on('success.form.fv', function (e) {
             e.preventDefault();
             addnewRecorToken('/Token/AddTokens');
-
+            TokenDetails();
         });
     });
     $('#ClearTextbox').click(function () {
@@ -262,12 +285,13 @@
                     contentType: false,
                     processData: false,
                     success: function (d) {
-                        TokenList();
+                        TokenDetails();
                         $("#lbladdMessages").show();
                         $('#lbladdMessages').html(d);
                         setTimeout(function () { $("#lbladdMessages").hide(); }, 10000);
                         $('#UploadmyModal').modal('toggle'); //or  $('#IDModal').modal('hide');
                         return false;
+                        TokenDetails();
                     },
 
                 });
@@ -286,3 +310,4 @@
 </script>
 
 <script src="~/Scripts/AdminManage/Token/Token.js"></script>
+

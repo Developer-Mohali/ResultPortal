@@ -1,36 +1,82 @@
 ﻿$(document).ready(function () {
-    MockExaminations();
+    MockExamDetails();
     $('[data-toggle="tooltip"]').tooltip();
+
 });
 
 
-function MockExaminations() {
-    $.ajax({
-        type: "POST",
-        url: '/MockExaminations/GetDetailsMockExaminations',
-        type: 'GET',
-        dataType: "json",
-        success: function (d) {
-            var oTable = $('#ManageMockExamresultTable').dataTable();
-            oTable.fnClearTable();
-            //  var obj = jQuery.parseJSON(msg);
-            if (d.length > 0) {
-                for (var i = 0; i < d.length; i++) {
-                    // console.log("row:" + JSCEID);
-                    $('#ManageMockExamresultTable').dataTable().fnAddData([
-                    d[i].RowNumber, d[i].RegistrationNumber, d[i].StudentID, d[i].FullName, "<a href='#' style='margin-left:20px; margin-top: 11px;' data-toggle='tooltip' data-placement='top' title='Download file' onclick='DownloadResult(" + d[i].RegistrationNumber + ")' class='btn btn-info'> <span class='glyphicon glyphicon-download'></span> Report card download</a>", "<a href='#'  data-toggle='modal' data-placement='top' title='Edit' data-target='#myStudentProfile' onclick='MockExamResultEdit(" + d[i].ID + ")' class='glyphicon glyphicon-edit'/></a>&nbsp;|&nbsp;<a  href='#' data-toggle='tooltip' data-placement='top' title='Delete' onclick='DeleteMockExamResult(" + d[i].ID + ")'class='glyphicon glyphicon-trash' alt='Mountain View' style='width:15px;height:18px;margin-left:2px;color: red;'></a>"
 
-                    ]);
+function MockExamDetails() {
+    var $myTable = $("#ManageMockExamresultTable");
+    $myTable.dataTable().fnDestroy();
+    var table = $myTable.DataTable({
+        "processing": true, // for show progress bar
+        "serverSide": true, // for process server side
+        "filter": true,  // this is for disable filter (search box)
+        "orderMulti": false, // for disable multiple column at once
+        ajax: {
+            url: "/MockExaminations/GetDetailsMockExaminations",
+            type: "POST",
+            datatype: "json" 
+        },
+        columns: [
+                { data: "RowNumber", "autoWidth": true },
+                { data: "RegistrationNumber", "autoWidth": true },
+                { data: "StudentID", "autoWidth": true },
+                { data: "FullName", "autoWidth": true },
+                {
+                    data: null,
+                    className: "center",
+                    "render": function (data, type, row) {
+                        var inner = null;
+                        inner = "<a href='#' style='margin-left:20px; margin-top: 11px;' data-toggle='tooltip' data-placement='top' title='Download file' onclick='DownloadResult(" + row.RegistrationNumber + ")' class='btn btn-info'> <span class='glyphicon glyphicon-download'></span> Report card download</a>";
+                        return inner;
+                    }
 
-                };
-            }
-            else {
 
-            }
-        }
+                },
+                 {
+                     data: null,
+                     className: "center",
+                     "render": function (data, type, row) {
+                         var inner = null;
+                         inner = "<a href='#'  data-toggle='modal' data-placement='top' title='Edit' data-target='#myStudentProfile' onclick='MockExamResultEdit(" + row.ID + ")' class='glyphicon glyphicon-edit'/></a>&nbsp;|&nbsp;<a  href='#' data-toggle='tooltip' data-placement='top' title='Delete' onclick='DeleteMockExamResult(" + row.ID + ")'class='glyphicon glyphicon-trash' alt='Mountain View' style='width:15px;height:18px;margin-left:2px;color: red;'></a>";
+                         return inner;
+                     }
+                 }
+
+        ]
     });
-
+  
 }
+
+//function MockExaminations() {
+//    $.ajax({
+//        type: "POST",
+//        url: '/MockExaminations/GetDetailsMockExaminations',
+//        type: 'GET',
+//        dataType: "json",
+//        success: function (d) {
+//            var oTable = $('#ManageMockExamresultTable').dataTable();
+//            oTable.fnClearTable();
+//            //  var obj = jQuery.parseJSON(msg);
+//            if (d.length > 0) {
+//                for (var i = 0; i < d.length; i++) {
+//                    // console.log("row:" + JSCEID);
+//                    $('#ManageMockExamresultTable').dataTable().fnAddData([
+//                    d[i].RowNumber, d[i].RegistrationNumber, d[i].StudentID, d[i].FullName, "<a href='#' style='margin-left:20px; margin-top: 11px;' data-toggle='tooltip' data-placement='top' title='Download file' onclick='DownloadResult(" + d[i].RegistrationNumber + ")' class='btn btn-info'> <span class='glyphicon glyphicon-download'></span> Report card download</a>", "<a href='#'  data-toggle='modal' data-placement='top' title='Edit' data-target='#myStudentProfile' onclick='MockExamResultEdit(" + d[i].ID + ")' class='glyphicon glyphicon-edit'/></a>&nbsp;|&nbsp;<a  href='#' data-toggle='tooltip' data-placement='top' title='Delete' onclick='DeleteMockExamResult(" + d[i].ID + ")'class='glyphicon glyphicon-trash' alt='Mountain View' style='width:15px;height:18px;margin-left:2px;color: red;'></a>"
+
+//                    ]);
+
+//                };
+//            }
+//            else {
+
+//            }
+//        }
+//    });
+
+//}
 
 function DownloadResult(RegistrationId) {
     //alert('d' + RegistrationId);
@@ -79,8 +125,7 @@ function UploadUserProfileImage(UserId) {
                 processData: false, // Not to process data  
                 // data: JSON.stringify(request),
                 data: fileData,
-                success: function (d) {
-                    MockExaminations();
+                success: function (d) { 
                     $("#lblMessages").show();
                     $("#lblMessages").html(d);
                     setTimeout(function () { $("#lblMessages").hide(); }, 10000);
@@ -190,11 +235,10 @@ function DeleteMockExamResult(Id) {
             type: "GET",
             data: { 'Id': Id },
             success: function (d) {
-
-                MockExaminations();
                 $("#lblMessage").show();
                 $('#lblMessage').html(d);
                 setTimeout(function () { $("#lblMessage").hide(); }, 5000);
+                MockExamDetails();
             },
         });
     }
@@ -256,16 +300,14 @@ function InsertMockExamResult(controller) {
         data: JSON.stringify(Result),
         success: function (d) {
             if (d == "Registration no already exists !") {
-
                 $("#lblMessage").show();
-                $("#lblMessage").html("Registration no already exists !");
+                $("#lblMessage").html("Registration number already exists !");
                 setTimeout(function () { $("#lblMessage").hide(); }, 10000);
                 $('#myStudentProfile').modal('toggle'); //or  $('#IDModal').modal('hide');
                 return false;
             }
             else {
                 if ($('#FileUpload').get(0).files.length === 0) {
-                    MockExaminations();
                     $('#AddNewManageJSCEResult').bootstrapValidator('resetForm', true);
                     $("#lblMessagess").show();
                     $("#lblMessagess").html('Record save successfully.');
@@ -275,13 +317,14 @@ function InsertMockExamResult(controller) {
                 }
                 else {
                     UploadUserProfileImage(d)
+                    $("#ImageId").hide();
                     $('#AddNewManageJSCEResult').bootstrapValidator('resetForm', true);
                     $("#lblMessages").show();
                     $("#lblMessages").html(d);
                     setTimeout(function () { $("#lblMessages").hide(); }, 10000);
                     $('#myStudentProfile').modal('toggle'); //or  $('#IDModal').modal('hide');
                     return false;
-                    MockExaminations();
+                   
                 }
             }
 
